@@ -20,6 +20,7 @@ class CreateMetaUsersTable extends Migration
             $table->boolean("electric_terminal");
             $table->string("profile_photo");
             $table->string("electric_terminal_photo");
+            $table->string("license_plate");
             $table->timestamps();
         });
     }
