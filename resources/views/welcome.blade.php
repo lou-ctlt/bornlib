@@ -9,6 +9,8 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+        <link rel="stylesheet" href=" {{ asset('css/leaflet.css') }}" />
+        <link rel="stylesheet" href=" {{ asset('css/TravelNotes.min.css') }}" />
         <!-- Styles -->
         <style>
             html, body {
@@ -61,6 +63,11 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            .map {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+        }
         </style>
     </head>
     <body>
@@ -84,16 +91,19 @@
                     Laravel
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+
+                <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+                integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+                crossorigin=""></script>
+    <script src="{{ asset('js/leaflet.js') }}"></script>
+    <script src="{{ asset('js/app2.js') }}"></script>
+    <script src="{{ asset('js/TravelNotes.min.js') }}"></script>
+    <script src="{{ asset('js/TravelNotesProviders/MapboxRouteProvider.min.js') }}"></script>
+    <script src="{{ asset('js/TravelNotesProviders/GraphHopperRouteProvider.min.js') }}"></script>
+    <script src="{{ asset('js/TravelNotesProviders/OpenRouteServiceRouteProvider.min.js') }}"></script>
+    <script src="{{ asset('js/TravelNotesProviders/OSRMRouteProvider.min.js') }}"></script>
+    <script src="{{ asset('js/TravelNotesProviders/PublicTransportRouteProvider.min.js') }}"></script>
+    <script src="{{ asset('js/TravelNotesProviders/PolylineRouteProvider.min.js') }}"></script>
             </div>
         </div>
     </body>
