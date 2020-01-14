@@ -18,7 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post("/home/update", "HomeController@update")->name('home/update');
+// Auth::routes(); // J'ose pas les supprimer mais elles se sont créé et ne servent a rien je crois ^^
 
-Auth::routes();
+// Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
