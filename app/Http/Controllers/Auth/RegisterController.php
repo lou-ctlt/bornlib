@@ -40,7 +40,6 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -58,7 +57,6 @@ class RegisterController extends Controller
             'ID_number' => ['required', 'string', 'max:12']
         ]);
     }
-
     /**
      * Create a new user instance after a valid registration.
      *
