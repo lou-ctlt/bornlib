@@ -17,7 +17,6 @@ class UsersTableSeeder extends Seeder
             "email" => "adminemail@gmail.com",
             "password" => Hash::make("00000000"),
             "address" => "1 rue de l'adresse 33000 Bordeaux",
-            "license_plate" => "AA-000-AA",
             "ID_number" => "012345678910"
         ]);
     }

@@ -30,3 +30,16 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+/**
+ * Fonction pour faire apparaître certaines options d'inscription
+ */
+
+$("#car").click(function(){
+    console.log("toto");
+    // $("#license-plate").show();
+})
+
+$("#terminal").click(function(){
+    $("#electric_terminal_photo").show();
+})

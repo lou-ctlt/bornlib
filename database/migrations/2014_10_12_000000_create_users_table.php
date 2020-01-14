@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string("address");
-            $table->string("license_plate");
             $table->string("ID_number");
         });
     }
