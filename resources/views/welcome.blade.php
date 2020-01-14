@@ -6,25 +6,36 @@
         <div class="container-fluid">
            
             <div class="row">
-                <div class="col-md-6">
-                    <img class="w-100"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
-                    <h3 class="text-center">Vous cherchez une borne pour recharger votre voiture?<br>
-                    Vous souhaitez mettre votre borne de rechargement à disposition?<br>
-                    BORN' LIB est fait pour vous!
+                <div class="col-md-5">
+                    <h1 class="text-center mt-3 pt-3">BORN'LIB</h1>
+                    <div class="col-md-10 offset-md-1 mt-3">
+                    <h4 class="text-justify pt-3 mt-3"> est la solution la plus pertinente pour trouver les bornes de recharge disponibles à utiliser sur Bordeaux et sa CUB. <br><br>
+                     Notre communauté de particuliers mettant leur borne à disposition permet de constituer une base de données de bornes de recharge très complète et très fiable.</h4>
+                    </div>
+                </div> 
+                <div class="col-md-7">
+                    <h3 class="text-center mt-3">
+                    Simplifiez la recharge de votre véhicule électrique avec <h1 class="text-center">BORN' LIB!</h1>
                     </h3>
+                    <h5 class="text-center mt-3">Trouvez une borne de recharge disponible sur Bordeaux & sa CUB</h5>
+                    <div class="col-md-8 offset-md-2">
+                        <img class="w-100 mt-3 "src="{{asset('storage/img/images.jfif')}}" alt="carte">
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <h1 class="text-center">
-                    Plus de batterie?! <br>
-                    Inscrivez- vous sur  BORN'LIB!
-                    
-                    </h1>
-                    <img class="w-75 ml-4 "src="{{asset('storage/img/images.jfif')}}" alt="carte">
-                    
+            </div>          
                 </div>
-            </div>
-        </div>
-    @endsection
+    @endsection        
+                    
+                    
+                
+                     
+                    
+                   
+                    
+                    
+                
+            
+    
         
             
 
