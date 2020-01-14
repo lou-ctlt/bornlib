@@ -47,6 +47,6 @@
 
         {{-- {{ dd(Auth::user()) }} --}}
     @endif
-    <!-- Affichage des données personnel si la personne est connecté : START -->
+    <!-- Affichage des données personnel si la personne est connecté : END -->
 </div>
 @endsection

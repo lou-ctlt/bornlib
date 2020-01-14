@@ -18,8 +18,8 @@ class CreateMetaUsersTable extends Migration
             $table->foreign("users_id")->references("id")->on("users");
             $table->boolean('car');
             $table->boolean("electric_terminal");
-            $table->string("profile_photo");
-            $table->string("electric_terminal_photo");
+            $table->string("profile_photo")->nullable();
+            $table->string("electric_terminal_photo")->nullable();
             $table->timestamps();
         });
     }
