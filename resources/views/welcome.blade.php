@@ -8,9 +8,13 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
+        <link rel="stylesheet" href=" {{ asset('css/app.css') }}" />
         <link rel="stylesheet" href=" {{ asset('css/leaflet.css') }}" />
-        <link rel="stylesheet" href=" {{ asset('css/TravelNotes.min.css') }}" />
+
+        <link rel="stylesheet" href=" {{ asset('css/leaflet-routing-machine.css') }}" />
+
+
+
         <!-- Styles -->
         <style>
             html, body {
@@ -63,12 +67,13 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
-            .map {
-            position: absolute;
-            width: 50%;
-            height: 50%;
+            #mapid {
+                height: 700px;
+            width: 700px;
+         }
         }
         </style>
+
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -85,25 +90,33 @@
                     @endauth
                 </div>
             @endif
+            <div id="mapid"></div>
 
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
                 </div>
 
+                <div>
+                    <?php
+                    $content="66 rue abbé de l'épée Bordeaux 33000";
+                        $json=file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode($content) . '&sensor=false');
 
-                <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-                integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-                crossorigin=""></script>
-    <script src="{{ asset('js/leaflet.js') }}"></script>
-    <script src="{{ asset('js/app2.js') }}"></script>
-    <script src="{{ asset('js/TravelNotes.min.js') }}"></script>
-    <script src="{{ asset('js/TravelNotesProviders/MapboxRouteProvider.min.js') }}"></script>
-    <script src="{{ asset('js/TravelNotesProviders/GraphHopperRouteProvider.min.js') }}"></script>
-    <script src="{{ asset('js/TravelNotesProviders/OpenRouteServiceRouteProvider.min.js') }}"></script>
-    <script src="{{ asset('js/TravelNotesProviders/OSRMRouteProvider.min.js') }}"></script>
-    <script src="{{ asset('js/TravelNotesProviders/PublicTransportRouteProvider.min.js') }}"></script>
-    <script src="{{ asset('js/TravelNotesProviders/PolylineRouteProvider.min.js') }}"></script>
+ $obj = json_decode($json, true);
+dd($obj);
+$latitude = $obj[0]['lat'];
+$longitude = $obj[0]['lon'];
+echo $latitude;
+                    ?>
+                </div>
+
+
+
+                <script src="{{ asset('js/leaflet.js') }}"></script>
+                <script src="{{ asset('js/leaflet-routing-machine.js') }}"></script>
+                <script src="{{ asset('js\Control.Geocoder.js') }}"></script>
+                <script src="{{ asset('js/app.js') }}"></script>
+                <script src="{{ asset('js/map.js') }}"></script>
             </div>
         </div>
     </body>
