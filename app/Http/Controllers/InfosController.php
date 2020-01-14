@@ -30,6 +30,7 @@ class InfosController extends Controller
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
+        
         //Enregistrement de la photo de profil
         $fileinfo = pathinfo($_FILES["profile_photo"]);
 
