@@ -5,49 +5,52 @@ $(function () {
     // à l'aide de l'API ipapi afficher un paragraphe avec l'adresse IP de l'utilisateur ainsi que son code postal et/ou sa ville
 
     $.getJSON('https://ipapi.co/json/', function (data) {
+        // initialisation de la map
 
-
-            var $latitude = data.latitude;
-            var $longitude = data.longitude;
-
-                osmUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                osmAttrib = '&copy; <a href="https://www.openstreetmap.org">OpenStreetMap</a>',
+        var osmUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            osmAttrib = '&copy; <a href="https://www.openstreetmap.org">OpenStreetMap</a>',
             osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
 
-            let map = L.map("mapid").setView([$latitude, $longitude], 11).addLayer(osm);
-            var lat;
-            var long;
+        // géolocalisation pour centrer la map
+
+        var $latitude = data.latitude;
+        var $longitude = data.longitude;
+        let map = L.map("mapid").setView([$latitude, $longitude], 11).addLayer(osm);
+
+console.log(coordonnes);
+var m=0;
 
 
-            var marker = L.marker([$latitude, $longitude]).addTo(map);
-            var marker2 = L.marker([44.797574, -0.615349]).addTo(map);
-            var i=0;
-            var test = [];
-            for(var key in coordonnes)
-            {
-                test.push("marker_" + i);
-              i++;
 
+
+        // création marqueurs sur la map
+        var marker = L.marker([$latitude, $longitude]).addTo(map);
+        var marker2 = L.marker([44.797574, -0.615349]).addTo(map);
+        var i=0;
+
+
+        var poi = [] ;
+        for(var key in coordonnes){
+            console.log(i);
+            var value = coordonnes[key];
+            var t="marker"+i;
+            poi[t] = [key, coordonnes[key]];
+            i++;
             }
-            console.log(test);
-            i=0;
-            for(var key in coordonnes)
 
-              var value = coordonnes[key];
 
-              L.marker([value, coordonnes[key]]).addTo(map);
+        var popup = L.popup();
 
-            }
-            //     let i = 0;
-            //     coordonnes.forEach(borne => {
-            //     var marker_i = L.marker([borne->, borne_longitude]).addTo(map);
-            // });
-            var popup = L.popup();
 
-            marker2.addEventListener("click", (e)=>{
-                console.log(e);
-                lat = e["latlng"]["lat"];
-                long = e["latlng"]["lng"];
+        // création de la route au clic sur un marqueur
+        for (var e in poi){
+            console.log(poi[e]);
+            var e = L.marker([poi[e][0], poi[e][1]]).addTo(map);
+            e.on("click", function (event) {
+                var clickedMarker = event.layer;
+                console.log(event)
+                lat = event["latlng"]["lat"];
+                long = event["latlng"]["lng"];
                 L.Routing.control({
                     waypoints: [
                         L.latLng([$latitude, $longitude]),
@@ -55,16 +58,30 @@ $(function () {
                     ],
                     routeWhileDragging: true,
                     geocoder: L.Control.Geocoder.nominatim()
-            }).addTo(map);
+                }).addTo(map);
 
-
-            })
-
-
+                console.log("toto");
             });
 
-            var coor = coordonnes;
-            console.log(coor);
+
+        }
+
+
+
+
+
+        // fonction de recherche pour recentrer la map sur un point autre que l'actuel (EN COURS)
+        var input = document.querySelector("#recherche");
+        var button = document.querySelector("#recherche_button");
+
+        button.addEventListener("click", ()=>{
+                //console.log(input.value);
+        });
+
+
+    });
+
+
 });
 
 // route auto au clic entre 2 marqueurs

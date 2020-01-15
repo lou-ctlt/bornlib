@@ -90,6 +90,10 @@
                     @endauth
                 </div>
             @endif
+            <form>
+            <input type="text" id="recherche" value="" name="test">
+            <input type="button" value="rechercher" id="recherche_button">
+        </form>
             <div id="mapid"></div>
 
             <div class="content">
@@ -98,6 +102,7 @@
                 </div>
                 <?php
                 $tableau_coordonnes =[];
+
                 ?>
                 @foreach($users as $user)
                     <td>{{ $user->longitude }}</td>
