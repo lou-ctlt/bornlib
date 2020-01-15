@@ -55,6 +55,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'address' => ['required', 'string', 'max:255'],
             'ID_number' => ['required', 'string', 'max:12'],
+            'license_plate' => ['string', 'max:255'],
             'electric_terminal_photo' => ['image', 'mimes:jpeg,png,jpg,gif', 'max:1080'],
             'profile_photo' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:1080']
         ]);
@@ -78,13 +79,30 @@ class RegisterController extends Controller
         $success = $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
 
         //enregirstrement en local de la photo de la borne
-        $terminalPhoto = $request->file('electric_terminal_photo');
+        if(!empty($request->file('eletric_terminal_photo'))){
+            $terminalPhoto = $request->file('electric_terminal_photo');
         $terminalPhotoSaveAsName = time() ."-terminal." . 
                                   $terminalPhoto->getClientOriginalExtension();
 
         $destinationPathTerminal = storage_path('/app/public/electric_terminal_photo/');
         $terminal_photo_url = $destinationPathTerminal . $terminalPhotoSaveAsName;
         $success = $terminalPhoto->move($destinationPathTerminal, $terminalPhotoSaveAsName);
+        }else{
+            $terminal_photo_url = "NULL";
+        }
+
+        //contrôle sur les checkbox
+        if(!empty($data['car'])){
+            $carValue = $data['car']; 
+        }else{
+            $carValue = '0';
+        }
+        
+        if(!empty($data['electric_termninal'])){
+            $terminalValue = $data['electric_termninal']; 
+        }else{
+            $terminalValue = '0';
+        }
 
         return User::create([
         "firstname" => $data['firstname'],
@@ -93,8 +111,8 @@ class RegisterController extends Controller
         "password" => Hash::make($data['password']),
         "address" => $data['address'],
         "ID_number" => $data['ID_number'],
-        "car" => $data['car'],
-        "electric_terminal" => $data['electric_terminal'],
+        "car" => $carValue,
+        "electric_terminal" => $terminalValue,
         "license_plate" => $data['license_plate'],
         "electric_terminal_photo" => $terminal_photo_url,
         "profile_photo" => $profile_photo_url,

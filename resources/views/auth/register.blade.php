@@ -113,7 +113,7 @@
                         </div>
 
                         <div class="form-group row" id="license_plate">
-                            <label for="license-plate" class="col-md-4 col-form-label text-md-right">{{ __('Numéro d\'immatriculation') }}</label>
+                            <label for="license-plate" class="col-md-4 col-form-label @error('license_plate') is-invalid @enderror">{{ __('Numéro d\'immatriculation') }}</label>
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="license_plate">
@@ -170,7 +170,7 @@
                         <div class="form-group row">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="cgu" value="1" name="cgu">
-                                <label class="form-check-label" for="cgu">Je comprends et j'accepte les <a href="#" target="blank">conditions générales d'utilisation</a>.</label>
+                                <label class="form-check-label" for="cgu">Je comprends et j'accepte les <a href="{{ asset('public/condition-generales-utilisation.pdf') }}" target="blank">conditions générales d'utilisation</a>.</label>
                             </div>
                         </div>
 
