@@ -11,21 +11,20 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+    
     /*
     |--------------------------------------------------------------------------
     | Register Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
+    | Ce Controller permet l'inscription et l'enregistrement de nouveaux utilisateurs
     |
     */
 
     use RegistersUsers;
-
+    
     /**
-     * Where to redirect users after registration.
+     * Après l'inscription, l'utilisateur est redirigé vers la page HOME.
      *
      * @var string
      */ 
@@ -40,6 +39,7 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -55,54 +55,49 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'address' => ['required', 'string', 'max:255'],
             'ID_number' => ['required', 'string', 'max:12'],
+            'electric_terminal_photo' => ['image', 'mimes:jpeg,png,jpg,gif', 'max:1080'],
+            'profile_photo' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:1080']
         ]);
     }
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
      * @return \App\Models\User
      */
     protected function create(array $data)
     {
+        $request = request();
+
+        //enregirstrement en local de la photo de profil
+        $profilePhoto = $request->file('profile_photo');
+        $profilePhotoSaveAsName = time() . "-profile." . 
+                                  $profilePhoto->getClientOriginalExtension();
+
+        $destinationPathProfile = storage_path('/app/public/profile_photo/');
+        $profile_photo_url = $destinationPathProfile . $profilePhotoSaveAsName;
+        $success = $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
+
+        //enregirstrement en local de la photo de la borne
+        $terminalPhoto = $request->file('electric_terminal_photo');
+        $terminalPhotoSaveAsName = time() ."-terminal." . 
+                                  $terminalPhoto->getClientOriginalExtension();
+
+        $destinationPathTerminal = storage_path('/app/public/electric_terminal_photo/');
+        $terminal_photo_url = $destinationPathTerminal . $terminalPhotoSaveAsName;
+        $success = $terminalPhoto->move($destinationPathTerminal, $terminalPhotoSaveAsName);
+
         return User::create([
-            'firstname' => $data['firstname'],
-            'lastname' => $data['lastname'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'address' => $data['address'],
-            'ID_number' => $data['ID_number'],
-            'car' => $data['car'],
-            'electric_terminal' => $data['electric_terminal'],
-            'license_plate' => $data['license_plate'],
-            'electric_terminal_photo' => $data['electric_terminal_photo'],
-            'profile_photo' => $data['profile_photo']
+        "firstname" => $data['firstname'],
+        "lastname" => $data['lastname'],
+        "email" => $data['email'],
+        "password" => Hash::make($data['password']),
+        "address" => $data['address'],
+        "ID_number" => $data['ID_number'],
+        "car" => $data['car'],
+        "electric_terminal" => $data['electric_terminal'],
+        "license_plate" => $data['license_plate'],
+        "electric_terminal_photo" => $terminal_photo_url,
+        "profile_photo" => $profile_photo_url,
         ]);
-    }
-    
-    public function fileUpload(Request $request)
-    {
-        $this->validate($request, [
-            'electric_terminal_photo' => 'image|mimes:jpeg,png,jpg,gif|max:1080',
-            'profile_photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:1080'
-        ]);
-
-        if($request->hasFile('electric_terminal_photo')){
-            $image = $request->file('electric_terminal_photo');
-            $name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/public');
-            $image->move($destinationPath, $name);
-            $this->save();
-            
-            return back()->with('success','Image Upload successfully');
-        }else if($request->hasFile('profile_photo')){
-            $image = $request->file('profile_photo');
-            $name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/public/storage/profile_photo');
-            $image->move($destinationPath, $name);
-            $this->save();
-
-            return back()->with('success','Image Upload successfully');
-        }
     }
 }

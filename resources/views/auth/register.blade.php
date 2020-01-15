@@ -107,13 +107,6 @@
 
                         <div class="form-group row">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="cgu" value="1" name="cgu">
-                                <label class="form-check-label" for="cgu">Je comprends et j'accepte les <a href="#" target="blank">conditions générales d'utilisation</a>.</label>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="car" value="1" name="car">
                                 <label class="form-check-label" for="car">J'ai une voiture, je cherche une borne.</label>
                             </div>
@@ -150,13 +143,13 @@
                             <label for="electric_terminal_photo" class="col-md-4 col-form-label text-md-right">{{ __('Choisir une photo de ma borne') }}</label>
 
                             <div class="col-md-6">
-                                <input type="file" class="form-control-file" name="electric_terminal_photo">
+                                <input type="file" class="form-control-file {{ $errors->has('electric_terminal_photo') ? ' has-error' : '' }}" name="electric_terminal_photo">
 
-                                @error('electric_terminal_photo')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                @if ($errors->has('electric_terminal_photo'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('electric_terminal_photo') }}</strong>
                                     </span>
-                                @enderror
+                                @endif
                             </div>
                         </div>
 
@@ -164,16 +157,22 @@
                             <label for="profile_photo" class="col-md-4 col-form-label text-md-right">{{ __('Choisir une photo de profil') }}</label>
 
                             <div class="col-md-6">
-                                <input id="profile_photo" type="file" class="form-control-file @error('profile_photo') is-invalid @enderror" name="profile_photo" required>
+                                <input id="profile_photo" type="file" class="form-control-file {{ $errors->has('profile_photo') ? ' has-error' : '' }}" name="profile_photo" required>
 
-                                @error('profile_photo')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                @if ($errors->has('profile_photo'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('profile_photo') }}</strong>
                                     </span>
-                                @enderror
+                                @endif
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="cgu" value="1" name="cgu">
+                                <label class="form-check-label" for="cgu">Je comprends et j'accepte les <a href="#" target="blank">conditions générales d'utilisation</a>.</label>
+                            </div>
+                        </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
