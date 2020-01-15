@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->string("address");
             $table->string("license_plate");
             $table->string("ID_number");
+            $table->string("longitude");
+            $table->string("latitude");
         });
     }
 

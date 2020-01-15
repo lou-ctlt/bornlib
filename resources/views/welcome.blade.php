@@ -96,22 +96,26 @@
                 <div class="title m-b-md">
                     Laravel
                 </div>
-
-                <div>
+                <?php
+                $tableau_coordonnes =[];
+                ?>
+                @foreach($users as $user)
+                    <td>{{ $user->longitude }}</td>
+                    <td>{{ $user->latitude }}</td>
                     <?php
-                    $content="66 rue abbé de l'épée Bordeaux 33000";
-                        $json=file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode($content) . '&sensor=false');
+                    $v1 = $user->longitude;
+                    $v2 = $user->latitude;
+                    $tableau_coordonnes += [$v1 => $v2];
 
- $obj = json_decode($json, true);
-dd($obj);
-$latitude = $obj[0]['lat'];
-$longitude = $obj[0]['lon'];
-echo $latitude;
                     ?>
+                @endforeach
+
                 </div>
 
 
-
+                <script>
+                    var coordonnes = <?php echo json_encode($tableau_coordonnes); ?>;
+                </script>
                 <script src="{{ asset('js/leaflet.js') }}"></script>
                 <script src="{{ asset('js/leaflet-routing-machine.js') }}"></script>
                 <script src="{{ asset('js\Control.Geocoder.js') }}"></script>

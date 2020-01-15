@@ -21,9 +21,26 @@ $(function () {
 
             var marker = L.marker([$latitude, $longitude]).addTo(map);
             var marker2 = L.marker([44.797574, -0.615349]).addTo(map);
+            var i=0;
+            var test = [];
+            for(var key in coordonnes)
+            {
+                test.push("marker_" + i);
+              i++;
+
+            }
+            console.log(test);
+            i=0;
+            for(var key in coordonnes)
+
+              var value = coordonnes[key];
+
+              L.marker([value, coordonnes[key]]).addTo(map);
+
+            }
             //     let i = 0;
-            //     liste_borne.forEach(born => {
-            //     var marker_i = L.marker([borne_latitude, borne_longitude]).addTo(map);
+            //     coordonnes.forEach(borne => {
+            //     var marker_i = L.marker([borne->, borne_longitude]).addTo(map);
             // });
             var popup = L.popup();
 
@@ -46,8 +63,8 @@ $(function () {
 
             });
 
-
-            console.log(L.Control.Geocoder.nominatim("66 Rue Abbé de l'Épée, 33000 Bordeaux"));
+            var coor = coordonnes;
+            console.log(coor);
 });
 
 // route auto au clic entre 2 marqueurs
