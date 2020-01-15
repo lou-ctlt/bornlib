@@ -1,0 +1,7 @@
+#img_profile_photo, #img_electric_terminal_photo { /* redimentionnement de l'image d'upload (dans la view myaccount) */
+    width : 10rem;
+}
+
+#photo_profil, #photo_borne { /* redimentionnement de l'image de profile (dans la view myaccount) */
+    width : 10rem;
+}

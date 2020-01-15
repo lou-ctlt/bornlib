@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    You are logged in! <div class="text-right"><a href="myaccount">Voir votre compte.</a></div>
                 </div>
             </div>
         </div>

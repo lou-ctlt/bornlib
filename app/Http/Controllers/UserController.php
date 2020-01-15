@@ -20,27 +20,24 @@ class UserController extends Controller
                 "email" => $values["email"],
                 "address" => $values["address"],
                 "license_plate" => $values["license_plate"],
-                "ID_number" => $values["ID_number"]
-            ]);
-            DB::table("meta_users")->where("users_id", Auth::user()->id)->update([ // Update dans meta_users
+                "ID_number" => $values["ID_number"],
                 "car" => $values["car"],
-                "electric_terminal" => $values["electric_terminal"],
+                "electric_terminal" => $values["electric_terminal"]
             ]);
             if($_FILES["profile_photo"]){ // Put de la photo de profile
                 $request->file('profile_photo')->storeAs("public/profile_photo", $request->file('profile_photo')->getClientOriginalName());
-                DB::table("meta_users")->where("users_id", Auth::user()->id)->update([
+                DB::table("users")->where("id", Auth::user()->id)->update([
                     "profile_photo" => $request->file("profile_photo")->getClientOriginalName()
                 ]);
             }
             if($_FILES["electric_terminal_photo"]){ // Put de la photo de la borne
                 $request->file('electric_terminal_photo')->storeAs("public/electric_terminal_photo", $request->file('electric_terminal_photo')->getClientOriginalName());
-                DB::table("meta_users")->where("users_id", Auth::user()->id)->update([
+                DB::table("users")->where("id", Auth::user()->id)->update([
                     "electric_terminal_photo" => $request->file("electric_terminal_photo")->getClientOriginalName()
                 ]);
             }
         };
-        $meta_user = DB::table('meta_users')->select("car", "electric_terminal", "profile_photo", "electric_terminal_photo")->where("users_id", Auth::user()->id)->get();
-        return view('home')->with("meta_user", $meta_user);
+        return view('myaccount');
     }
 }
 
