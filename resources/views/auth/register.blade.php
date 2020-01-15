@@ -9,8 +9,8 @@
 
 
         <!-- START Form -->
-                <div class="card-body">
-                    <form method="POST" action="" id="firstForm">
+                <div class="card-body"> 
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
@@ -105,30 +105,27 @@
                             </div>
                         </div>
 
-                        <div class="form-group row justify-content-around">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input @error('category') is-invalid @enderror" type="checkbox" id="car" value="car" required autocomplete="category" autofocus>
-                                <label class="form-check-label" for="car">J'ai une voiture, je cherche une borne.</label>
+                        <div class="form-group row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="cgu" value="1" name="cgu">
+                                <label class="form-check-label" for="cgu">Je comprends et j'accepte les <a href="#" target="blank">conditions générales d'utilisation</a>.</label>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input @error('category') is-invalid @enderror" type="checkbox" id="terminal" value="terminal" required autocomplete="category" autofocus>
-                                <label class="form-check-label" for="terminal">Je propose l'accès à ma borne.</label>
-                            </div>
-
-                            @error('category')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
                         </div>
 
-                        <div class="form-group row" style="display:none;">
+                        <div class="form-group row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="car" value="1" name="car">
+                                <label class="form-check-label" for="car">J'ai une voiture, je cherche une borne.</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" id="license_plate">
                             <label for="license-plate" class="col-md-4 col-form-label text-md-right">{{ __('Numéro d\'immatriculation') }}</label>
 
                             <div class="col-md-6">
-                                <input id="license-plate" type="text" class="form-control @error('license-plate') is-invalid @enderror" name="license-plate" required autocomplete="new-license-plate">
+                                <input type="text" class="form-control" name="license_plate">
 
-                                @error('license-plate')
+                                @error('license_plate')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -136,11 +133,24 @@
                             </div>
                         </div>
 
-                        <div class="form-group row" style="display:none;">
+                        <div class="form-group row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="terminal" value="1" name="electric_terminal">
+                                <label class="form-check-label" for="terminal">Je propose l'accès à ma borne.</label>
+                            </div>
+                        
+                            @error('category')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group row" id="electric_terminal_photo">
                             <label for="electric_terminal_photo" class="col-md-4 col-form-label text-md-right">{{ __('Choisir une photo de ma borne') }}</label>
 
                             <div class="col-md-6">
-                                <input id="electric_terminal_photo" type="file" class="form-control-file @error('electric_terminal_photo') is-invalid @enderror" name="electric_terminal_photo" required autocomplete="new-electric_terminal_photo">
+                                <input type="file" class="form-control-file" name="electric_terminal_photo">
 
                                 @error('electric_terminal_photo')
                                     <span class="invalid-feedback" role="alert">
@@ -154,7 +164,7 @@
                             <label for="profile_photo" class="col-md-4 col-form-label text-md-right">{{ __('Choisir une photo de profil') }}</label>
 
                             <div class="col-md-6">
-                                <input id="profile_photo" type="file" class="form-control-file @error('profile_photo') is-invalid @enderror" name="profile_photo" required autocomplete="new-profile_photo">
+                                <input id="profile_photo" type="file" class="form-control-file @error('profile_photo') is-invalid @enderror" name="profile_photo" required>
 
                                 @error('profile_photo')
                                     <span class="invalid-feedback" role="alert">
@@ -163,6 +173,7 @@
                                 @enderror
                             </div>
                         </div>
+
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

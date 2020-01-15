@@ -18,6 +18,3 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/myaccount/infos', 'InfosController@index');
-Route::post('/myaccount/infos', 'InfosController@store');
