@@ -1,96 +1,42 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-
-
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-
-        }
-        </style>
-
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+    @section('content')
+        
+           
+        <div class="container-fluid">
+           
+            <div class="row">
+                <div class="col-md-5">
+                    <h1 class="text-center mt-3 pt-3">BORN'LIB</h1>
+                    <div class="col-md-10 offset-md-1 mt-3">
+                    <h4 class="text-justify pt-3 mt-3"> est la solution la plus pertinente pour trouver les bornes de recharge disponibles à utiliser sur Bordeaux et sa CUB. <br><br>
+                     Notre communauté de particuliers mettant leur borne à disposition permet de constituer une base de données de bornes de recharge très complète et très fiable.</h4>
+                    </div>
+                </div> 
+                <div class="col-md-7">
+                    <h3 class="text-center mt-3">
+                    Simplifiez la recharge de votre véhicule électrique avec <h1 class="text-center">BORN' LIB!</h1>
+                    </h3>
+                    <h5 class="text-center mt-3">Trouvez une borne de recharge disponible sur Bordeaux & sa CUB</h5>
+                    <div class="col-md-8 offset-md-2">
+                        <img class="w-100 mt-3 "src="{{asset('storage/img/images.jfif')}}" alt="carte">
+                    </div>
                 </div>
-            @endif
+            </div>          
+                </div>
+    @endsection        
+                    
+                    
+                
+                     
+                    
+                   
+                    
+                    
+                
+            
+    
+        
+            
 
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-                </div>
-        </div>
-    </body>
-</html>
