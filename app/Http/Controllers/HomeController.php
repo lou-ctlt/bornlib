@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
+use App\Models\MetaUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
 use Users;
@@ -16,7 +16,6 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
     /**
      * Show the application dashboard.
      *
