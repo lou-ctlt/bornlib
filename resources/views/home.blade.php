@@ -3,6 +3,7 @@
 <link rel="stylesheet" href=" {{ asset('css/leaflet.css') }}" />
 <link rel="stylesheet" href=" {{ asset('css/leaflet-routing-machine.css') }}" />
 <link rel="stylesheet" href=" {{ asset('css/map.css') }}" />
+
 @endsection
 @section('content')
 <div class="container">
@@ -35,6 +36,7 @@
 <script src="{{ asset('js/leaflet.js') }}"></script>
 <script src="{{ asset('js/leaflet-routing-machine.js') }}"></script>
 <script src="{{ asset('js\Control.Geocoder.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/jquery.js') }}"></script>
 <script src="{{ asset('js/map.js') }}"></script>
+
 @endsection
