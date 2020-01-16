@@ -18265,8 +18265,18 @@ module.exports = L.Routing = {
 	var L = (typeof window !== "undefined" ? window['L'] : typeof global !== "undefined" ? global['L'] : null);
 	var GeocoderElement = _dereq_('./geocoder-element');
 	var Waypoint = _dereq_('./waypoint');
+var greenIcon = L.icon({
+            iconUrl: 'css/images/leaf-green.png',
+            shadowUrl: 'css/images/leaf-shadow.png',
 
+            iconSize:     [38, 95], // size of the icon
+            shadowSize:   [50, 64], // size of the shadow
+            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
 	module.exports = (L.Layer || L.Class).extend({
+
 		includes: ((typeof L.Evented !== 'undefined' && L.Evented.prototype) || L.Mixin.Events),
 
 		options: {
@@ -18284,15 +18294,14 @@ module.exports = L.Routing = {
 			createGeocoderElement: function(wp, i, nWps, plan) {
 				return new GeocoderElement(wp, i, nWps, plan);
 			},
-			createMarker: function(i, wp) {
-				var options = {
-						draggable: this.draggableWaypoints
-					},
-				    marker = L.marker(wp.latLng, options);
+			createMarker: function(i, wp, nWps) {
+                if (i === 0 ) {
+                    return L.marker(wp.latLng);
+                } else {
+                    return L.marker(wp.latLng, {icon: greenIcon });
+                }
+            },
 
-				return marker;
-			},
-			geocodersClassName: ''
 		},
 
 		initialize: function(waypoints, options) {

@@ -15,10 +15,19 @@ $(function () {
 
         var $latitude = data.latitude;
         var $longitude = data.longitude;
-        let map = L.map("mapid").setView([$latitude, $longitude], 11).addLayer(osm);
+        let map = L.map("mapid").setView([$latitude, $longitude], 12).addLayer(osm);
 
-console.log(coordonnes);
-var m=0;
+        var greenIcon = L.icon({
+            iconUrl: 'css/images/leaf-green.png',
+            shadowUrl: 'css/images/leaf-shadow.png',
+
+            iconSize:     [38, 95], // size of the icon
+            shadowSize:   [50, 64], // size of the shadow
+            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
+
 
 
 
@@ -43,9 +52,11 @@ var m=0;
 
 
         // création de la route au clic sur un marqueur
+
+        // présence des popup => peut créer 2 rou plus routes, essayer de sortir l'itinéraire de la map? enclencher la route via un bouton dans la popup? ne pas poser de marqueur lors du clic
         for (var e in poi){
             console.log(poi[e]);
-            var e = L.marker([poi[e][0], poi[e][1]]).addTo(map);
+            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.");
             e.on("click", function (event) {
                 var clickedMarker = event.layer;
                 console.log(event)
