@@ -17,7 +17,11 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href=" {{ asset('css/app.css') }}" />
+@yield('CSS')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app2.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -90,6 +94,12 @@
         Mentions Légales - Contact - Copyright TEAM XXX
         <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
         </div>
-</footer>        
-        
+        <script src="{{ asset('js/app2.js') }}" defer></script>
+    <script src="{{ asset('js/form.js') }}" defer></script>
+</footer>       
+    </div>
+
+    
+</body>
+@yield('JS')
 </html>

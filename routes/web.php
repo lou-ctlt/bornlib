@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
+
+Route::get('/',function(){
+    return view ("welcome");
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -25,3 +25,6 @@ Route::get('/admin/user/show','Admin\UserController@showUser')->name('ShowUser')
 Route::get('/admin/user/edit','Admin\UserController@editUser')->name('EditUser');
 Route::post('admin/user/update','Admin\UserController@updateUser')->name('UpdateUser');
 
+Route::post("/user/update", "UserController@update")->name('userUpdate');
+
+Route::get("/myaccount", "MyaccountController@index")->name("myaccount");
