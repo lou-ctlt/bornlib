@@ -25,11 +25,13 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->string("address");
             $table->string("ID_number");
-            $table->boolean("car")->default($value);
-            $table->boolean("electric_terminal")->default($value);
+            $table->boolean("car");
+            $table->boolean("electric_terminal");
             $table->string("profile_photo");
             $table->string("electric_terminal_photo")->nullable();
             $table->string("license_plate")->nullable();
+            $table->string("longitude");
+            $table->string("latitude");
         });
     }
 
