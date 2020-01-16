@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) { // Création de la table User avec tous les champs nécessaire (pour la voiture et la borne de l'utilisateur)
             $value = "0";
             $table->bigIncrements('id');
             $table->string('firstname');
@@ -30,8 +30,8 @@ class CreateUsersTable extends Migration
             $table->string("profile_photo");
             $table->string("electric_terminal_photo")->nullable();
             $table->string("license_plate")->nullable();
-            $table->string("longitude")->nullable();
-            $table->string("latitude")->nullable();
+            $table->string("longitude")->nullable();// Ce champ est nullable pour l'instant
+            $table->string("latitude")->nullable();// Ce champ est nullable pour l'instant
         });
     }
 

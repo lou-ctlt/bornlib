@@ -1,11 +1,10 @@
 @extends('layouts.app')
 @section('CSS')
-    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/myaccountapp.css') }}">
 @endsection
 @section('content')
 <div class="container">
     <!-- Affichage des données personnel si la personne est connecté : START -->
-
     @if (!empty(session("successMessage")))
         <div class="alert alert-info text-center">
             <span class="help-block">
@@ -25,10 +24,12 @@
                             <h5 class="card-title font-weight-bold">Photo de profil</h5>
                             <img src="storage\profile_photo\{{ Auth::user()->profile_photo }}" alt="Photo de profile de l'utilisateur" id="photo_profil">
                         </div>
-                        <div class="col-md-6 mb-2">
-                            <h5 class="card-title font-weight-bold">Photo de borne</h5>
-                            <img src="storage\electric_terminal_photo\{{ Auth::user()->electric_terminal_photo }}" alt="Photo de la borne de l'utilisateur" id="photo_borne">
-                        </div>
+                        @if (Auth::user()->electric_terminal_photo != "NULL")
+                            <div class="col-md-6 mb-2">
+                                <h5 class="card-title font-weight-bold">Photo de borne</h5>
+                                <img src="storage\electric_terminal_photo\{{ Auth::user()->electric_terminal_photo }}" alt="Photo de la borne de l'utilisateur" id="photo_borne">
+                            </div>
+                        @endif
                     </div>
                     <p class="card-text"><span class="font-weight-bold">Prénom : </span>{{ Auth::user()->firstname }}</p>
                     <p class="card-text"><span class="font-weight-bold">Nom : </span>{{ Auth::user()->lastname }}</p>
@@ -204,5 +205,5 @@
 </div>
 @endsection
 @section('JS')
-    <script src="{{ asset('js/app2.js') }}" defer></script>
+    <script src="{{ asset('js/myaccountapp.js') }}" defer></script>
 @endsection
