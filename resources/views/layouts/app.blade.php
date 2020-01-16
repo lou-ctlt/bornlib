@@ -23,7 +23,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
-            <img class="m-3"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
+            <img class=""src="{{ asset('storage/img/logo-voiture-electrique.jpg') }}" alt="voiture">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <h1>BORN'LIB</h1>
                 </a>
@@ -47,7 +47,7 @@
                             </li>     
 
                         @if (Route::has('register'))        
-                            <li class="nav-item">  
+                            <li class="nav-item ">  
                                <a type="button" class="nav-link btn btn-success mx-3 text-white " href="{{ route('register') }}">S' inscrire</a>
                             </li>
                             
@@ -81,12 +81,15 @@
         <main class="py-4">
             @yield('content')
         </main>
-        <footer class="bg-white text-center">
+        
+    </div>
+</body>
+<footer class="row bg-white text-center">
+    <div class="col-md-12">
         <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
         Mentions Légales - Contact - Copyright TEAM XXX
         <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
+        </div>
+</footer>        
         
-        </footer>
-    </div>
-</body>
 </html>
