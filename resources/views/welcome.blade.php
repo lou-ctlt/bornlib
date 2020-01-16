@@ -8,10 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href=" {{ asset('css/app.css') }}" />
-        <link rel="stylesheet" href=" {{ asset('css/leaflet.css') }}" />
 
-        <link rel="stylesheet" href=" {{ asset('css/leaflet-routing-machine.css') }}" />
 
 
 
@@ -67,10 +64,7 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
-            #mapid {
-                height: 700px;
-            width: 700px;
-         }
+
         }
         </style>
 
@@ -90,43 +84,13 @@
                     @endauth
                 </div>
             @endif
-            <form>
-            <input type="text" id="recherche" value="" name="test">
-            <input type="button" value="rechercher" id="recherche_button">
-        </form>
-            <div id="mapid"></div>
+
 
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
                 </div>
-                <?php
-                $tableau_coordonnes =[];
-
-                ?>
-                @foreach($users as $user)
-                    <td>{{ $user->longitude }}</td>
-                    <td>{{ $user->latitude }}</td>
-                    <?php
-                    $v1 = $user->longitude;
-                    $v2 = $user->latitude;
-                    $tableau_coordonnes += [$v1 => $v2];
-
-                    ?>
-                @endforeach
-
                 </div>
-
-
-                <script>
-                    var coordonnes = <?php echo json_encode($tableau_coordonnes); ?>;
-                </script>
-                <script src="{{ asset('js/leaflet.js') }}"></script>
-                <script src="{{ asset('js/leaflet-routing-machine.js') }}"></script>
-                <script src="{{ asset('js\Control.Geocoder.js') }}"></script>
-                <script src="{{ asset('js/app.js') }}"></script>
-                <script src="{{ asset('js/map.js') }}"></script>
-            </div>
         </div>
     </body>
 </html>
