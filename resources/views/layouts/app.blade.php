@@ -21,6 +21,7 @@
 @yield('CSS')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app2.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -93,6 +94,7 @@
     </div>
 
     <script src="{{ asset('js/app2.js') }}" defer></script>
+    <script src="{{ asset('js/form.js') }}" defer></script>
 </body>
 @yield('JS')
 
