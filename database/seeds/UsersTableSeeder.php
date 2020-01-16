@@ -37,7 +37,10 @@ class UsersTableSeeder extends Seeder
             "license_plate" => "AA-000-AA",
             "ID_number" => "012345678910",
             "longitude" => "44.836820",
-            "latitude" => "-0.697879"
+            "latitude" => "-0.697879",
+            "car" => "0",
+            "electric_terminal" => "0",
+            "profile_photo" => "\public\storage\profile_photo",
         ]);
     }
 }

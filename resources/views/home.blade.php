@@ -25,10 +25,25 @@
                     $tableau_coordonnes += [$v1 => $v2];
                  }
                     ?>
+<?php
+ $t="66+rue+abbe+de+l'epee+bordeaux";
+ $ch = curl_init(); //curl handler init
 
+ curl_setopt($ch,CURLOPT_URL,"https://api-adresse.data.gouv.fr/search/?q=.$t.");
+ curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);// set optional params
+ curl_setopt($ch,CURLOPT_HEADER, false); 
+
+ $result=curl_exec($ch);
+
+ curl_close($ch);
+
+ echo $result;
+?>
         </div>
     </div>
 </div>
+
+
 @endsection
 
 @section('JS')
