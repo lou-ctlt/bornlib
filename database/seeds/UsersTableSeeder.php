@@ -20,7 +20,8 @@ class UsersTableSeeder extends Seeder
             "ID_number" => "012345678910",
             "car" => "0",
             "electric_terminal" => "0",
-            "profile_photo" => "\public\storage\profile_photo"
+            "profile_photo" => "\public\storage\profile_photo",
+            "license_plate" => "159-HD-893"
         ]);
     }
 }

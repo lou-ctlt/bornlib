@@ -49,15 +49,16 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'address' => ['required', 'string', 'max:255'],
-            'ID_number' => ['required', 'string', 'max:12'],
-            'license_plate' => ['string', 'max:255'],
-            'electric_terminal_photo' => ['image', 'mimes:jpeg,png,jpg,gif', 'max:1080'],
-            'profile_photo' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:1080']
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' =>  'required|string|email|max:255|unique:users',
+            'password' =>  'required|string|min:8|confirmed' ,
+            'address' =>  'required|string|max:255' ,
+            'ID_number' =>  'required|string|max:12',
+            'license_plate' =>  ['string', 'max:255', 'regex:# [A-Z]{2}-\d{3}-[A-Z]{2}|\d{1,4}[A-Z]{2}\d{2} #'],
+            'electric_terminal_photo' =>  'image|mimes:jpeg,png,jpg,gif|max:1080',
+            'profile_photo' =>  'required|image|mimes:jpeg,png,jpg,gif|max:1080',
+            'cgu' =>  'required',
         ]);
     }
     /**
@@ -98,8 +99,8 @@ class RegisterController extends Controller
             $carValue = '0';
         }
         
-        if(!empty($data['electric_termninal'])){
-            $terminalValue = $data['electric_termninal']; 
+        if(!empty($data['electric_terminal'])){
+            $terminalValue = $data['electric_terminal']; 
         }else{
             $terminalValue = '0';
         }
@@ -116,6 +117,7 @@ class RegisterController extends Controller
         "license_plate" => $data['license_plate'],
         "electric_terminal_photo" => $terminal_photo_url,
         "profile_photo" => $profile_photo_url,
+        "cgu" => $data['cgu'],
         ]);
     }
 }
