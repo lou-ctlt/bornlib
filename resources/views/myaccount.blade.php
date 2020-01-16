@@ -1,10 +1,18 @@
 @extends('layouts.app')
-
+@section('CSS')
+    <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
+@endsection
 @section('content')
 <div class="container">
-
     <!-- Affichage des données personnel si la personne est connecté : START -->
     @if (Auth::check())
+    @if (!empty(session("successMessage")))
+        <div class="alert alert-info text-center">
+            <span class="help-block">
+                <strong>{{ session("successMessage") }}</strong>
+            </span>
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-6">
             <div class="card">
@@ -39,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 img_wrapper">
+        <div class="col-md-6 img_myaccount_wrapper">
             <img src="storage\img\voiture-electrique-wallbox.png" alt="Photo example d'une borne éléctrique" class="img_myaccount">
         </div>
     </div>
@@ -47,7 +55,7 @@
 
     <!-- Formulaire de modification de données : START -->
     <div class="row mt-3 d-none" id="form_pop">
-        <div class="col-md-6 img_wrapper">
+        <div class="col-md-6 img_myaccount_wrapper">
             <img src="storage\img\borne-de-recharge-evlink.jpg" alt="Photo example d'une borne éléctrique" class="img_myaccount">
         </div>
         <div class="col-md-6">
@@ -61,41 +69,97 @@
                             @csrf
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Prénom</label>
-                                <input type="text" class="form-control input_style" id="firstname" name="firstname" required value="{{ Auth::user()->firstname }}">
+                                <input type="text" class="form-control input_style {{ $errors->has("firstname") ? " has-error" : ""}}" id="firstname" name="firstname" value="{{ Auth::user()->firstname }}">
+                                @if ($errors->has("firstname"))
+                                    <div class="alert alert-danger text-center">
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first("firstname") }}</strong>
+                                        </span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Nom</label>
-                                <input type="text" class="form-control input_style" id="lastname" name="lastname" required value="{{ Auth::user()->lastname }}">
+                                <input type="text" class="form-control input_style {{ $errors->has("lastname") ? " has-error" : ""}}" id="lastname" name="lastname" value="{{ Auth::user()->lastname }}">
+                                @if ($errors->has("lastname"))
+                                    <div class="alert alert-danger text-center">
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first("lastname") }}</strong>
+                                        </span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Email</label>
-                                <input type="email" class="form-control input_style" id="email" name="email" required value="{{ Auth::user()->email }}">
+                                <input type="email" class="form-control input_style {{ $errors->has("email") ? " has-error" : ""}}" id="email" name="email" value="{{ Auth::user()->email }}">
+                                @if ($errors->has("email"))
+                                    <div class="alert alert-danger text-center">
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first("email") }}</strong>
+                                        </span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Adresse</label>
-                                <input type="text" class="form-control input_style" id="address" name="address" required value="{{ Auth::user()->address }}">
+                                <input type="text" class="form-control input_style {{ $errors->has("address") ? " has-error" : ""}}" id="address" name="address" value="{{ Auth::user()->address }}">
+                                @if ($errors->has("address"))
+                                    <div class="alert alert-danger text-center">
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first("address") }}</strong>
+                                        </span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Plaque d'immatriculation</label>
-                                <input type="text" class="form-control input_style" id="license_plate" name="license_plate" required value="{{ Auth::user()->license_plate }}">
+                                <input type="text" class="form-control input_style {{ $errors->has("license_plate") ? " has-error" : ""}}" id="license_plate" name="license_plate" value="{{ Auth::user()->license_plate }}">
+                                @if ($errors->has("license_plate"))
+                                    <div class="alert alert-danger text-center">
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first("license_plate") }}</strong>
+                                        </span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Numéro de votre carte d'Identité</label>
-                                <input type="text" class="form-control input_style" id="ID_number" name="ID_number" required value="{{ Auth::user()->ID_number }}">
+                                <input type="text" class="form-control input_style {{ $errors->has("ID_number") ? " has-error" : ""}}" id="ID_number" name="ID_number" value="{{ Auth::user()->ID_number }}">
+                                @if ($errors->has("ID_number"))
+                                    <div class="alert alert-danger text-center">
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first("ID_number") }}</strong>
+                                        </span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="row card-text">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputPassword1" class="font-weight-bold">Photo de profil</label>
-                                        <input type="file" class="form-control-file" id="profile_photo" name="profile_photo">
-                                        <img id="img_profile_photo" alt="lien pour uploader l'image votre profile">
+                                        <input type="file" class="form-control-file mb-2 {{ $errors->has("profile_photo") ? " has-error" : ""}}" id="profile_photo" name="profile_photo">
+                                        @if ($errors->has("profile_photo"))
+                                            <div class="alert alert-danger text-center">
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first("profile_photo") }}</strong>
+                                                </span>
+                                            </div>
+                                        @endif
+                                        <img src="storage\img\1logoBornLib.jpg" id="img_profile_photo" alt="lien pour uploader l'image votre profile">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputPassword1" class="font-weight-bold">Photo de borne</label>
-                                        <input type="file" class="form-control-file" id="electric_terminal_photo" name="electric_terminal_photo">
-                                        <img id="img_electric_terminal_photo" alt="lien pour uploader l'image de votre borne">
+                                        <input type="file" class="form-control-file mb-2 {{ $errors->has("electric_terminal_photo") ? " has-error" : ""}}" id="electric_terminal_photo" name="electric_terminal_photo">
+                                        @if ($errors->has("electric_terminal_photo"))
+                                            <div class="alert alert-danger text-center">
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first("electric_terminal_photo") }}</strong>
+                                                </span>
+                                            </div>
+                                        @endif
+                                        <img src="storage\img\istockphotoBornLib.jpg" id="img_electric_terminal_photo" alt="lien pour uploader l'image de votre borne">
                                     </div>
                                 </div>
                             </div>
@@ -138,4 +202,7 @@
     <!-- Formulaire de modification de données : END -->
     @endif
 </div>
+@endsection
+@section('JS')
+    <script src="{{ asset('js/app2.js') }}" defer></script>
 @endsection
