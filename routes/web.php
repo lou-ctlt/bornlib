@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post("/user/update", "UserController@update2")->name('userUpdate');
+Route::post("/user/update", "UserController@update")->name('userUpdate');
 
 Route::get("/myaccount", "MyaccountController@index")->name("myaccount");
 

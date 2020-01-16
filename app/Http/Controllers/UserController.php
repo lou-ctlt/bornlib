@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     //
-    public function update2(Request $request)
+    public function update(Request $request)
     {
         $values = $request->all();
         //dd($request->file('profile_photo'));

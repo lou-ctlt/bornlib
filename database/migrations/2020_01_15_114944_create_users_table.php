@@ -27,9 +27,9 @@ class CreateUsersTable extends Migration
             $table->string("ID_number");
             $table->boolean("car")->default($value);
             $table->boolean("electric_terminal")->default($value);
-            $table->string("profile_photo")->nullable();
+            $table->string("profile_photo");
             $table->string("electric_terminal_photo")->nullable();
-            $table->string("license_plate");
+            $table->string("license_plate")->nullable();
         });
     }
 
