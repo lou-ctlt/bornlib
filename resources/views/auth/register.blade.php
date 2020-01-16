@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('CSS')
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -9,7 +11,7 @@
 
 
         <!-- START Form -->
-                <div class="card-body"> 
+                <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
 
@@ -183,3 +185,7 @@
     </div>
 </div>
 @endsection
+@section('JS')
+    <script src="{{ asset('js/form.js') }}" defer></script>
+@endsection
+

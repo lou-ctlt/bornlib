@@ -19,8 +19,6 @@
     <!-- Styles -->
     <link rel="stylesheet" href=" {{ asset('css/app.css') }}" />
 @yield('CSS')
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    @yield('CSS')
 </head>
 <body>
     <div id="app">
@@ -93,12 +91,10 @@
         Mentions Légales - Contact - Copyright TEAM XXX
         <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
         </div>
-        <script src="{{ asset('js/app2.js') }}" defer></script>
-    <script src="{{ asset('js/form.js') }}" defer></script>
-</footer>
+    </footer>
     </div>
 
-
-</body>
 @yield('JS')
+</body>
+
 </html>

@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <!-- Affichage des données personnel si la personne est connecté : START -->
-    @if (Auth::check())
+
     @if (!empty(session("successMessage")))
         <div class="alert alert-info text-center">
             <span class="help-block">
@@ -200,7 +200,7 @@
         </div>
     </div>
     <!-- Formulaire de modification de données : END -->
-    @endif
+
 </div>
 @endsection
 @section('JS')
