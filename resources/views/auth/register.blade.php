@@ -84,7 +84,13 @@
 
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address"value="{{ old('address') }}" required autocomplete="address" autofocus>
-
+                                @if (!empty($addressError))
+                                    <div class="alert alert-danger text-center">
+                                        <span class="help-block">
+                                            <strong>{{ $addressError }}</strong>
+                                        </span>
+                                    </div>
+                                @endif
                                 @error('address')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

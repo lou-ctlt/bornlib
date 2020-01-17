@@ -202,8 +202,11 @@
     </div>
     <!-- Formulaire de modification de données : END -->
 
+
 </div>
 @endsection
 @section('JS')
     <script src="{{ asset('js/myaccountapp.js') }}" defer></script>
 @endsection
+
+
