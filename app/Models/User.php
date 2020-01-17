@@ -16,8 +16,8 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'lastname', 'firstname', 'email', 'password', 'address', 'ID_number', 'car', 'electric_terminal', 'license_plate', 'electric_terminal_photo', 'profile_photo'
+    protected $fillable = [ // Ajout des champs pour que l'enregistrement basé sur User ce fasse bien
+        'lastname', 'firstname', 'email', 'password', 'address', 'ID_number', 'car', 'electric_terminal', 'license_plate', 'electric_terminal_photo', 'profile_photo', "longitude", "latitude"
     ];
 
     /**

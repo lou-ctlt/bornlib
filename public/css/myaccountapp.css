@@ -1,5 +1,7 @@
 #img_profile_photo, #img_electric_terminal_photo, #photo_profil, #photo_borne { /* redimentionnement de l'image d'upload (dans la view myaccount) */
     width : 10rem;
+    box-shadow: 1px 1px 2px 1px;
+
 }
 #img_profile_photo:hover, #img_electric_terminal_photo:hover, #photo_profil:hover, #photo_borne:hover { /* redimentionnement de l'image d'upload (dans la view myaccount) */
     box-shadow: 2px 2px 3px 1px;
@@ -10,7 +12,7 @@
     height: auto;
     vertical-align: middle;
 }
-.img_wrapper {
+.img_myaccount_wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
