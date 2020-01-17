@@ -95,8 +95,8 @@
         <script src="{{ asset('js/form.js') }}" defer></script>
 </footer>       
     </div>
+    @yield('JS')
 
-@yield('JS')
 </body>
 
 </html>

@@ -140,6 +140,11 @@
 
                             <div class="col-md-6">
                                 <input type="file" id="electric_terminal_photo"  class="form-control-file" name="electric_terminal_photo">
+
+                                <div class="col-md-8 offset-md-6">
+                                    <img src="" id="img_electric_terminal_photo" class="w-100">
+                                </div>
+
                             </div>
                         </div>
 
@@ -156,6 +161,11 @@
                                         <strong>{{ $errors->first('profile_photo') }}</strong>
                                     </span>
                                 @endif
+
+                                <div  class="col-md-8 offset-md-6">
+                                    <img src="" id="img_profile_photo" class="w-100">
+                                </div>
+
                             </div>
                         </div>
 

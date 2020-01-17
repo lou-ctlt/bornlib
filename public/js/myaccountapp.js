@@ -9,7 +9,7 @@
 
     /* Fonction pour afficher la photo uploadé par l'utilisateur : START */
     let profile_photo = document.querySelector("#profile_photo");
-    let electric_terminal_photo = document.querySelector("#profile_photo");
+    let electric_terminal_photo = document.querySelector("#electric_terminal_photo");
     profile_photo.addEventListener("click", function () {
         function readURL(input) {
             if (input.files && input.files[0]) {
