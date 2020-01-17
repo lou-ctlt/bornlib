@@ -10,7 +10,6 @@ $('#car').click(function(){
     }
 })
 
-
 $('#terminal').click(function(){
     if($(this).is(':checked')){
         $("<span class='require_note' id='terminal_note'>Mention obligatoire</span>").insertAfter($('#electric_terminal_photo'));
@@ -20,6 +19,8 @@ $('#terminal').click(function(){
         $('#electric_terminal_photo').prop('required', false);
     }
 })
+
+
 
 //Fonction pour obliger l'utilisateur à cocher au moins une case
 $('form').submit(function(event){

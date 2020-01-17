@@ -1,14 +1,18 @@
 @extends('layouts.app')
+<<<<<<< Updated upstream
 @section('CSS')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endsection
+=======
+
+
+>>>>>>> Stashed changes
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('S\'inscrire') }}</div>
-
 
         <!-- START Form -->
                 <div class="card-body">
@@ -79,11 +83,12 @@
                             </div>
                         </div>
 
+
                         <div class="form-group row">
                             <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Adresse postale') }}<span class="red">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address"value="{{ old('address') }}" required autocomplete="address" autofocus>
+                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
 
                                 @error('address')
                                     <span class="invalid-feedback" role="alert">
@@ -172,7 +177,7 @@
                         <div class="form-group row">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="cgu" value="1" name="cgu" required>
-                                <label class="form-check-label" for="cgu">Je comprends et j'accepte les <a href="{{ asset('public/condition-generales-utilisation.pdf') }}" target="blank">conditions générales d'utilisation</a>.</label>
+                                <label class="form-check-label" for="cgu">Je comprends et j'accepte les <a href="{{ asset('public/condition-generales-utilisation.pdf') }}" target="blank">conditions générales d'utilisation</a>.<span class="red">*</span></label>
                             </div>
                         </div>
 

@@ -8,8 +8,8 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -50,6 +50,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -62,6 +63,7 @@ class RegisterController extends Controller
             'profile_photo' =>  'required|image|mimes:jpeg,png,jpg,gif',
             'cgu' =>  'required',
         ]);
+
     }
     /**
      * Create a new user instance after a valid registration.
@@ -70,6 +72,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         $request = request();
 
         //enregirstrement en local de la photo de profil
@@ -81,7 +84,7 @@ class RegisterController extends Controller
         $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
 
         //enregirstrement en local de la photo de la borne
-        if(!empty($request->file('eletric_terminal_photo'))){
+        if($_FILES['electric_terminal_photo']['error'] == 0){
             $terminalPhoto = $request->file('electric_terminal_photo');
         $terminalPhotoSaveAsName = time() ."-terminal." .
                                   $terminalPhoto->getClientOriginalExtension();

@@ -11,6 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/form.js') }}" defer></script>
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -91,12 +93,11 @@
         Mentions Légales - Contact - Copyright TEAM XXX
         <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
         </div>
-        
-        <script src="{{ asset('js/form.js') }}" defer></script>
-</footer>       
-    </div>
-    @yield('JS')
 
+
+</footer>
+    </div>
+    <script src="{{ asset('js/form.js') }}" defer></script>
 </body>
 
 </html>
