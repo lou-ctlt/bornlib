@@ -1,47 +1,60 @@
 @extends('layouts.app')
 
     @section('content')
+    <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-3">
+    <img src="/storage/profile__photo/{{$user->profile__photo}}" alt="Photo du profil de l'utilisateur">
+    <img src="/storage/electric_terminal_photo/{{$user->electric_terminal_photo}}" alt="Photo de la borne de l'utilisateur">
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-8 offset-md-2 text-center">
-        <h1>FICHE DE L UTILISATEUR</h1>
-			<table class="table">
-   <thead>
-    <tr class="text-center">
-      <th class="border border-grey" scope="col">ID</th>
-      <th class="border border-grey" scope="col">Nom</th>
-      <th class="border border-grey" scope="col">Prénom</th>
-      <th class="border border-grey" scope="col">Email</th>
-      <th class="border border-grey" scope="col">Adresse</th>
-      
-      
-    </tr>
-   </thead>
-    <tbody>
+    </div>
+    <div class="col-md-6">
+<div class="card w-100" style="">
   
-    <tr class="text-center">
-      
-      <td class="border border-grey">{{$user->id}}</td>
-      <td class="border border-grey">{{$user->firstname}}</td>
-      <td class="border border-grey">{{$user->lastname}}</td>
-      <td class="border border-grey">{{$user->email}}</td>
-      <td class="border border-grey">{{$user->address}}</td>
-     
-    </tr>
+  <div class="card-header text-center">{{ __('FICHE UTILISATEUR') }}</div>
+  <div class="card-body">
+    <h5 class="card-title">{{$user->firstname}} {{$user->lastname}}</h5>
+    <div class="row">
+    <div class="col-md-4">
+    <ul class="list-group list-group-flush">
+    <li class="list-group-item">N° d'utilisateur -></li>
+    <li class="list-group-item">Adresse email -></li>
+    <li class="list-group-item">Adresse postale -></li>
+    <li class="list-group-item">N° de CNI-></li>
+    <li class="list-group-item">N° d'immatriculation-></li>
     
-  </tbody>
-</table>
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <img src="storage\electric_terminal_photo\{{$user->electric_terminal_photo}}" alt="Photo de la borne de l'utilisateur">
-    </div>
+  </ul>
   </div>
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-    <img src="storage\profile_photo\{{$user->profile_photo}}" alt="Photo de la photo de l'utilisateur">
-    </div>
+  <div class="col-md-8">
+    <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{$user->id}}</li>
+    <li class="list-group-item">{{$user->email}}</li>
+    <li class="list-group-item">{{$user->address}}</li>
+    <li class="list-group-item">{{$user->ID_number}}</li>
+    <li class="list-group-item">{{$user->license_plate}}</li>
+    
+  </ul>
   </div>
+  </div>
+    <div class="card-footer bg-transparent border-success">
+      <a href="{{ route ('EditUser',['id'=> $user->id])}}" class="btn btn-success">Modifier l'utilisateur</a>
+      <a href="{{ route ('DeleteUser',['id'=> $user->id])}}" class="btn btn-danger">Supprimer l'utilisateur</a>
+      <a href="" class="btn btn-primary">Envoyer un mail à l'utilisateurr</a>
+    </div>
+    
+    
+  </div>
+</div>
+
+</div>
+</div>
+
+
+
+
+
+	
+ 
 
 
 

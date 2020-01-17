@@ -13,13 +13,13 @@ use App\Models\User;
 class UserController extends Controller
 {
 
-    //fonction pour afficher les utilisateurs
+    //Méthode pour afficher les utilisateurs
     public function index(){
     $users = User::all();
     return view('admin.index')->with('users',$users);
     }
 
-    //fonction pour supprimer un utilisateur
+    //Méthode pour supprimer un utilisateur
     public function deleteUser(Request $request){
         //dd($request->id);
         $user = User::find($request->id);
@@ -30,11 +30,12 @@ class UserController extends Controller
         
     }
 
-    //méthode pour ajouter un utilisateur
+    //Méthode pour ajouter un utilisateur
     public function addUser(){
         return view();
     }
-    //méthode pour afficher la fiche user
+
+    //Méthode pour afficher la fiche user
     public function showUser(Request $request){
 
         $user = User::find($request->id);
@@ -42,7 +43,7 @@ class UserController extends Controller
         return view('admin.show')->with('user', $user);
     }
 
-    //méthode pour afficher le formulaire de modification
+    //Méthode pour afficher le formulaire de modification
     public function editUser(Request $request){
 
         $user = User::find($request->id);
@@ -50,20 +51,20 @@ class UserController extends Controller
         return view('admin.update')->with('user', $user);
         
       }
-      //methode pour valider l'enregistrement
-      
-      public function updateUser(Request $request){
-        $values = $request->all();
 
-        // dd($values);
+    //Méthode pour valider l'enregistrement des modifications
+    public function updateUser(Request $request){
+        $values = $request->all();
+        //dd($values)-> ok, je passe;
+       
         $rules=[
             'firstname'     => 'string|required',
             'lastname'      => 'string|required' ,
             'email'         => 'email|required',
             'address'       => 'string|required',
-            'ID_number'     =>'integer|required' ,
-            'license_plate' => 'string',
-            'electric_terminal_photo' =>'image|mimes:jpeg,png,jpg,gif|max:1080' ,
+            'ID_number'     => 'string|required|min:12|max:12' ,
+            'license_plate' => 'max:10',
+            'electric_terminal_photo' =>'image|mimes:jpeg,png,jpg,gif|max:1080|nullable' ,
             'profile_photo' => 'image|mimes:jpeg,png,jpg,gif|max:1080'
         ];
 
@@ -77,34 +78,49 @@ class UserController extends Controller
             'email.required'        => 'L\'adresse mail de l\'utilisateur est obligatoire',
             'address.string'        => 'L\'adresse de l\'utlisateur ne doit pas comporter de caractères spéciaux ',
             'address.required'      => 'L\'adresse de l\'utilisateur est obligatoire',
-            'license_plate.string'  => 'L\'immatriculation ne doit pas comporter de caractères spéciaux',
-            'electric_terminal_photo.image' =>'Ce fichier n\'est pas une image',
-            'electric_terminal_photo.mimes' =>'L\'extension de l\'image n\'est pas correcte',
-            'electric_terminal_photo.max' =>'La taille de l\'image est trop importante',
-            'profile_photo.image' =>'Ce fichier n\'est pas une image',
-            'profile_photo.mimes' =>'L\'extension de l\'image n\'est pas correcte',
-            'profile_photo.max' =>'La taille de l\'image est trop importante',
+            'ID_number.string'      => 'Le numéro de CNI ne doit pas comporter de caractères spéciaux ',
+            'ID_number.required'    => 'Le numéro de CNI est obligatoire',
+            'ID_number.min'         => 'Le numéro de CNI doit comporter 12 caractères ',
+            'ID_number.max'         => 'Le numéro de CNI doit comporter 12 caractères',
+            //'license_plate.string'  => 'L\'immatriculation ne doit pas comporter de caractères spéciaux',
+            //'electric_terminal_photo.image' =>'Ce fichier n\'est pas une image',
+            //'electric_terminal_photo.mimes' =>'L\'extension de l\'image n\'est pas correcte',
+            //'electric_terminal_photo.max' =>'La taille de l\'image est trop importante',
+            //'profile_photo.image' =>'Ce fichier n\'est pas une image',
+            //'profile_photo.mimes' =>'L\'extension de l\'image n\'est pas correcte',
+            //'profile_photo.max' =>'La taille de l\'image est trop importante',
+            
         ]);
 
         if($validator->fails()){
+            dd($validator->fails());
+
             return Redirect::back()
                                 ->withErrors($validator)
                                 ->withInput();
                             }
-    
-                            
         
-            $user1 = User::where("email", $values['email'])->update([
-                "firstname" => $values["firstname"],
-                "lastname" => $values["lastname"],
-                "email" => $values["email"],
-                "address" => $values["address"],
+        
+        $user1 = User::where("email", $values['email'])->update([
+
+            "firstname"                     => $values["firstname"],
+            "lastname"                      => $values["lastname"],
+            "email"                         => $values["email"],
+            "ID_number"                     => $values["ID_number"],
+            "license_plate"                 => $values["address"], 
+            //"electric_terminal_photo"       => $values["electric_terminal_photo"], 
+            "profile_photo"                 => $values["profile_photo"],         
+        ]); 
+        //dd($user1); 
+                         
+                           
+        $user = User::all();
+            dd($user);
+            return redirect()->route('admin.index')->with('users', $user);    
                 
               
-            ]);
-            $user = User::all();
-            //dd($user);
-            return view('admin.index')->with('users', $user);
+            
+            
         
         
                 
