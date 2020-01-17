@@ -17,6 +17,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide|Lexend+Zetta|Syncopate&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href=" {{ asset('css/app.css') }}" />
@@ -28,7 +29,7 @@
             <div class="container-fluid">
             <img class=""src="{{ asset('storage/img/logo-voiture-electrique.jpg') }}" alt="voiture">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <h1>BORN'LIB</h1>
+                    <h1 style="font-family: 'Syncopate', sans-serif; color:#38c172;">BORN'LIB</h1>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
