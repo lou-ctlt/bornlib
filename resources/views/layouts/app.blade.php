@@ -93,8 +93,8 @@
         </div>
     </footer>
     </div>
+    @yield('JS')
 
-@yield('JS')
 </body>
 
 </html>

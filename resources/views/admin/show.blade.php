@@ -33,13 +33,9 @@
   </tbody>
 </table>
   <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <img src="storage\electric_terminal_photo\{{$user->electric_terminal_photo}}" alt="Photo de la borne de l'utilisateur">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-    <img src="storage\profile_photo\{{$user->profile_photo}}" alt="Photo de la photo de l'utilisateur">
+    <div class="col-md-6 offset-md-2 d-flex">
+      <img src="/storage/electric_terminal_photo/{{$user->electric_terminal_photo}}" alt="Photo de la borne de l'utilisateur" style="width: 15rem; margin-right: 10px;">
+      <img src="/storage/profile_photo/{{$user->profile_photo}}" alt="Photo de la photo de l'utilisateur" style="width: 15rem;">
     </div>
   </div>
 

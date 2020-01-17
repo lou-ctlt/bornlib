@@ -7,9 +7,6 @@ use App\Mail\Contact;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Foundation\Auth\User as AuthUser;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -61,8 +58,8 @@ class RegisterController extends Controller
             'address' =>  'required|string|max:255' ,
             'ID_number' =>  'required|string|max:12|min:12',
             'license_plate' =>  'max:10',
-            'electric_terminal_photo' =>  'image|mimes:jpeg,png,jpg,gif|max:1080',
-            'profile_photo' =>  'required|image|mimes:jpeg,png,jpg,gif|max:1080',
+            'electric_terminal_photo' =>  'image|mimes:jpeg,png,jpg,gif',
+            'profile_photo' =>  'required|image|mimes:jpeg,png,jpg,gif',
             'cgu' =>  'required',
         ]);
     }
@@ -80,9 +77,8 @@ class RegisterController extends Controller
         $profilePhotoSaveAsName = time() . "-profile." .
                                   $profilePhoto->getClientOriginalExtension();
 
-        $destinationPathProfile = storage_path('/app/public/profile_photo/');
-        $profile_photo_url = $destinationPathProfile . $profilePhotoSaveAsName;
-        $success = $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
+        $destinationPathProfile = storage_path('app/public/profile_photo/');
+        $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
 
         //enregirstrement en local de la photo de la borne
         if(!empty($request->file('eletric_terminal_photo'))){
@@ -90,11 +86,10 @@ class RegisterController extends Controller
         $terminalPhotoSaveAsName = time() ."-terminal." .
                                   $terminalPhoto->getClientOriginalExtension();
 
-        $destinationPathTerminal = storage_path('/app/public/electric_terminal_photo/');
-        $terminal_photo_url = $destinationPathTerminal . $terminalPhotoSaveAsName;
-        $success = $terminalPhoto->move($destinationPathTerminal, $terminalPhotoSaveAsName);
+        $destinationPathTerminal = storage_path('app/public/electric_terminal_photo/');
+        $terminalPhoto->move($destinationPathTerminal, $terminalPhotoSaveAsName);
         }else{
-            $terminal_photo_url = "NULL";
+            $terminalPhotoSaveAsName = "NULL";
         }
 
         //contrôle sur les checkbox
@@ -109,7 +104,10 @@ class RegisterController extends Controller
         }else{
             $terminalValue = '0';
         }
+
+
         Mail::to($data['email'])->send(new Contact($request->except("_token")));
+
         return User::create([
         "firstname" => $data['firstname'],
         "lastname" => $data['lastname'],
@@ -120,8 +118,8 @@ class RegisterController extends Controller
         "car" => $carValue,
         "electric_terminal" => $terminalValue,
         "license_plate" => $data['license_plate'],
-        "electric_terminal_photo" => $terminal_photo_url,
-        "profile_photo" => $profile_photo_url,
+        "electric_terminal_photo" => $terminalPhotoSaveAsName,
+        "profile_photo" => $profilePhotoSaveAsName,
         "cgu" => $data['cgu'],
         "longitude" => "NULL",
         "latitude" => "NULL",
