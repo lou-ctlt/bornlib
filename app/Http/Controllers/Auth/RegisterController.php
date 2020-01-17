@@ -60,7 +60,7 @@ class RegisterController extends Controller
             'password' =>  'required|string|min:8|confirmed' ,
             'address' =>  'required|string|max:255' ,
             'ID_number' =>  'required|string|max:12',
-            'license_plate' =>  ['string', 'max:255', 'regex:# [A-Z]{2}-\d{3}-[A-Z]{2}|\d{1,4}[A-Z]{2}\d{2} #'],
+            'license_plate' => 'max:10',
             'electric_terminal_photo' =>  'image|mimes:jpeg,png,jpg,gif|max:1080',
             'profile_photo' =>  'required|image|mimes:jpeg,png,jpg,gif|max:1080',
             'cgu' =>  'required',
