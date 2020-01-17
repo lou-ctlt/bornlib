@@ -9,7 +9,6 @@
             <div class="card">
                 <div class="card-header">{{ __('S\'inscrire') }}</div>
 
-
         <!-- START Form -->
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
@@ -79,12 +78,19 @@
                             </div>
                         </div>
 
+
                         <div class="form-group row">
                             <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Adresse postale') }}<span class="red">*</span></label>
 
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address"value="{{ old('address') }}" required autocomplete="address" autofocus>
-
+                                @if (!empty($addressError))
+                                    <div class="alert alert-danger text-center">
+                                        <span class="help-block">
+                                            <strong>{{ $addressError }}</strong>
+                                        </span>
+                                    </div>
+                                @endif
                                 @error('address')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -140,6 +146,11 @@
 
                             <div class="col-md-6">
                                 <input type="file" id="electric_terminal_photo"  class="form-control-file" name="electric_terminal_photo">
+
+                                <div class="col-md-8 offset-md-6">
+                                    <img src="" id="img_electric_terminal_photo" class="w-100">
+                                </div>
+
                             </div>
                         </div>
 
@@ -156,13 +167,18 @@
                                         <strong>{{ $errors->first('profile_photo') }}</strong>
                                     </span>
                                 @endif
+
+                                <div  class="col-md-8 offset-md-6">
+                                    <img src="" id="img_profile_photo" class="w-100">
+                                </div>
+
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="cgu" value="1" name="cgu" required>
-                                <label class="form-check-label" for="cgu">Je comprends et j'accepte les <a href="{{ asset('public/condition-generales-utilisation.pdf') }}" target="blank">conditions générales d'utilisation</a>.</label>
+                                <label class="form-check-label" for="cgu">Je comprends et j'accepte les <a href="{{ asset('public/condition-generales-utilisation.pdf') }}" target="blank">conditions générales d'utilisation</a>.<span class="red">*</span></label>
                             </div>
                         </div>
 
