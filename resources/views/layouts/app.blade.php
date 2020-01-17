@@ -98,10 +98,8 @@
         <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
         </div>
 
-
 </footer>
-    </div>
-    <script src="{{ asset('js/form.js') }}" defer></script>
+@yield('JS')
 </body>
 
 </html>

@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
         $resultAddress=json_decode($resultAddress);// On transforme le JSON en tableau d'objets php
 
         curl_close($ch);
-        return count($resultAddress->features) == 1 && ($resultAddress->features["0"]->properties->postcode < 34000 && $resultAddress->features["0"]->properties->postcode >= 33000);
+        return ($resultAddress->features["0"]->properties->postcode < 34000 && $resultAddress->features["0"]->properties->postcode >= 33000);
 
         });
     }
