@@ -61,6 +61,7 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <small class="font-italic">Minimum 8 caractères.</small>
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -78,12 +79,12 @@
                             </div>
                         </div>
 
-
                         <div class="form-group row">
                             <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Adresse postale') }}<span class="red">*</span></label>
 
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address"value="{{ old('address') }}" required autocomplete="address" autofocus>
+                                <small class="font-italic">Ex: 1 Cours Pasteur 33000 Bordeaux ( sans accent )</small>
                                 @if (!empty($addressError))
                                     <div class="alert alert-danger text-center">
                                         <span class="help-block">
@@ -104,6 +105,7 @@
 
                             <div class="col-md-6">
                                 <input id="ID_number" type="text" class="form-control @error('ID_number') is-invalid @enderror" name="ID_number" required>
+                                <small class="font-italic">Le numéro de carte d'identité doit comporter 12 caractères.</small>
 
                                 @error('ID_number')
                                     <span class="invalid-feedback" role="alert">
@@ -131,6 +133,7 @@
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="license_plate" id="license_plate">
+                                <small class="font-italic">Ex: AA-000-AA / 0AA00 / 00AA00 / 000AA00 / 0000AA00</small>
                             </div>
                         </div>
 
@@ -178,7 +181,7 @@
                         <div class="form-group row">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="cgu" value="1" name="cgu" required>
-                                <label class="form-check-label" for="cgu">Je comprends et j'accepte les <a href="{{ asset('public/condition-generales-utilisation.pdf') }}" target="blank">conditions générales d'utilisation</a>.<span class="red">*</span></label>
+                                <label class="form-check-label" for="cgu">Je comprends et j'accepte les <a href="storage/conditions-generales-utilisation.pdf" target="blank">conditions générales d'utilisation</a>.<span class="red">*</span></label>
                             </div>
                         </div>
 
@@ -200,8 +203,5 @@
         <!-- END Form -->
     </div>
 </div>
-@endsection
-@section('JS')
-    <script src="{{ asset('js/form.js') }}" defer></script>
-@endsection
 
+@endsection
