@@ -168,11 +168,11 @@
                                 <div class="col-md-6">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="customRadio1" name="car" class="custom-control-input" required value="1">
-                                        <label class="custom-control-label font-weight-bold" for="customRadio1">J'ai une voiture</label>
+                                        <label class="custom-control-label font-weight-bold radio_style" for="customRadio1">J'ai une voiture</label>
                                     </div>
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="customRadio2" name="car" class="custom-control-input" required value="0">
-                                        <label class="custom-control-label font-weight-bold" for="customRadio2">J'ai pas de voiture</label>
+                                        <label class="custom-control-label font-weight-bold radio_style" for="customRadio2">J'ai pas de voiture</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

@@ -62,6 +62,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('myaccount') }}">
+                                        Mon Compte
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -71,9 +74,6 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                    <a class="dropdown-item" href="{{ route('myaccount') }}">
-                                        Mon Compte
-                                    </a>
                                 </div>
                             </li>
                         @endguest
@@ -88,11 +88,11 @@
 
     </div>
 
-<footer class="row bg-white text-center">
-    <div class="col-md-12">
-        <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
-        Mentions Légales - Contact - Copyright TEAM XXX
-        <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
+    <footer class="row bg-white text-center">
+        <div class="col-md-12">
+            <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
+            Mentions Légales - Contact - Copyright TEAM XXX
+            <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
         </div>
     </footer>
     </div>
