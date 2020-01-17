@@ -15,6 +15,8 @@ $(function () {
 
         var $latitude = data.latitude;
         var $longitude = data.longitude;
+
+
         let map = L.map("mapid").setView([$latitude, $longitude], 12).addLayer(osm);
 
         var greenIcon = L.icon({
@@ -48,9 +50,9 @@ $(function () {
             }
 
 
-        var popup = L.popup();
 
-      
+
+
 
 
 
@@ -58,14 +60,14 @@ $(function () {
 
         // présence des popup => peut créer 2 rou plus routes, essayer de sortir l'itinéraire de la map? enclencher la route via un bouton dans la popup? ne pas poser de marqueur lors du clic
         for (var e in poi){
-            console.log(poi[e]);
-            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.");
+
+            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup."); // création marqueur et popu associée
             e.on("click", function (event) {
                 var clickedMarker = event.layer;
 
                 lat = event["latlng"]["lat"];
                 long = event["latlng"]["lng"];
-                L.Routing.control({
+                L.Routing.control({ // création de la route au clic
                     waypoints: [
                         L.latLng([$latitude, $longitude]),
                         L.latLng(lat, long)
@@ -86,9 +88,10 @@ $(function () {
         // fonction de recherche pour recentrer la map sur un point autre que l'actuel (EN COURS)
         var input = document.querySelector("#recherche");
         var button = document.querySelector("#recherche_button");
-
+        console.log(newcoordonnes);
         button.addEventListener("click", ()=>{
-                //console.log(input.value);
+            map.remove();
+            map = L.map("mapid").setView([newcoordonnes["0"], newcoordonnes["1"]], 12).addLayer(osm);
         });
 
 
