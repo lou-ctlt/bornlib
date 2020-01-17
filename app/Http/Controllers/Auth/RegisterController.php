@@ -88,20 +88,18 @@ class RegisterController extends Controller
                                   $profilePhoto->getClientOriginalExtension();
 
         $destinationPathProfile = storage_path('/app/public/profile_photo/');
-        $profile_photo_url = $destinationPathProfile . $profilePhotoSaveAsName;
-        $success = $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
+        $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
 
         //enregirstrement en local de la photo de la borne
         if(!empty($request->file('eletric_terminal_photo'))){
             $terminalPhoto = $request->file('electric_terminal_photo');
-        $terminalPhotoSaveAsName = time() ."-terminal." .
+            $terminalPhotoSaveAsName = time() ."-terminal." .
                                   $terminalPhoto->getClientOriginalExtension();
 
-        $destinationPathTerminal = storage_path('/app/public/electric_terminal_photo/');
-        $terminal_photo_url = $destinationPathTerminal . $terminalPhotoSaveAsName;
-        $success = $terminalPhoto->move($destinationPathTerminal, $terminalPhotoSaveAsName);
+            $destinationPathTerminal = storage_path('/app/public/electric_terminal_photo/');
+            $terminalPhoto->move($destinationPathTerminal, $terminalPhotoSaveAsName);
         }else{
-            $terminal_photo_url = "NULL";
+            $terminalPhotoSaveAsName = "NULL";
         }
 
         //contrôle sur les checkbox
@@ -144,8 +142,8 @@ class RegisterController extends Controller
             "car" => $carValue,
             "electric_terminal" => $terminalValue,
             "license_plate" => $data['license_plate'],
-            "electric_terminal_photo" => $terminal_photo_url,
-            "profile_photo" => $profile_photo_url,
+            "electric_terminal_photo" => $terminalPhotoSaveAsName,
+            "profile_photo" => $profilePhotoSaveAsName,
             "cgu" => $data['cgu'],
             "longitude" => "$longitude",
             "latitude" => "$latidude",

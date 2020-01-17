@@ -63,15 +63,26 @@ class UserController extends Controller
                 "electric_terminal" => $values["electric_terminal"]
             ]);
             if($_FILES["profile_photo"]["error"] == 0){ // Put de la photo de profile seulement si un ficher est proposé
-                $request->file('profile_photo')->storeAs("public/profile_photo", $request->file('profile_photo')->getClientOriginalName());
+
+                $profilePhoto = $request->file('profile_photo');
+                $profilePhotoSaveAsName = time() . "-profile." .
+                                  $profilePhoto->getClientOriginalExtension();
+                $profilePhoto->storeAs("public/profile_photo", $profilePhotoSaveAsName);
+
                 DB::table("users")->where("id", Auth::user()->id)->update([
-                    "profile_photo" => $request->file("profile_photo")->getClientOriginalName()
+                    "profile_photo" => $profilePhotoSaveAsName
                 ]);
             }
             if($_FILES["electric_terminal_photo"]["error"] == 0){ // Put de la photo de la borne seulement si un ficher est proposé
-                $request->file('electric_terminal_photo')->storeAs("public/electric_terminal_photo", $request->file('electric_terminal_photo')->getClientOriginalName());
+
+                $terminalPhoto = $request->file('electric_terminal_photo');
+                $terminalPhotoSaveAsName = time() ."-terminal." .
+                                  $terminalPhoto->getClientOriginalExtension();
+
+                $terminalPhoto->storeAs("public/electric_terminal_photo", $terminalPhotoSaveAsName);
+
                 DB::table("users")->where("id", Auth::user()->id)->update([
-                    "electric_terminal_photo" => $request->file("electric_terminal_photo")->getClientOriginalName()
+                    "electric_terminal_photo" => $terminalPhotoSaveAsName
                 ]);
             }
         return redirect()->route("myaccount")->with("successMessage", "Votre compte a bien été mis a jour.");
