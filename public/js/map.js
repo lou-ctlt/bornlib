@@ -40,7 +40,7 @@ $(function () {
 
         var poi = [] ;
         for(var key in coordonnes){
-            console.log(i);
+
             var value = coordonnes[key];
             var t="marker"+i;
             poi[t] = [key, coordonnes[key]];
@@ -49,6 +49,9 @@ $(function () {
 
 
         var popup = L.popup();
+
+      
+
 
 
         // création de la route au clic sur un marqueur
@@ -59,7 +62,7 @@ $(function () {
             var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.");
             e.on("click", function (event) {
                 var clickedMarker = event.layer;
-                console.log(event)
+
                 lat = event["latlng"]["lat"];
                 long = event["latlng"]["lng"];
                 L.Routing.control({
@@ -71,7 +74,6 @@ $(function () {
                     geocoder: L.Control.Geocoder.nominatim()
                 }).addTo(map);
 
-                console.log("toto");
             });
 
 

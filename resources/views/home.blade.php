@@ -3,6 +3,7 @@
 <link rel="stylesheet" href=" {{ asset('css/leaflet.css') }}" />
 <link rel="stylesheet" href=" {{ asset('css/leaflet-routing-machine.css') }}" />
 <link rel="stylesheet" href=" {{ asset('css/map.css') }}" />
+
 @endsection
 @section('content')
 <div class="container">
@@ -24,10 +25,25 @@
                     $tableau_coordonnes += [$v1 => $v2];
                  }
                     ?>
+<?php
+ $t="21+downing+street";
+ $ch = curl_init(); //curl handler init
 
+ curl_setopt($ch,CURLOPT_URL,"https://api-adresse.data.gouv.fr/search/?q=.$t.");
+ curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);// set optional params
+ curl_setopt($ch,CURLOPT_HEADER, false);
+
+ $result=curl_exec($ch);
+
+ curl_close($ch);
+
+ echo $result;
+?>
         </div>
     </div>
 </div>
+
+
 @endsection
 
 @section('JS')
@@ -35,6 +51,7 @@
 <script src="{{ asset('js/leaflet.js') }}"></script>
 <script src="{{ asset('js/leaflet-routing-machine.js') }}"></script>
 <script src="{{ asset('js\Control.Geocoder.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/jquery.js') }}"></script>
 <script src="{{ asset('js/map.js') }}"></script>
+
 @endsection
