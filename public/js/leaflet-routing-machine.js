@@ -18265,7 +18265,9 @@ module.exports = L.Routing = {
 	var L = (typeof window !== "undefined" ? window['L'] : typeof global !== "undefined" ? global['L'] : null);
 	var GeocoderElement = _dereq_('./geocoder-element');
 	var Waypoint = _dereq_('./waypoint');
-var greenIcon = L.icon({
+
+    // création de la green icone
+    var greenIcon = L.icon({
             iconUrl: 'css/images/leaf-green.png',
             shadowUrl: 'css/images/leaf-shadow.png',
 
