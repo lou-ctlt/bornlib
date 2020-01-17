@@ -179,11 +179,11 @@
                                 <div class="col-md-6">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="customRadio3" name="electric_terminal" class="custom-control-input" required value="1">
-                                        <label class="custom-control-label font-weight-bold" for="customRadio3">J'ai une borne éléctrique</label>
+                                        <label class="custom-control-label font-weight-bold radio_style" for="customRadio3">J'ai une borne éléctrique</label>
                                     </div>
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="customRadio4" name="electric_terminal" class="custom-control-input" required value="0">
-                                        <label class="custom-control-label font-weight-bold" for="customRadio4">J'ai pas de borne éléctrique</label>
+                                        <label class="custom-control-label font-weight-bold radio_style" for="customRadio4">J'ai pas de borne éléctrique</label>
                                     </div>
                                 </div>
                             </div>
@@ -203,9 +203,12 @@
     </div>
     <!-- Formulaire de modification de données : END -->
 
+
 </div>
 @endsection
 
 @section('JS')
     <script src="{{ asset('js/myaccountapp.js') }}" defer></script>
 @endsection
+
+

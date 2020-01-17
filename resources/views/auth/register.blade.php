@@ -1,12 +1,7 @@
 @extends('layouts.app')
-<<<<<<< Updated upstream
 @section('CSS')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endsection
-=======
-
-
->>>>>>> Stashed changes
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -88,8 +83,14 @@
                             <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Adresse postale') }}<span class="red">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
-
+                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address"value="{{ old('address') }}" required autocomplete="address" autofocus>
+                                @if (!empty($addressError))
+                                    <div class="alert alert-danger text-center">
+                                        <span class="help-block">
+                                            <strong>{{ $addressError }}</strong>
+                                        </span>
+                                    </div>
+                                @endif
                                 @error('address')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
