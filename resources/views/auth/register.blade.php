@@ -1,12 +1,7 @@
 @extends('layouts.app')
-<<<<<<< Updated upstream
 @section('CSS')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endsection
-=======
-
-
->>>>>>> Stashed changes
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
