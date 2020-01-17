@@ -94,8 +94,8 @@
         Mentions Légales - Contact - Copyright TEAM XXX
         <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
         </div>
-        <script src="{{ asset('js/app2.js') }}" defer></script>
-    <script src="{{ asset('js/form.js') }}" defer></script>
+        
+        <script src="{{ asset('js/form.js') }}" defer></script>
 </footer>       
     </div>
 
