@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@extends('layouts.app')
+
 @section('content')
 
 <div class="container">
@@ -17,7 +19,7 @@
                             
                             <div class="col-md-6 offset-md-3">
                                 <label for="lastname" class="col-md-8 col-form-label ">{{ __('Nom') }}</label>
-                                <input id="lastname" type="text" class="form-control {{ $errors->has('lastname') ? 'has-error' : ' '}}" name="lastname" value="{{ $errors->has('lastname') ? old(lastname) : $user->lastname }}"  autocomplete="lastname" autofocus>
+                                <input id="lastname" type="text" class="form-control {{ $errors->has('lastname') ? 'has-error' : ' '}}" name="lastname" value=""  autocomplete="lastname" autofocus>
                          
                                 @if ( $errors->has('lastname') )
                                     <span class="help-block">
@@ -30,7 +32,7 @@
                             
                             <div class="col-md-6 offset-md-3">
                             <label for="firstname" class="col-md-8 col-form-label">{{ __('Prénom') }}</label>
-                                <input id="firstname" type="text" class="form-control {{ $errors->has('firstname') ? 'has-error' : ' '}}" name="firstname" value="{{ $errors->has('firstname') ? old(firstname) : $user->firstname }}"  autocomplete="firstname" autofocus>
+                                <input id="firstname" type="text" class="form-control {{ $errors->has('firstname') ? 'has-error' : ' '}}" name="firstname" value=""  autocomplete="firstname" autofocus>
                                
                                 @if ( $errors->has('firstname') )
                                     <span class="help-block">
@@ -42,8 +44,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-3">
                                 <label for="email" class="col-md-8 col-form-label">{{ __('Adresse e-mail') }}</label>
-                                <input id="email" type="text" class="form-control {{ $errors->has('email') ? 'has-error' : ' '}} " name="email" value="{{ $errors->has('email') ? old('email') : $user->email
-                                 }}" >
+                                <input id="email" type="text" class="form-control {{ $errors->has('email') ? 'has-error' : ' '}} " name="email" value="" >
                                
                                 @if ( $errors->has('email') )
                                     <span class="help-block">
@@ -57,7 +58,7 @@
                             
                             <div class="col-md-6 offset-md-3">
                                 <label for="address" class="col-md-8 col-form-label ">{{ __('Adresse postale') }}</label>
-                                <input id="address" type="text" class="form-control {{ $errors->has('address') ? 'has-error' : ' '}}" name="address"  autocomplete="new-address" value="{{ $errors->has('address') ? old(address) : $user->address }}" >
+                                <input id="address" type="text" class="form-control {{ $errors->has('address') ? 'has-error' : ' '}}" name="address"  autocomplete="new-address" value="" >
                                
                                 @if ( $errors->has('firstname') )
                                     <span class="help-block">
@@ -70,7 +71,7 @@
                             
                             <div class="col-md-6 offset-md-3">
                                 <label for="ID_number" class="col-md-8 col-form-label ">{{ __('Numéro de CNI') }}</label>
-                                <input id="ID_number" type="text" class="form-control {{ $errors->has('ID_number') ? 'has-error' : ' '}}" name="ID_number"  autocomplete="new-ID_number" value="{{ $errors->has('ID_number') ? old('ID_number') : $user->ID_number }}" >
+                                <input id="ID_number" type="text" class="form-control {{ $errors->has('ID_number') ? 'has-error' : ' '}}" name="ID_number"  autocomplete="new-ID_number" value="" >
                              
                                 @if ( $errors->has('ID_number') )
                                     <span class="help-block">
@@ -83,7 +84,7 @@
                    
                         <div class="form-group row">
                             <div class="form-check col-md-6 offset-md-3">
-                                <input class="form-check-input" type="checkbox" id="car" value="{{ $user->car }}" name="car">
+                                <input class="form-check-input" type="checkbox" id="car" value="" name="car">
                                 <label class="form-check-label" for="car">J'ai une voiture, je cherche une borne.</label>
                             </div>
                         </div>
@@ -103,7 +104,7 @@
 
                         <div class="form-group row">
                             <div class="form-check col-md-6 offset-md-3">
-                                <input class="form-check-input " type="checkbox" id="terminal" value="{{ $errors->has('electric_terminal') ? old(electric_terminal) : $user->electric_terminal }}" name="electric_terminal">
+                                <input class="form-check-input " type="checkbox" id="terminal" value="" name="electric_terminal">
                                 <label class="form-check-label" for="terminal">Je propose l'accès à ma borne.</label>
                             </div>
                         </div>

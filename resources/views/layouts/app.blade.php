@@ -87,7 +87,7 @@
 
 <footer class="row bg-white text-center">
     <div class="col-md-12">
-        <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
+        <img class="w-10"src="/storage/img/logo-voiture-electrique.jpg" alt="voiture">
         Mentions Légales - Contact - Copyright TEAM XXX
         <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
         </div>

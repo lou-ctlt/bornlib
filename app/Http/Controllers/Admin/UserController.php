@@ -39,7 +39,7 @@ class UserController extends Controller
     public function showUser(Request $request){
 
         $user = User::find($request->id);
-        //dd($user->id);
+        // dd($user);
         return view('admin.show')->with('user', $user);
     }
 
@@ -64,7 +64,7 @@ class UserController extends Controller
             'address'       => 'string|required',
             'ID_number'     => 'string|required|min:12|max:12' ,
             'license_plate' => 'max:10',
-            'electric_terminal_photo' =>'image|mimes:jpeg,png,jpg,gif|max:1080|nullable' ,
+            //'electric_terminal_photo' =>'image|mimes:jpeg,png,jpg,gif|max:1080|nullable' ,
             'profile_photo' => 'image|mimes:jpeg,png,jpg,gif|max:1080'
         ];
 
@@ -109,13 +109,24 @@ class UserController extends Controller
             "ID_number"                     => $values["ID_number"],
             "license_plate"                 => $values["address"], 
             //"electric_terminal_photo"       => $values["electric_terminal_photo"], 
-            "profile_photo"                 => $values["profile_photo"],         
+            //"profile_photo"                 => $values["profile_photo"],         
         ]); 
-        //dd($user1); 
-                         
+        
+        if($_FILES["profile_photo"]["error"] == 0){ // Ajout de la photo de profil seulement si un fichier est proposé
+            $request->file('profile_photo')->storeAs("public/profile_photo", $request->file('profile_photo')->getClientOriginalName());
+            User::where("email", $values['email'])->update([
+                "profile_photo" => $request->file("profile_photo")->getClientOriginalName()
+            ]);
+        }
+        if($_FILES["electric_terminal_photo"]["error"] == 0){ // Put de la photo de la borne seulement si un ficher est proposé
+            $request->file('electric_terminal_photo')->storeAs("public/electric_terminal_photo", $request->file('electric_terminal_photo')->getClientOriginalName());
+            User::where("email", $values['email'])->update([
+                "electric_terminal_photo" => $request->file("electric_terminal_photo")->getClientOriginalName()
+            ]);
+        }               
                            
         $user = User::all();
-            dd($user);
+            //dd($user);
             return redirect()->route('admin.index')->with('users', $user);    
                 
               

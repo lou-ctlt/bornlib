@@ -85,7 +85,7 @@ class RegisterController extends Controller
         $success = $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
 
         //enregirstrement en local de la photo de la borne
-        if(!empty($request->file('eletric_terminal_photo'))){
+        if(!empty($request->file('electric_terminal_photo'))){
             $terminalPhoto = $request->file('electric_terminal_photo');
         $terminalPhotoSaveAsName = time() ."-terminal." .
                                   $terminalPhoto->getClientOriginalExtension();
