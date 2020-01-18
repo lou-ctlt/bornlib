@@ -61,10 +61,9 @@ $(function () {
         // présence des popup => peut créer 2 rou plus routes, essayer de sortir l'itinéraire de la map? enclencher la route via un bouton dans la popup? ne pas poser de marqueur lors du clic
         for (var e in poi){
 
-            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup."); // création marqueur et popu associée
+            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<a href='https://www.google.fr/maps/dir/@"+ $latitude +","+ $longitude +",16z/am=t/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0xd546327d191048b:0x87cb13fd6da4305c!2m2!1d" + poi[e][1] + "!2d"+ poi[e][0] + "!1m5!1m1!1s0xd546321109d64c9:0xf83a991e7f3bb7f4!2m2!1d" + poi[e][1] + "!2d"+ poi[e][0] + "!3e0' target='_blank'>test</a>"); // création marqueur et popup associée
             e.on("click", function (event) {
                 var clickedMarker = event.layer;
-
                 lat = event["latlng"]["lat"];
                 long = event["latlng"]["lng"];
                 L.Routing.control({ // création de la route au clic
@@ -72,8 +71,8 @@ $(function () {
                         L.latLng([$latitude, $longitude]),
                         L.latLng(lat, long)
                     ],
-                    routeWhileDragging: true,
-                    geocoder: L.Control.Geocoder.nominatim()
+                    routeWhileDragging: true
+
                 }).addTo(map);
 
             });

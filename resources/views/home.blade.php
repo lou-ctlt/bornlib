@@ -72,7 +72,7 @@ if(!empty($_GET) && isset($_GET)){
 
 <script src="{{ asset('js/leaflet.js') }}"></script>
 <script src="{{ asset('js/leaflet-routing-machine.js') }}"></script>
-<script src="{{ asset('js\Control.Geocoder.js') }}"></script>
+
 <script src="{{ asset('js/jquery.js') }}"></script>
 <script src="{{ asset('js/map.js') }}"></script>
 
