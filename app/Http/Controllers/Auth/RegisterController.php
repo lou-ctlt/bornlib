@@ -91,7 +91,7 @@ class RegisterController extends Controller
         $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
 
         //enregirstrement en local de la photo de la borne
-        if(!empty($request->file('eletric_terminal_photo'))){
+        if($_FILES['electric_terminal_photo']['error'] == 0){
             $terminalPhoto = $request->file('electric_terminal_photo');
             $terminalPhotoSaveAsName = time() ."-terminal." .
                                   $terminalPhoto->getClientOriginalExtension();
@@ -131,23 +131,42 @@ class RegisterController extends Controller
         $latidude = $resultAddress->features["0"]->geometry->coordinates["1"];
         // Conversion de l'adresse en coordonée GPS (longitude latitude) END
 
-        Mail::to($data['email'])->send(new Contact($request->except("_token")));
-        return User::create([
-            "firstname" => $data['firstname'],
-            "lastname" => $data['lastname'],
-            "email" => $data['email'],
-            "password" => Hash::make($data['password']),
-            "address" => $data['address'],
-            "ID_number" => $data['ID_number'],
-            "car" => $carValue,
-            "electric_terminal" => $terminalValue,
-            "license_plate" => $data['license_plate'],
-            "electric_terminal_photo" => $terminalPhotoSaveAsName,
-            "profile_photo" => $profilePhotoSaveAsName,
-            "cgu" => $data['cgu'],
-            "longitude" => "$longitude",
-            "latitude" => "$latidude",
-        ]);
+        // Mail::to($data['email'])->send(new Contact($request->except("_token")));
+        if($terminalValue != '0'){
+            return User::create([
+                "firstname" => $data['firstname'],
+                "lastname" => $data['lastname'],
+                "email" => $data['email'],
+                "password" => Hash::make($data['password']),
+                "address" => $data['address'],
+                "ID_number" => $data['ID_number'],
+                "car" => $carValue,
+                "electric_terminal" => $terminalValue,
+                "license_plate" => $data['license_plate'],
+                "electric_terminal_photo" => $terminalPhotoSaveAsName,
+                "profile_photo" => $profilePhotoSaveAsName,
+                "cgu" => $data['cgu'],
+                "longitude" => "$longitude",
+                "latitude" => "$latidude"
+            ]);
+        }
+        else {
+            return User::create([
+                "firstname" => $data['firstname'],
+                "lastname" => $data['lastname'],
+                "email" => $data['email'],
+                "password" => Hash::make($data['password']),
+                "address" => $data['address'],
+                "ID_number" => $data['ID_number'],
+                "car" => $carValue,
+                "electric_terminal" => $terminalValue,
+                "license_plate" => $data['license_plate'],
+                "electric_terminal_photo" => $terminalPhotoSaveAsName,
+                "profile_photo" => $profilePhotoSaveAsName,
+                "cgu" => $data['cgu']
+            ]);
+        }
+
 
     }
 }
