@@ -21,9 +21,9 @@
                     <?php
                      $tableau_coordonnes =[];
                     foreach ($users as $user) {
-                    $v1 = $user->longitude;
-                    $v2 = $user->latitude;
-                    $tableau_coordonnes += [$v1 => $v2];
+                    $latitude = $user->latitude;
+                    $longitude = $user->longitude;
+                    $tableau_coordonnes += [$latitude => $longitude];
                  }
                     ?>
 <?php

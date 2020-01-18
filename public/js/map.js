@@ -13,11 +13,12 @@ $(function () {
 
         // géolocalisation pour centrer la map
 
-        var $latitude = data.latitude;
-        var $longitude = data.longitude;
+        var latitude = data.latitude;
+        var longitude = data.longitude;
 
 
-        let map = L.map("mapid").setView([$latitude, $longitude], 12).addLayer(osm);
+
+        let map = L.map("mapid").setView([latitude, longitude], 12).addLayer(osm);
 
         var greenIcon = L.icon({
             iconUrl: 'css/images/leaf-green.png',
@@ -31,7 +32,7 @@ $(function () {
         });
 
         // création marqueurs sur la map
-        var marker = L.marker([$latitude, $longitude]).addTo(map);
+        var marker = L.marker([latitude, longitude]).addTo(map);
         var marker2 = L.marker([44.797574, -0.615349]).addTo(map);
         var i=0;
 
@@ -47,14 +48,14 @@ $(function () {
         // création de la route au clic sur un marqueur
         for (var e in poi){
 
-            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<a href='https://www.google.fr/maps/dir/@"+ $latitude +","+ $longitude +",16z/am=t/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0xd546327d191048b:0x87cb13fd6da4305c!2m2!1d" + poi[e][1] + "!2d"+ poi[e][0] + "!1m5!1m1!1s0xd546321109d64c9:0xf83a991e7f3bb7f4!2m2!1d" + poi[e][1] + "!2d"+ poi[e][0] + "!3e0' target='_blank'>test</a>"); // création marqueur et popup associée
+            var e = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon}).addTo(map).bindPopup("<a href='https://www.google.fr/maps/dir/@"+ latitude +","+ longitude +",16z/am=t/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0xd546327d191048b:0x87cb13fd6da4305c!2m2!1d" + poi[e][1] + "!2d"+ poi[e][0] + "!1m5!1m1!1s0xd546321109d64c9:0xf83a991e7f3bb7f4!2m2!1d" + poi[e][1] + "!2d"+ poi[e][0] + "!3e0' target='_blank'>test</a>"); // création marqueur et popup associée
             e.on("click", function (event) {
                 var clickedMarker = event.layer;
                 lat = event["latlng"]["lat"];
                 long = event["latlng"]["lng"];
                 L.Routing.control({ // création de la route au clic
                     waypoints: [
-                        L.latLng([$latitude, $longitude]),
+                        L.latLng([latitude, longitude]),
                         L.latLng(lat, long)
                     ],
                     routeWhileDragging: true
