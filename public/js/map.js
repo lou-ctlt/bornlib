@@ -99,9 +99,15 @@ $(function () {
 
 // route auto au clic entre 2 marqueurs
 
+//fonction pour actualiser la map toute les X secondes/minutes
+function refreshMap() {
+    let markers = document.querySelector(".leaflet-marker-pane");
+    $.ajax({
+        url: "http://bornlib.test/home",
+        success: function(){
+           markers.remove();
+        }
+    });
+ };
 
-
-
-
-
-
+ setInterval(refreshMap, 5000);

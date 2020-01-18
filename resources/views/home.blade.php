@@ -20,8 +20,8 @@
                     <?php
                      $tableau_coordonnes =[];
                     foreach ($users as $user) {
-                    $v1 = $user->longitude;
-                    $v2 = $user->latitude;
+                    $v1 = $user->latitude;
+                    $v2 = $user->longitude;
                     $tableau_coordonnes += [$v1 => $v2];
                  }
                     ?>

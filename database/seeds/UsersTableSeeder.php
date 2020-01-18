@@ -26,8 +26,8 @@ class UsersTableSeeder extends Seeder
             'electric_terminal_photo' => "recharge-vehicule-electrique.jpg",
             "license_plate" => "AA-000-AA",
             "ID_number" => "012345678910",
-            "longitude" => "44.887733",
-            "latitude" => " -0.565375"
+            "longitude" => "-0.565375",
+            "latitude" => "44.887733"
         ]);
         // DB::table('users')->insert([
         //     "firstname" => "A",
