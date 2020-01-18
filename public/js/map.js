@@ -56,7 +56,7 @@ $(function () {
         // présence des popup => peut créer 2 rou plus routes, essayer de sortir l'itinéraire de la map? enclencher la route via un bouton dans la popup? ne pas poser de marqueur lors du clic
         for (var e in poi){
             console.log(poi[e]);
-            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.");
+            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.<br>");
             e.on("click", function (event) {
                 var clickedMarker = event.layer;
                 console.log(event)
@@ -74,8 +74,8 @@ $(function () {
                 console.log("toto");
             });
 
-
         }
+
 
 
 

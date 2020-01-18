@@ -17,14 +17,13 @@
                     <div id="mapid" class="col-md-12 mt-3"></div>
 
                     <?php
-                     $tableau_coordonnes =[];
+                    $tableau_coordonnes =[];
                     foreach ($users as $user) {
                     $v1 = $user->longitude;
                     $v2 = $user->latitude;
                     $tableau_coordonnes += [$v1 => $v2];
-                 }
+                    }
                     ?>
-
         </div>
     </div>
 </div>

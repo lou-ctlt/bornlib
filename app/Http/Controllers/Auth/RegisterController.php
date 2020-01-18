@@ -114,25 +114,27 @@ class RegisterController extends Controller
         }else{
             $terminalValue = '0';
         }
-        // Conversion de l'adresse en coordonée GPS (longitude latitude) START
-        $addressToConvert = $data['address'];
-        $convertedAddress = str_replace(" ", "+", $addressToConvert);
-        $ch = curl_init(); //curl handler init
 
-        curl_setopt($ch,CURLOPT_URL,"https://api-adresse.data.gouv.fr/search/?q=.$convertedAddress.");
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);// set optional params
-        curl_setopt($ch,CURLOPT_HEADER, false);
-
-        $resultAddress=curl_exec($ch);
-        $resultAddress=json_decode($resultAddress);// On transforme le JSON en tableau d'objets php
-
-
-        $longitude = $resultAddress->features["0"]->geometry->coordinates["0"]; // on récupère latitude et longitude
-        $latidude = $resultAddress->features["0"]->geometry->coordinates["1"];
-        // Conversion de l'adresse en coordonée GPS (longitude latitude) END
 
         // Mail::to($data['email'])->send(new Contact($request->except("_token")));
-        if($terminalValue != '0'){
+
+        if($terminalValue != '0'){ // On enregistre l'utilisateur avec une longitude et une latitude car il a une voiture
+            // Conversion de l'adresse en coordonée GPS (longitude latitude) START
+            $addressToConvert = $data['address'];
+            $convertedAddress = str_replace(" ", "+", $addressToConvert);
+            $ch = curl_init(); //curl handler init
+
+            curl_setopt($ch,CURLOPT_URL,"https://api-adresse.data.gouv.fr/search/?q=.$convertedAddress.");
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);// set optional params
+            curl_setopt($ch,CURLOPT_HEADER, false);
+
+            $resultAddress=curl_exec($ch);
+            $resultAddress=json_decode($resultAddress);// On transforme le JSON en tableau d'objets php
+
+
+            $longitude = $resultAddress->features["0"]->geometry->coordinates["0"]; // on récupère latitude et longitude
+            $latidude = $resultAddress->features["0"]->geometry->coordinates["1"];
+            // Conversion de l'adresse en coordonée GPS (longitude latitude) END
             return User::create([
                 "firstname" => $data['firstname'],
                 "lastname" => $data['lastname'],
@@ -151,7 +153,7 @@ class RegisterController extends Controller
             ]);
         }
         else {
-            return User::create([
+            return User::create([ // On enregistre l'utilisateur sans longitude ni latitude car il n'a pas de voiture
                 "firstname" => $data['firstname'],
                 "lastname" => $data['lastname'],
                 "email" => $data['email'],
