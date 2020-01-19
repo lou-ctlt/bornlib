@@ -11,7 +11,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/form.js') }}" defer></script>
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 
     <!-- Fonts -->
@@ -21,6 +20,17 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href=" {{ asset('css/app.css') }}" />
+    <style>
+        #profile_photo_nav{
+            width: 5rem;
+            border-radius: 50px;
+        }
+
+        .dropdown-item{
+            color: #38c172;
+            font-size: 25px;
+        }
+    </style>
 @yield('CSS')
 </head>
 <body>
@@ -28,7 +38,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
             <img class=""src="{{ asset('storage/img/logo-voiture-electrique.jpg') }}" alt="voiture">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     <h1 style="font-family: 'Syncopate', sans-serif; color:#38c172;">BORN'LIB</h1>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -61,22 +71,25 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <span class="caret"></span>
+                                    <img src="/storage/profile_photo/{{ Auth::user()->profile_photo}}" alt="profile_photo" id="profile_photo_nav"><span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                     <a class="dropdown-item" href="{{ route('myaccount') }}">
-                                        Mon Compte
+                                    {{ __('Mon compte') }}
                                     </a>
+
+                                
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Se déconnecter') }}
+                                    </a>
+
                                 </div>
                             </li>
                         @endguest

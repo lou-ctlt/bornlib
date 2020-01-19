@@ -3,6 +3,7 @@
 <link rel="stylesheet" href=" {{ asset('css/leaflet.css') }}" />
 <link rel="stylesheet" href=" {{ asset('css/leaflet-routing-machine.css') }}" />
 <link rel="stylesheet" href=" {{ asset('css/map.css') }}" />
+<link rel="stylesheet" href=" {{ asset('css/style.css') }}" />
 
 @endsection
 @section('content')
