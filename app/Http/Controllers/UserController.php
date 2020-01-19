@@ -124,5 +124,12 @@ class UserController extends Controller
         }
         return redirect()->route("myaccount")->with("successMessage", "Votre compte a bien été mis a jour.");
     }
+
+    public function reservation(Request $request) // Méthode de réservation de la borne
+    {
+        $values = $request->all();
+        dd($values);
+        DB::table("users");
+    }
 }
 

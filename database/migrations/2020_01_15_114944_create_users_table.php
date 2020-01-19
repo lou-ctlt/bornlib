@@ -30,8 +30,9 @@ class CreateUsersTable extends Migration
             $table->string("profile_photo");
             $table->string("electric_terminal_photo")->nullable();
             $table->string("license_plate")->nullable();
-            $table->string("longitude")->nullable();// Ce champ est nullable pour l'instant
-            $table->string("latitude")->nullable();// Ce champ est nullable pour l'instant
+            $table->string("longitude")->nullable();
+            $table->string("latitude")->nullable();
+            $table->boolean("reserve_car")->nullable();
         });
     }
 

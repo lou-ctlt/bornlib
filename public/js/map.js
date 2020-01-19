@@ -60,8 +60,11 @@ $(function () {
 
         // présence des popup => peut créer 2 rou plus routes, essayer de sortir l'itinéraire de la map? enclencher la route via un bouton dans la popup? ne pas poser de marqueur lors du clic
         for (var e in poi){
-
-            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup."); // création marqueur et popu associée
+            let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // On met le token pour le form
+            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.<br>" +// création marqueur et popu associée
+                                                                                                "<form method='post' action='reservation'>" +  // et d'un formulaire pour l'update de la réservation
+                                                                                                    "<button type='submit' class='mt-2 btn btn-info' id='reserve_car' name='reserve_car' value='" + [poi[e][0], poi[e][1]] + "'>Réserver</button>" +
+                                                                                                "</form>");
             e.on("click", function (event) {
                 var clickedMarker = event.layer;
 
@@ -75,6 +78,45 @@ $(function () {
                     routeWhileDragging: true,
                     geocoder: L.Control.Geocoder.nominatim()
                 }).addTo(map);
+
+                let reserve_car = document.getElementById("reserve_car"); // Création de la réservation de borne
+                form.insertAdjacentHTML("afterbegin", token);
+
+                reserve_car.addEventListener("click", function (e) {
+                    let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // On met le token pour le form
+                    e.preventDefault ? e.preventDefault() : (e.returnValue = false); // On block l'envoi du formulaire
+
+                    $(document).ready(function(){
+
+                        $.ajaxSetup({
+                            headers:
+                            { 'X-CSRF-TOKEN': token } // On met le token pour le form
+                        });
+
+                        var request;
+
+                        request = $.ajax({ // On fait l'envoi du form par requette ajax
+                            url: "reservation",
+                            method: "POST",
+                            data:
+                            {
+                                _token: '{!! csrf_token() !!}',
+                                a: poi[e][0],
+                                b: poi[e][1],
+                                reserve_car : reserve_car
+                            },
+                            datatype: "json"
+                        });
+
+                        request.done(function(msg) {
+                            $("#result").html(msg);
+                        });
+
+                        request.fail(function(jqXHR, textStatus) {
+                            $("#result").html("Request failed: " + textStatus);
+                        });
+                    });
+                });
 
             });
 

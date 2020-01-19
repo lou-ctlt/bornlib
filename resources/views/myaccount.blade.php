@@ -65,7 +65,7 @@
                 <div class="card">
                     <div class="card-header text-center card_head_style">
                         <h4>Modifications de vos informations !</h4>
-                    </div> 
+                    </div>
                     <div class="card-body">
                         <form action="{{ route("userUpdate") }}" method="post" enctype="multipart/form-data">
                             @csrf

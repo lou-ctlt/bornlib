@@ -28,3 +28,6 @@ Route::post('admin/user/update','Admin\UserController@updateUser')->name('Update
 Route::post("/user/update", "UserController@update")->name('userUpdate')->middleware('verified');;
 
 Route::get("/myaccount", "MyaccountController@index")->name("myaccount")->middleware('verified');;
+
+Route::post("/reservation", "UserController@reservation")->name("reservation");
+
