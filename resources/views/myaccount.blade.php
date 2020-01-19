@@ -2,6 +2,7 @@
 @section('CSS')
     <link rel="stylesheet" href="{{ asset('css/myaccountapp.css') }}">
 @endsection
+
 @section('content')
 <div class="container">
     <!-- Affichage des données personnel si la personne est connecté : START -->
@@ -64,9 +65,9 @@
                 <div class="card">
                     <div class="card-header text-center card_head_style">
                         <h4>Modifications de vos informations !</h4>
-                    </div>
+                    </div> 
                     <div class="card-body">
-                        <form action="{{ route("userUpdate") }} " method="post" enctype="multipart/form-data">
+                        <form action="{{ route("userUpdate") }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Prénom</label>
@@ -81,7 +82,7 @@
                             </div>
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Nom</label>
-                                <input type="text" class="form-control input_style {{ $errors->has("lastname") ? " has-error" : ""}}" id="lastname" name="lastname" value="{{ Auth::user()->lastname }}">
+                                <input type="text" class="form-control input_style {{ $errors->has("lastname") ? " has-error" : "" }}" id="lastname" name="lastname" value="{{ Auth::user()->lastname }}">
                                 @if ($errors->has("lastname"))
                                     <div class="alert alert-danger text-center">
                                         <span class="help-block">
@@ -205,6 +206,7 @@
 
 </div>
 @endsection
+
 @section('JS')
     <script src="{{ asset('js/myaccountapp.js') }}" defer></script>
 @endsection

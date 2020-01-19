@@ -7,13 +7,10 @@ use App\Mail\Contact;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Foundation\Auth\User as AuthUser;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -54,6 +51,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make(
             $data,
             [
@@ -80,6 +78,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         $request = request();
 
         //enregirstrement en local de la photo de profil
