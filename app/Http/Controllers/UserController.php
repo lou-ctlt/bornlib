@@ -129,8 +129,8 @@ class UserController extends Controller
     public function reservation(Request $request) // Méthode de réservation de la borne
     {
         $values = $request->all();
-
-        User::where("longitude", $values["lat"])->update([
+        // dd($values);
+        User::where("longitude", $values["long"])->update([
             "reserve_born" => 1
         ]);
     }

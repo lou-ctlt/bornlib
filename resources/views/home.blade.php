@@ -29,6 +29,11 @@
                     }
             ?>
         </div>
+        <!-- On propose ici de valider l'utilisation de la borne : START -->
+        <div id="born_in_use">
+            <p></p>
+        </div>
+        <!-- On propose ici de valider l'utilisation de la borne : END -->
     </div>
 </div>
 
