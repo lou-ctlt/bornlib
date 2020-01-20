@@ -15,6 +15,7 @@
                     <label for="">Recherche de borne vers :</label>
                     <input type="text" id="recherche" value="" name="test" class="col-md-10 px-0">
                     <input type="button" value="rechercher"  class="col-md-2 px-0" id="recherche_button">
+                    <input type="button" id="localisation" value="recentrer">
 
 
                     <div id="mapid" class="col-md-12 mt-3"></div>

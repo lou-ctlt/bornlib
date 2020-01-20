@@ -43,30 +43,33 @@ $(function () {
             var t="marker"+i;
             poi[t] = [key, coordonnes[key]];
             i++;
-        }
+        };
+        var boucle_geolocalisation = function(){
+            for (var e in poi){
 
+                var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon}).addTo(map).bindPopup(); // création marqueur et popup associée
+
+                element.on("click", function (event) {
+                    var clickedMarker = event.layer;
+                    lat = event["latlng"]["lat"];
+                    long = event["latlng"]["lng"];
+                    this._popup.setContent("<a href='https://www.google.fr/maps/dir/"+ latitude +","+ longitude +"/" + lat + ","+ long + "/data=!4m2!4m1!3e0' target='_blank'>test</a>")
+
+
+                    L.Routing.control({ // création de la route au clic
+                        waypoints: [
+                            L.latLng([latitude, longitude]),
+                            L.latLng(lat, long)
+                        ],
+                        routeWhileDragging: true
+                    }).addTo(map);
+
+                });
+            }
+
+        }
         // création de la route au clic sur un marqueur
-        for (var e in poi){
-
-            var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon}).addTo(map).bindPopup(); // création marqueur et popup associée
-
-            element.on("click", function (event) {
-                var clickedMarker = event.layer;
-                lat = event["latlng"]["lat"];
-                long = event["latlng"]["lng"];
-                this._popup.setContent("<a href='https://www.google.fr/maps/dir/@"+ latitude +","+ longitude +",16z/am=t/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0xd546327d191048b:0x87cb13fd6da4305c!2m2!1d" + lat + "!2d"+ long + "!1m5!1m1!1s0xd546321109d64c9:0xf83a991e7f3bb7f4!2m2!1d" + lat + "!2d"+ long + "!3e0' target='_blank'>test</a>")
-
-
-                L.Routing.control({ // création de la route au clic
-                    waypoints: [
-                        L.latLng([latitude, longitude]),
-                        L.latLng(lat, long)
-                    ],
-                    routeWhileDragging: true
-                }).addTo(map);
-
-            });
-        }
+        boucle_geolocalisation();
 
 
 
@@ -74,16 +77,10 @@ $(function () {
 // fonction de recherche pour recentrer la map sur un point autre que l'actuel (EN COURS)
         var input = document.querySelector("#recherche");
         var button = document.querySelector("#recherche_button");
-
-
-
-
         button.addEventListener("click", ()=>{
-
-
-        var input_value = input.value;
-        var input_modif = input_value.replace(/ /g, "+");
-        $.ajax({
+            var input_value = input.value;
+            var input_modif = input_value.replace(/ /g, "+");
+            $.ajax({
                 url: "https://api-adresse.data.gouv.fr/search/?q="+input_modif,
                 method: "GET",
                 success: function (data) {
@@ -93,39 +90,41 @@ $(function () {
                     map.remove();marker.remove();
                     map = L.map("mapid").setView([latitude1, longitude1], 12).addLayer(osm);
                     marker = L.marker([latitude1, longitude1]).addTo(map);
+                    var recentrer = document.querySelector("#localisation");
+                    recentrer.addEventListener("click", function(){
+                        map.remove();
+                        map = L.map("mapid").setView([latitude, longitude], 12).addLayer(osm);
+                        marker = L.marker([latitude, longitude]).addTo(map);
+                        boucle_geolocalisation();
+                    });
 
-                    for (var e in poi){
+                for (var e in poi){
 
-                        var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon}).addTo(map).bindPopup("<a href='https://www.google.fr/maps/dir/@"+ latitude1 +","+ longitude1 +",16z/am=t/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0xd546327d191048b:0x87cb13fd6da4305c!2m2!1d" + poi[e][1] + "!2d"+ poi[e][0] + "!1m5!1m1!1s0xd546321109d64c9:0xf83a991e7f3bb7f4!2m2!1d" + poi[e][1] + "!2d"+ poi[e][0] + "!3e0' target='_blank'>test</a>"); // création marqueur et popup associée
-                        element.on("click", function (event) {
+                    var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon}).addTo(map).bindPopup("<a href='https://www.google.fr/maps/dir/@"+ latitude1 +","+ longitude1 +"&destination=" + poi[e][1] + ","+ poi[e][0] + "' target='_blank'>test</a>"); // création marqueur et popup associée
+                    element.on("click", function (event) {
+                        // https://maps.googleapis.com/maps/api/directions/json?
+                        // origin=Toronto&destination=Montreal
 
+                        var clickedMarker = event.layer;
+                        lat = event["latlng"]["lat"];
+                        long = event["latlng"]["lng"];
 
-                            var clickedMarker = event.layer;
-                            lat = event["latlng"]["lat"];
-                            long = event["latlng"]["lng"];
-
-                            console.log(lat);
-                            console.log(long);
-                            L.Routing.control({ // création de la route au clic
-                                waypoints: [
-                                    L.latLng([latitude1, longitude1]),
-                                    L.latLng(lat, long)
+                        console.log(lat);
+                        console.log(long);
+                        L.Routing.control({ // création de la route au clic
+                            waypoints: [
+                                L.latLng([latitude1, longitude1]),
+                                L.latLng(lat, long)
                                 ],
                                 routeWhileDragging: true
-
                             }).addTo(map);
-
                         });
                     }
                 },
                 error: function (errors) {
-
                     console.log(errors);
                 }
             });
-
-
         });
     });
-
 });
