@@ -32,7 +32,8 @@ class CreateUsersTable extends Migration
             $table->string("license_plate")->nullable();
             $table->string("longitude")->nullable();
             $table->string("latitude")->nullable();
-            $table->boolean("reserve_car")->nullable();
+            $table->boolean("reserve_born")->nullable();
+            $table->boolean("born_in_use")->nullable();
         });
     }
 

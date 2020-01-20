@@ -131,7 +131,7 @@ class UserController extends Controller
         $values = $request->all();
 
         User::where("longitude", $values["lat"])->update([
-            "reserve_car" => 1
+            "reserve_born" => 1
         ]);
     }
 
@@ -139,7 +139,7 @@ class UserController extends Controller
     {
         $values = $request->all();
         User::where("id", $values["x"])->update([
-            "reserve_car" => 0
+            "reserve_born" => 0
         ]);
     }
 }

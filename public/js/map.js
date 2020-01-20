@@ -141,39 +141,41 @@ $(function () {
 
 
                 reserve_form.addEventListener("submit", function (e) {
-
                     let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // On met le token pour le form
                     e.preventDefault ? e.preventDefault() : (e.returnValue = false); // On block l'envoi du formulaire
 
+                    confirmation = window.prompt("Êtes-vous sur de vouloir reserver cette borne ? Elle le sera durant 30min, écrivez 'ok' si c'est la cas.");
+                    debugger;
+                    if(confirmation === "ok"){
+                        $(document).ready(function(){
 
-                    $(document).ready(function(){
+                            $.ajaxSetup({
+                                headers:
+                                { 'X-CSRF-TOKEN': token } // On met le token pour le form
+                            });
 
-                        $.ajaxSetup({
-                            headers:
-                            { 'X-CSRF-TOKEN': token } // On met le token pour le form
+                            var request;
+
+                            request = $.ajax({ // On fait l'envoi du form par requette ajax
+                                url: "/reservation",
+                                method: "POST",
+                                data:
+                                {
+                                    lat : lat,
+                                    long : long
+                                },
+                                datatype: "json"
+                            });
+
+                            request.done(function(msg) {
+                                $("#result").html(msg);
+                            });
+
+                            request.fail(function(jqXHR, textStatus) {
+                                $("#result").html("Request failed: " + textStatus);
+                            });
                         });
-
-                        var request;
-
-                        request = $.ajax({ // On fait l'envoi du form par requette ajax
-                            url: "/reservation",
-                            method: "POST",
-                            data:
-                            {
-                                lat : lat,
-                                long : long
-                            },
-                            datatype: "json"
-                        });
-
-                        request.done(function(msg) {
-                            $("#result").html(msg);
-                        });
-
-                        request.fail(function(jqXHR, textStatus) {
-                            $("#result").html("Request failed: " + textStatus);
-                        });
-                    });
+                    }
                 });
 
             });
