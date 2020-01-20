@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -128,8 +129,18 @@ class UserController extends Controller
     public function reservation(Request $request) // Méthode de réservation de la borne
     {
         $values = $request->all();
-        dd($values);
-        DB::table("users");
+
+        User::where("longitude", $values["lat"])->update([
+            "reserve_car" => 1
+        ]);
+    }
+
+    public function finreservation(Request $request) // Méthode de mise a jour de reserve_car une fois passé 30min
+    {
+        $values = $request->all();
+        User::where("id", $values["x"])->update([
+            "reserve_car" => 0
+        ]);
     }
 }
 

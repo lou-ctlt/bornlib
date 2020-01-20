@@ -20,11 +20,16 @@
 
                     <?php
                     $tableau_coordonnes =[];
+                    $tableau_updated_at =[];
+                    $n=1;
                     foreach ($users as $user) {
-                    $v1 = $user->longitude;
-                    $v2 = $user->latitude;
-                    $tableau_coordonnes += [$v1 => $v2];
+                        $v1 = $user->longitude;
+                        $v2 = $user->latitude;
+                        $tableau_coordonnes += [$v1 => $v2];
+                        $tableau_updated_at += [$n => $user->updated_at]; // Je stocke les updated_at dans un tableau pour rafraichir les réservations
+                        $n++;
                     }
+                    // dd($tableau_updated_at);
                     ?>
 <?php
 
@@ -45,7 +50,6 @@ if(!empty($_GET) && isset($_GET)){
  $resultAddress=json_decode($resultAddress);
 
 
-
  $longitude = $resultAddress->features["0"]->geometry->coordinates["0"]; // on récupère latitude et longitude
  $latitude = $resultAddress->features["0"]->geometry->coordinates["1"];
  $newtableaucoordonnes = [];
@@ -61,6 +65,7 @@ if(!empty($_GET) && isset($_GET)){
 
 @section('JS')
 
+<script>var updated_at = <?= json_encode($tableau_updated_at); ?></script>
 <script>var coordonnes = <?= json_encode($tableau_coordonnes); ?></script>
 <?php
 if(!empty($_GET) && isset($_GET)){

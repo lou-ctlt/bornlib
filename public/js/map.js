@@ -50,21 +50,77 @@ $(function () {
             }
 
 
+    /* Rafraichissement de la BDD pour les réservations START */
 
+
+    var d = new Date,
+    dformat = [d.getMonth()+1,
+               d.getDate(),
+               d.getFullYear()].join('/')+' '+
+              [d.getHours(),
+               d.getMinutes(),
+               d.getSeconds()].join(':');
+
+
+    x = 1;
+
+    while(x < Object.keys(updated_at).length){
+        var date_updated = new Date(updated_at[x]);/* On prend l'update_at de la bdd pour  */
+        resultat = d - date_updated;
+        resultat = resultat - 5400000;// On soustrait 1h30 (30min + une heure car notre site est 1heure en retard dans la BDD)
+
+        console.log(x);
+        if(resultat > 0){
+            let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            // debugger;
+            $.ajaxSetup({
+                headers:
+                { 'X-CSRF-TOKEN': token }
+            });
+
+            var request;
+
+            request = $.ajax({ // On fait l'update de reserve_car en ajax
+                url: "/finreservation",
+                method: "POST",
+                data:
+                {
+                    x:x
+                },
+                datatype: "json"
+            });
+
+            request.done(function(msg) {
+                $("#result").html(msg);
+            });
+
+            request.fail(function(jqXHR, textStatus) {
+                $("#result").html("Request failed: " + textStatus);
+            });
+        }
+        x++;
+    }
+
+
+
+
+    /* Rafraichissement de la BDD pour les réservations END */
 
 
 
 
 
         // création de la route au clic sur un marqueur
-
+        let n = 0;
         // présence des popup => peut créer 2 rou plus routes, essayer de sortir l'itinéraire de la map? enclencher la route via un bouton dans la popup? ne pas poser de marqueur lors du clic
         for (var e in poi){
-            let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // On met le token pour le form
-            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.<br>" +// création marqueur et popu associée
-                                                                                                "<form method='post' action='reservation'>" +  // et d'un formulaire pour l'update de la réservation
-                                                                                                    "<button type='submit' class='mt-2 btn btn-info' id='reserve_car' name='reserve_car' value='" + [poi[e][0], poi[e][1]] + "'>Réserver</button>" +
+
+            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon, id:n}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.<br>" +// création marqueur et popu associée
+                                                                                                "<form class='toto' id='reserve_form" + n + "' method='post' action='reservation'>" +  // et d'un formulaire pour l'update de la réservation
+                                                                                                    "<button type='submit' class='mt-2 btn btn-info' id='reserve_car' name='reserve_car' value='reserve_car'>Réserver</button>" +
                                                                                                 "</form>");
+
+
             e.on("click", function (event) {
                 var clickedMarker = event.layer;
 
@@ -79,12 +135,15 @@ $(function () {
                     geocoder: L.Control.Geocoder.nominatim()
                 }).addTo(map);
 
-                let reserve_car = document.getElementById("reserve_car"); // Création de la réservation de borne
-                form.insertAdjacentHTML("afterbegin", token);
 
-                reserve_car.addEventListener("click", function (e) {
+                let reserve_form = document.querySelector("#reserve_form" + (this.options.id) + ""); // On récupère le form dynamiquement
+
+
+                reserve_form.addEventListener("submit", function (e) {
+
                     let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // On met le token pour le form
                     e.preventDefault ? e.preventDefault() : (e.returnValue = false); // On block l'envoi du formulaire
+
 
                     $(document).ready(function(){
 
@@ -96,14 +155,12 @@ $(function () {
                         var request;
 
                         request = $.ajax({ // On fait l'envoi du form par requette ajax
-                            url: "reservation",
+                            url: "/reservation",
                             method: "POST",
                             data:
                             {
-                                _token: '{!! csrf_token() !!}',
-                                a: poi[e][0],
-                                b: poi[e][1],
-                                reserve_car : reserve_car
+                                lat : lat,
+                                long : long
                             },
                             datatype: "json"
                         });
@@ -120,6 +177,7 @@ $(function () {
 
             });
 
+        n++;
         }
 
 

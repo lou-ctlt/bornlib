@@ -31,3 +31,5 @@ Route::get("/myaccount", "MyaccountController@index")->name("myaccount")->middle
 
 Route::post("/reservation", "UserController@reservation")->name("reservation");
 
+Route::post("/finreservation", "UserController@finreservation")->name("finreservation");
+
