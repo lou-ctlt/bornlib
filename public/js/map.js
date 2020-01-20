@@ -2,7 +2,7 @@
 
 $(function () {
 
-    // à l'aide de l'API ipapi afficher un paragraphe avec l'adresse IP de l'utilisateur ainsi que son code postal et/ou sa ville
+    // à l'aide de l'API ipapi on récupère les coordonnées GPS de l'utilisateur
 
     $.getJSON('https://ipapi.co/json/', function (data) {
         // initialisation de la map
@@ -17,7 +17,7 @@ $(function () {
         var longitude = data.longitude;
 
 
-
+        // initialisation de la map centrée sur la géolocalisation
         let map = L.map("mapid").setView([latitude, longitude], 12).addLayer(osm);
 
         var greenIcon = L.icon({
@@ -44,6 +44,8 @@ $(function () {
             poi[t] = [key, coordonnes[key]];
             i++;
         };
+
+        // création de la fonction permettant de créer les marqueurs et routes associées depuis la géolocalisation
         var boucle_geolocalisation = function(){
             for (var e in poi){
 
@@ -53,6 +55,7 @@ $(function () {
                     var clickedMarker = event.layer;
                     lat = event["latlng"]["lat"];
                     long = event["latlng"]["lng"];
+                    // création du lien vers google maps dans la popup avec les coordonnées
                     this._popup.setContent("<a href='https://www.google.fr/maps/dir/"+ latitude +","+ longitude +"/" + lat + ","+ long + "/data=!4m2!4m1!3e0' target='_blank'>test</a>")
 
 
@@ -65,21 +68,23 @@ $(function () {
                     }).addTo(map);
 
                 });
-            }
+            };
 
-        }
+        };
         // création de la route au clic sur un marqueur
         boucle_geolocalisation();
 
 
 
 
-// fonction de recherche pour recentrer la map sur un point autre que l'actuel (EN COURS)
+        // fonction de recherche pour recentrer la map sur un point autre que l'actuel
         var input = document.querySelector("#recherche");
         var button = document.querySelector("#recherche_button");
+
         button.addEventListener("click", ()=>{
             var input_value = input.value;
             var input_modif = input_value.replace(/ /g, "+");
+            // requete AJAX pour consulter l'API afin de récupérer les coordonnées GPS
             $.ajax({
                 url: "https://api-adresse.data.gouv.fr/search/?q="+input_modif,
                 method: "GET",
@@ -91,6 +96,8 @@ $(function () {
                     map = L.map("mapid").setView([latitude1, longitude1], 12).addLayer(osm);
                     marker = L.marker([latitude1, longitude1]).addTo(map);
                     var recentrer = document.querySelector("#localisation");
+
+                    // fonction pour recentrer sur la géolocalisation
                     recentrer.addEventListener("click", function(){
                         map.remove();
                         map = L.map("mapid").setView([latitude, longitude], 12).addLayer(osm);
@@ -98,20 +105,21 @@ $(function () {
                         boucle_geolocalisation();
                     });
 
+
+                    // fonction pour recréer les marqueurs après remove de la map
                 for (var e in poi){
 
-                    var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon}).addTo(map).bindPopup("<a href='https://www.google.fr/maps/dir/@"+ latitude1 +","+ longitude1 +"&destination=" + poi[e][1] + ","+ poi[e][0] + "' target='_blank'>test</a>"); // création marqueur et popup associée
+                    var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon}).addTo(map).bindPopup();
+
                     element.on("click", function (event) {
-                        // https://maps.googleapis.com/maps/api/directions/json?
-                        // origin=Toronto&destination=Montreal
 
                         var clickedMarker = event.layer;
                         lat = event["latlng"]["lat"];
                         long = event["latlng"]["lng"];
-
-                        console.log(lat);
-                        console.log(long);
-                        L.Routing.control({ // création de la route au clic
+                        // création du lien vers google maps dans la popup avec les coordonnées
+                        this._popup.setContent("<a href='https://www.google.fr/maps/dir/"+ latitude1 +","+ longitude1 +"/" + lat + ","+ long + "/data=!4m2!4m1!3e0' target='_blank'>test</a>");
+                        // création de la route au clic
+                        L.Routing.control({
                             waypoints: [
                                 L.latLng([latitude1, longitude1]),
                                 L.latLng(lat, long)

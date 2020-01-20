@@ -16751,7 +16751,7 @@ module.exports = L.Routing = {
 
 			collapsible = collapsible || (collapsible === undefined && map.getSize().x <= 640);
                 // mettre un d-none pour cacher la map
-			this._container = L.DomUtil.create('div', 'leaflet-routing-container leaflet-bar' +
+			this._container = L.DomUtil.create('div', 'leaflet-routing-container leaflet-bar d-none' +
 				(!this.options.show ? 'leaflet-routing-container-hide ' : '') +
 				(collapsible ? 'leaflet-routing-collapsible ' : '') +
 				this.options.containerClassName);
