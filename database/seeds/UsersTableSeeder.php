@@ -43,5 +43,19 @@ class UsersTableSeeder extends Seeder
             "electric_terminal" => "0",
             "profile_photo" => "\public\storage\profile_photo",
         ]);
+        DB::table('users')->insert([
+            "firstname" => "b",
+            "lastname" => "b",
+            "email" => "admin2@gmail.com",
+            "password" => Hash::make("00000000"),
+            "address" => "1 rue de l'adresse 33000 Bordeaux",
+            "license_plate" => "AA-000-AA",
+            "ID_number" => "012345678910",
+            "longitude" => "46.836820",
+            "latitude" => "-6.697879",
+            "car" => "0",
+            "electric_terminal" => "0",
+            "profile_photo" => "\public\storage\profile_photo",
+        ]);
     }
 }
