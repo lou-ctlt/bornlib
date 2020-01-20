@@ -51,8 +51,6 @@ $(function () {
 
 
     /* Rafraichissement de la BDD pour les réservations START */
-
-
     var d = new Date,
     dformat = [d.getMonth()+1,
                d.getDate(),
@@ -65,7 +63,7 @@ $(function () {
     x = 1;
 
     while(x < Object.keys(updated_at).length){
-        var date_updated = new Date(updated_at[x]);/* On prend l'update_at de la bdd pour  */
+        var date_updated = new Date(updated_at[x]);/* On prend l'update_at de la bdd pour faire le calcul et mettre a jour les reservations */
         resultat = d - date_updated;
         resultat = resultat - 5400000;// On soustrait 1h30 (30min + une heure car notre site est 1heure en retard dans la BDD)
 
@@ -100,10 +98,6 @@ $(function () {
         }
         x++;
     }
-
-
-
-
     /* Rafraichissement de la BDD pour les réservations END */
 
 
@@ -111,15 +105,22 @@ $(function () {
 
 
         // création de la route au clic sur un marqueur
-        let n = 0;
+        let n = 1;
         // présence des popup => peut créer 2 rou plus routes, essayer de sortir l'itinéraire de la map? enclencher la route via un bouton dans la popup? ne pas poser de marqueur lors du clic
         for (var e in poi){
-
-            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon, id:n}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.<br>" +// création marqueur et popu associée
-                                                                                                "<form class='toto' id='reserve_form" + n + "' method='post' action='reservation'>" +  // et d'un formulaire pour l'update de la réservation
-                                                                                                    "<button type='submit' class='mt-2 btn btn-info' id='reserve_car' name='reserve_car' value='reserve_car'>Réserver</button>" +
-                                                                                                "</form>");
-
+            var date_updated = new Date(updated_at[n]);/* On prend l'update_at de la bdd pour créer des marqueurs adapté aux reservations */
+            resultat = d - date_updated;
+            resultat = resultat - 5400000;
+            console.log(resultat);
+            if(resultat > 0){
+                var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon, id:n}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.<br>" + // création marqueur et popu associée
+                                                                                                    "<form class='toto' id='reserve_form" + n + "' method='post' action='reservation'>" +  // et d'un formulaire pour l'update de la réservation si la voiture n'est pas réservé
+                                                                                                        "<button type='submit' class='mt-2 btn btn-info' id='reserve_car' name='reserve_car' value='reserve_car'>Réserver</button>" +
+                                                                                                    "</form>");
+            }
+            else{
+                var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon, id:n}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.<br>Borne actellement réservée.");
+            }
 
             e.on("click", function (event) {
                 var clickedMarker = event.layer;
