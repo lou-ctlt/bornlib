@@ -8,15 +8,15 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
 
 
-
-                    <label for="">Recherche de borne vers :</label>
-                    <input type="text" id="recherche" value="" name="test" class="col-md-10 px-0">
-                    <input type="button" value="rechercher"  class="col-md-2 px-0" id="recherche_button">
-                    <input type="button" id="localisation" value="recentrer">
-
+<div class="col-md-12 px-0 d-flex justify-content-around">
+                    <label for="" class="col-md-2 px-0">Recherche de borne vers :</label>
+                    <input type="text" id="recherche" value="" name="test" class="col-md-7 px-0 ">
+                    <input type="button" value="chercher"  class="col-md-1 " id="recherche_button">
+                    <input type="button" id="localisation" value="recentrer" class="col-md-1 ">
+</div>
 
                     <div id="mapid" class="col-md-12 mt-3"></div>
 
