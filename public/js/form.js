@@ -22,13 +22,6 @@ $('#terminal').click(function(){
 
 
 
-//Fonction pour obliger l'utilisateur à cocher au moins une case
-$('form').submit(function(event){
-    if($('#car').is(":not(:checked)") && $('#termninal').is(":not(:checked)")){
-        event.preventDefault();
-    }
-})
-
 //Fonction pour afficher la photo qu'on va uploader
 
 

@@ -19,12 +19,13 @@
                     <div id="mapid" class="col-md-12 mt-3"></div>
 
                     <?php
-                     $tableau_coordonnes =[];
+                    $tableau_coordonnes =[];
                     foreach ($users as $user) {
                     $v1 = $user->latitude;
                     $v2 = $user->longitude;
                     $tableau_coordonnes += [$v1 => $v2];
                  }
+
                     ?>
 <?php
  $t="21+downing+street";
@@ -38,7 +39,7 @@
 
  curl_close($ch);
 
- echo $result;
+
 ?>
         </div>
     </div>

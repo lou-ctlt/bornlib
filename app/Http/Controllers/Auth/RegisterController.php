@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Intervention\Image\Facades\Image;
 
 class RegisterController extends Controller
 {
@@ -78,16 +79,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
         $request = request();
 
-        //enregirstrement en local de la photo de profil
+        //enregistrement en local de la photo de profil
         $profilePhoto = $request->file('profile_photo');
         $profilePhotoSaveAsName = time() . "-profile." .
                                   $profilePhoto->getClientOriginalExtension();
 
         $destinationPathProfile = storage_path('/app/public/profile_photo/');
         $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
+        //transformation du format pour qu'elle soit carrée
+        $profilePhotoSquare = Image::make($destinationPathProfile.$profilePhotoSaveAsName)->crop(500, 500);
+        $profilePhotoSquare->save(storage_path('app/public/profile_photo/square/').$profilePhotoSaveAsName);
 
         //enregirstrement en local de la photo de la borne
         if($_FILES['electric_terminal_photo']['error'] == 0){

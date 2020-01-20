@@ -28,7 +28,7 @@
 
         .dropdown-item{
             color: #38c172;
-            font-size: 25px;
+            font-size: 15px;
         }
     </style>
 @yield('CSS')
@@ -71,7 +71,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <img src="/storage/profile_photo/{{ Auth::user()->profile_photo}}" alt="profile_photo" id="profile_photo_nav"><span class="caret"></span>
+                                    <img src="/storage/profile_photo/square/{{ Auth::user()->profile_photo}}" alt="profile_photo" id="profile_photo_nav"><span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -83,7 +83,7 @@
                                     {{ __('Mon compte') }}
                                     </a>
 
-                                
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
