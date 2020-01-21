@@ -88,7 +88,7 @@ class RegisterController extends Controller
         $destinationPathProfile = storage_path('/app/public/profile_photo/');
         $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
         //transformation du format pour qu'elle s'enregistre aussi en version carrée
-        $profilePhotoSquare = Image::make($destinationPathProfile.$profilePhotoSaveAsName)->crop(500, 500);
+        $profilePhotoSquare = Image::make($destinationPathProfile.$profilePhotoSaveAsName)->crop(150, 150);
         $profilePhotoSquare->save(storage_path('app/public/profile_photo/square/').$profilePhotoSaveAsName);
 
         //enregirstrement en local de la photo de la borne
