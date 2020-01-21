@@ -7,11 +7,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- TITRE -->
     <title>{{ config('app.name', 'Bornlib') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/form.js') }}" defer></script>
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 
     <!-- Fonts -->
@@ -21,14 +21,30 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href=" {{ asset('css/app.css') }}" />
+    <style>
+        #profile_photo_nav{
+            width: 5rem;
+            border-radius: 50px;
+        }
+
+        .dropdown-item{
+            color: #38c172;
+            font-size: 15px;
+        }
+    </style>
 @yield('CSS')
+
 </head>
+
+
+<!-- BODY -->
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
-            <img class=""src="{{ asset('storage/img/logo-voiture-electrique.jpg') }}" alt="voiture">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <!-- LOGO + NOM DU SITE -->
+                <img class=""src="{{ asset('storage/img/logo-voiture-electrique.jpg') }}" alt="voiture">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     <h1 style="font-family: 'Syncopate', sans-serif; color:#38c172;">BORN'LIB</h1>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -36,47 +52,49 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
+                    <!-- Accroche -->
                     <h5 class="navbar-nav mr-auto text-justify">
                     Trouvez (ou mettez à disposition) une borne de recharge sur Bordeaux & sa CUB
                     </h5>
 
 
-                    <!-- Right Side Of Navbar -->
+                    <!-- ESPACE AUTHENTIFICATION -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
                         @guest
+                            <!--CONNEXION-->
                             <li>
                                 <a type="button" class="nav-link btn btn-outline-success mx-3" href="{{ route('login') }}">Se connecter</a>
                             </li>
-
+                            <!--INSCRIPTION-->
                         @if (Route::has('register'))
                             <li class="nav-item ">
                                <a type="button" class="nav-link btn btn-success mx-3 text-white " href="{{ route('register') }}">S' inscrire</a>
                             </li>
-
                         @endif
 
 
                         @else
                             <li class="nav-item dropdown">
+                                <!--MENU DROPDOWN ET PHOTO DE PROFIL-->
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <span class="caret"></span>
+                                    <img src="/storage/profile_photo/square/{{ Auth::user()->profile_photo}}" alt="profile_photo" id="profile_photo_nav"><span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                    <!--ACCES A LA PAGE MON COMPTE-->
+                                    <a class="dropdown-item" href="{{ route('myaccount') }}">
+                                    {{ __('Mon compte') }}
                                     </a>
-
+                                    <!--DECONNEXION-->
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                    <a class="dropdown-item" href="{{ route('myaccount') }}">
-                                        Mon Compte
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Se déconnecter') }}
                                     </a>
+
                                 </div>
                             </li>
                         @endguest
@@ -84,22 +102,18 @@
                 </div>
             </div>
         </nav>
-
+        <!-- MAIN -->
         <main class="py-4">
             @yield('content')
         </main>
-
-    </div>
-
-<footer class="row bg-white text-center">
-    <div class="col-md-12">
-        <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
-        Mentions Légales - Contact - Copyright TEAM XXX
-        <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
-        </div>
-
-</footer>
+        <!--FOOTER -->
+        <footer class="row bg-white text-center">
+            <div class="col-md-12">
+                <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
+                Mentions Légales - <a href="{{ route('contact') }}" id="contact" style="color: black; text-decoration: underline;">Contact</a> - Copyright TEAM XXX
+                <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
+            </div>
+        </footer>
 @yield('JS')
 </body>
-
 </html>

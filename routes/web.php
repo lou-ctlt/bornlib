@@ -28,3 +28,5 @@ Route::post('admin/user/update','Admin\UserController@updateUser')->name('Update
 Route::post("/user/update", "UserController@update")->name('userUpdate');
 
 Route::get("/myaccount", "MyaccountController@index")->name("myaccount");
+
+Route::get('/contact', 'ContactController@index')->name('contact');

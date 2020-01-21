@@ -51,7 +51,6 @@ class UserController extends Controller
                                 ->withErrors($validator)
                                 ->withInput();
                             }
-        //dd($request->file('profile_photo'));
             DB::table("users")->where("id", Auth::user()->id)->update([ // Update dans users
                 "firstname" => $values["firstname"],
                 "lastname" => $values["lastname"],
@@ -85,7 +84,7 @@ class UserController extends Controller
                     "electric_terminal_photo" => $terminalPhotoSaveAsName
                 ]);
             }
-        return redirect()->route("myaccount")->with("successMessage", "Votre compte a bien été mis a jour.");
+        return redirect()->route("myaccount")->with("successMessage", "Votre compte a bien été mis à jour.");
     }
 }
 

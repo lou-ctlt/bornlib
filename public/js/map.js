@@ -36,7 +36,6 @@ $(function () {
 
         // création marqueurs sur la map
         var marker = L.marker([$latitude, $longitude]).addTo(map);
-        var marker2 = L.marker([44.797574, -0.615349]).addTo(map);
         var i=0;
 
 
@@ -76,6 +75,18 @@ $(function () {
                     geocoder: L.Control.Geocoder.nominatim()
                 }).addTo(map);
 
+                // fonction pour actualiser la map toute les X secondes/minutes:
+                function refreshMap() {
+                    $.ajax({
+                        url: "/home",
+                        method: "GET",
+                        success: function(){
+                            e.remove();
+                            L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.");
+                        }
+                    });
+                }; setInterval(refreshMap, 2000);
+
             });
 
 
@@ -94,17 +105,8 @@ $(function () {
             map = L.map("mapid").setView([newcoordonnes["0"], newcoordonnes["1"]], 12).addLayer(osm);
         });
 
-
     });
-
 
 });
 
 // route auto au clic entre 2 marqueurs
-
-
-
-
-
-
-

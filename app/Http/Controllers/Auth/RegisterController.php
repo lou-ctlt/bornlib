@@ -8,9 +8,9 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Intervention\Image\Facades\Image;
 
 class RegisterController extends Controller
 {
@@ -34,7 +34,7 @@ class RegisterController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * Create a new controller instance.
+     * N'autoriser l'accès à la page d'inscription qu'aux utilisateurs non inscrits
      *
      * @return void
      */
@@ -44,7 +44,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Le Validator permet de contrôler si les données reçues sont valides
      *
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
@@ -72,22 +72,24 @@ class RegisterController extends Controller
 
     }
     /**
-     * Create a new user instance after a valid registration.
+     * Si les données sont valides, pnt créer l'utilisateur et on l'enregistre en base de données
      *
      * @return \App\Models\User
      */
     protected function create(array $data)
     {
-
         $request = request();
 
-        //enregirstrement en local de la photo de profil
+        //enregistrement en local de la photo de profil
         $profilePhoto = $request->file('profile_photo');
         $profilePhotoSaveAsName = time() . "-profile." .
                                   $profilePhoto->getClientOriginalExtension();
 
         $destinationPathProfile = storage_path('/app/public/profile_photo/');
         $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
+        //transformation du format pour qu'elle s'enregistre aussi en version carrée
+        $profilePhotoSquare = Image::make($destinationPathProfile.$profilePhotoSaveAsName)->crop(500, 500);
+        $profilePhotoSquare->save(storage_path('app/public/profile_photo/square/').$profilePhotoSaveAsName);
 
         //enregirstrement en local de la photo de la borne
         if($_FILES['electric_terminal_photo']['error'] == 0){
@@ -113,6 +115,7 @@ class RegisterController extends Controller
         }else{
             $terminalValue = '0';
         }
+
         // Conversion de l'adresse en coordonée GPS (longitude latitude) START
         $addressToConvert = $data['address'];
         $convertedAddress = str_replace(" ", "+", $addressToConvert);
@@ -130,7 +133,6 @@ class RegisterController extends Controller
         $latidude = $resultAddress->features["0"]->geometry->coordinates["1"];
         // Conversion de l'adresse en coordonée GPS (longitude latitude) END
 
-        Mail::to($data['email'])->send(new Contact($request->except("_token")));
 
         return User::create([
             "firstname" => $data['firstname'],
@@ -151,5 +153,3 @@ class RegisterController extends Controller
 
     }
 }
-
-// Si on met que le num, features est vide
