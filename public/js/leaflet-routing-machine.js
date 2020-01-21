@@ -18277,6 +18277,16 @@ module.exports = L.Routing = {
             shadowAnchor: [4, 62],  // the same for the shadow
             popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
+        var redIcon = L.icon({
+            iconUrl: 'css/images/leaf-red.png',
+            shadowUrl: 'css/images/leaf-shadow.png',
+
+            iconSize:     [38, 95], // size of the icon
+            shadowSize:   [50, 64], // size of the shadow
+            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
 	module.exports = (L.Layer || L.Class).extend({
 
 		includes: ((typeof L.Evented !== 'undefined' && L.Evented.prototype) || L.Mixin.Events),
@@ -18300,7 +18310,15 @@ module.exports = L.Routing = {
                 if (i === 0 ) {
                     return L.marker(wp.latLng);
                 } else {
-                    return L.marker(wp.latLng, {icon: greenIcon });
+                    while(x < Object.keys(updated_at).length){
+                        var date_updated = new Date(updated_at[x]); /* On prend l'update_at de la bdd pour faire le calcul et mettre a jour les reservations */
+                        resultat = d - date_updated;
+                        resultat = resultat - 7200000;
+                        if(resultat > 0){
+                            return L.marker(wp.latLng, {icon: greenIcon });
+                        }
+                        else{return L.marker(wp.latLng, {icon: redIcon });}
+                    }
                 }
             },
 
