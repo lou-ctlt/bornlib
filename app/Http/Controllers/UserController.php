@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\deletedAccount;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\Facades\Image;
 
@@ -149,10 +151,11 @@ class UserController extends Controller
             "updated_at" => "2020-01-20 00:00:00"
         ]);
     }
-    public function delete()
+    public function delete(Request $request)
     {
+        Mail::to(Auth::user()->email)->send(new deletedAccount($request->except("_token")));
         User::where("id", Auth::user()->id)->delete();
-        return url("welcome");
+        return view ("welcome");
     }
 }
 
