@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
@@ -108,6 +109,11 @@ class UserController extends Controller
                                   $profilePhoto->getClientOriginalExtension();
             $profilePhoto->storeAs("public/profile_photo", $profilePhotoSaveAsName);
 
+            $profilePhotoSquare = Image::make(storage_path('/app/public/profile_photo/').$profilePhotoSaveAsName)->resize(500, null, function($constraint){
+                $constraint->aspectRatio();
+            })->crop(500, 500);
+            $profilePhotoSquare->save(storage_path('app/public/profile_photo/square/').$profilePhotoSaveAsName);
+
             DB::table("users")->where("id", Auth::user()->id)->update([
                 "profile_photo" => $profilePhotoSaveAsName
             ]);
@@ -130,7 +136,6 @@ class UserController extends Controller
     public function reservation(Request $request) // Méthode de réservation de la borne
     {
         $values = $request->all();
-        // dd($values);
         User::where("longitude", $values["long"])->update([
             "reserve_born" => 1
         ]);
@@ -140,7 +145,8 @@ class UserController extends Controller
     {
         $values = $request->all();
         User::where("id", $values["x"])->update([
-            "reserve_born" => 0
+            "reserve_born" => 0,
+            "updated_at" => "2020-01-20 00:00:00"
         ]);
     }
 }

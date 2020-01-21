@@ -23,17 +23,14 @@
                     foreach ($users as $user) {
                         $v1 = $user->longitude;
                         $v2 = $user->latitude;
-                        $tableau_coordonnes += [$v1 => $v2];
+                        if($user->latitude != "NULL"){
+                            $tableau_coordonnes += [$v1 => $v2];
+                        }
                         $tableau_updated_at += [$n => $user->updated_at]; // Je stocke les updated_at dans un tableau pour rafraichir les réservations
                         $n++;
                     }
             ?>
         </div>
-        <!-- On propose ici de valider l'utilisation de la borne : START -->
-        <div id="born_in_use">
-            <p></p>
-        </div>
-        <!-- On propose ici de valider l'utilisation de la borne : END -->
     </div>
 </div>
 <span>Marker icon icon by Icons8</span>
