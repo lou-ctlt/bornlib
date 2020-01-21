@@ -21,15 +21,11 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href=" {{ asset('css/app.css') }}" />
+    <link rel="stylesheet" href=" {{ asset('css/cookies.css') }}" />
+    <link rel="stylesheet" href=" {{ asset('css/navbar.css') }}" />
     <style>
-        #profile_photo_nav{
-            width: 5rem;
-            border-radius: 50px;
-        }
-
-        .dropdown-item{
-            color: #38c172;
-            font-size: 15px;
+        body{
+            background-image: url('/storage/img/background.jpg');
         }
     </style>
 @yield('CSS')
@@ -38,7 +34,6 @@
     <LINK REL="SHORTCUT ICON" href="/storage/img/favicon.ico">
 
 </head>
-
 
 <!-- BODY -->
 <body>
@@ -66,12 +61,12 @@
                         @guest
                             <!--CONNEXION-->
                             <li>
-                                <a type="button" class="nav-link btn btn-outline-success mx-3" href="{{ route('login') }}">Se connecter</a>
+                                <a type="button" class="nav-link btn btn-success mx-3 text-white" href="{{ route('login') }}">Se connecter</a>
                             </li>
                             <!--INSCRIPTION-->
                         @if (Route::has('register'))
                             <li class="nav-item ">
-                               <a type="button" class="nav-link btn btn-success mx-3 text-white " href="{{ route('register') }}">S' inscrire</a>
+                               <a type="button" class="nav-link btn btn-success mx-3 text-white" href="{{ route('register') }}">S' inscrire</a>
                             </li>
                         @endif
 
@@ -109,9 +104,10 @@
         <!-- MAIN -->
         <main class="py-4">
             @yield('content')
+            @include('cookieConsent::index')
         </main>
         <!--FOOTER -->
-        <footer class="row bg-white text-center">
+        <footer class="row bg-white text-center py-3">
             <div class="col-md-12">
                 <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
                 Mentions Légales - <a href="{{ route('contact') }}" id="contact" style="color: black; text-decoration: underline;">Contact</a> - Copyright TEAM XXX
