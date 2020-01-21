@@ -24,7 +24,7 @@
                         $v1 = $user->longitude;
                         $v2 = $user->latitude;
                         if($user->latitude != "NULL"){
-                            $tableau_coordonnes += [$v1 => $v2];
+                            $tableau_coordonnes += [$v1 => $v2]; // stockage des coordonnées au format longitude/latitude
                         }
                         $tableau_updated_at += [$n => $user->updated_at]; // Je stocke les updated_at dans un tableau pour rafraichir les réservations
                         $n++;

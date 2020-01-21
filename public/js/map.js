@@ -55,55 +55,50 @@ $(function () {
             poi[t] = [key, coordonnes[key]]; // latitude/longitude
             i++;
         };
-
-
-    /* Rafraichissement de la BDD pour les réservations START */
-    var d = new Date,
-    dformat = [d.getMonth()+1,
+        /* Rafraichissement de la BDD pour les réservations START */
+        var d = new Date,
+            dformat = [d.getMonth()+1,
                d.getDate(),
                d.getFullYear()].join('/')+' '+
               [d.getHours(),
                d.getMinutes(),
                d.getSeconds()].join(':');
+        x = 1;
 
+        while(x < Object.keys(updated_at).length){
+            var date_updated = new Date(updated_at[x]); /* On prend l'update_at de la bdd pour faire le calcul et mettre a jour les reservations */
+            resultat = d - date_updated;
+            resultat = resultat - 7200000; // On soustrait 2h
+            console.log(resultat);
+            if(resultat > 0){
+                let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                // debugger;
+                $.ajaxSetup({
+                    headers:
+                    { 'X-CSRF-TOKEN': token }
+                });
 
-    x = 1;
+                var request;
 
-    while(x < Object.keys(updated_at).length){
-        var date_updated = new Date(updated_at[x]); /* On prend l'update_at de la bdd pour faire le calcul et mettre a jour les reservations */
-        resultat = d - date_updated;
-        resultat = resultat - 7200000; // On soustrait 2h
-        console.log(resultat);
-        if(resultat > 0){
-            let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            // debugger;
-            $.ajaxSetup({
-                headers:
-                { 'X-CSRF-TOKEN': token }
-            });
-
-            var request;
-
-            request = $.ajax({ // On fait l'update de reserve_car en ajax
-                url: "/finreservation",
-                method: "POST",
-                data:
-                {
-                    x:x
-                },
-                datatype: "json"
-            });
-            request.done(function(msg) {
-                $("#result").html(msg);
-            });
-            request.fail(function(jqXHR, textStatus) {
-                $("#result").html("Request failed: " + textStatus);
-            });
+                request = $.ajax({ // On fait l'update de reserve_car en ajax
+                    url: "/finreservation",
+                    method: "POST",
+                    data:
+                    {
+                        x:x
+                    },
+                    datatype: "json"
+                });
+                request.done(function(msg) {
+                    $("#result").html(msg);
+                });
+                request.fail(function(jqXHR, textStatus) {
+                    $("#result").html("Request failed: " + textStatus);
+                });
+            }
+            x++;
         }
-        x++;
-    }
-    /* Rafraichissement de la BDD pour les réservations END */
-// création de la route au clic sur un marqueur
+         /* Rafraichissement de la BDD pour les réservations END */
 
         // création de la fonction permettant de créer les marqueurs et routes associées depuis la géolocalisation
         var boucle_marqueur_route = function(latitude_depart, longitude_depart){
@@ -194,7 +189,7 @@ $(function () {
                             }
                         });
                     }
-            });
+                });
 
             n++;
             };
@@ -202,9 +197,6 @@ $(function () {
         };
         // création de la route au clic sur un marqueur depuis la position géolocalisée
         boucle_marqueur_route(latitude, longitude);
-
-
-
 
         // fonction de recherche pour recentrer la map sur un point autre que l'actuel
         var input = document.querySelector("#recherche");
@@ -248,5 +240,3 @@ $(function () {
     });
 
 });
-
-// route auto au clic entre 2 marqueurs
