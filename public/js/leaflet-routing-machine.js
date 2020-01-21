@@ -16750,8 +16750,8 @@ module.exports = L.Routing = {
 			var collapsible = this.options.collapsible;
 
 			collapsible = collapsible || (collapsible === undefined && map.getSize().x <= 640);
-
-			this._container = L.DomUtil.create('div', 'leaflet-routing-container leaflet-bar ' +
+                // mettre un d-none pour cacher la map
+			this._container = L.DomUtil.create('div', 'leaflet-routing-container leaflet-bar d-none' +
 				(!this.options.show ? 'leaflet-routing-container-hide ' : '') +
 				(collapsible ? 'leaflet-routing-collapsible ' : '') +
 				this.options.containerClassName);
@@ -16771,7 +16771,7 @@ module.exports = L.Routing = {
 
 		onRemove: function() {
 		},
-
+            // à retirer
 		createAlternativesContainer: function() {
 			return L.DomUtil.create('div', 'leaflet-routing-alternatives-container');
 		},
@@ -16809,7 +16809,7 @@ module.exports = L.Routing = {
 			var collapsed = L.DomUtil.hasClass(this._container, 'leaflet-routing-container-hide');
 			this[collapsed ? 'show' : 'hide']();
 		},
-
+            // à retirer
 		_createAlternative: function(alt, i) {
 			var altDiv = L.DomUtil.create('div', 'leaflet-routing-alt ' +
 				this.options.alternativeClassName +
