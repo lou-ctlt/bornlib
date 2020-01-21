@@ -67,11 +67,11 @@
                         <h4>Modifications de vos informations !</h4>
                     </div> 
                     <div class="card-body">
-                        <form action="{{ route("userUpdate") }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('userUpdate') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Prénom</label>
-                                <input type="text" class="form-control input_style {{ $errors->has("firstname") ? " has-error" : ""}}" id="firstname" name="firstname" value="{{ Auth::user()->firstname }}">
+                                <input type="text" class="form-control input_style {{ $errors->has('firstname') ? ' has-error' : ''}}" id="firstname" name="firstname" value="{{ Auth::user()->firstname }}">
                                 @if ($errors->has("firstname"))
                                     <div class="alert alert-danger text-center">
                                         <span class="help-block">
@@ -82,7 +82,7 @@
                             </div>
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Nom</label>
-                                <input type="text" class="form-control input_style {{ $errors->has("lastname") ? " has-error" : "" }}" id="lastname" name="lastname" value="{{ Auth::user()->lastname }}">
+                                <input type="text" class="form-control input_style {{ $errors->has('lastname') ? ' has-error' : '' }}" id="lastname" name="lastname" value="{{ Auth::user()->lastname }}">
                                 @if ($errors->has("lastname"))
                                     <div class="alert alert-danger text-center">
                                         <span class="help-block">
@@ -93,7 +93,7 @@
                             </div>
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Email</label>
-                                <input type="email" class="form-control input_style {{ $errors->has("email") ? " has-error" : ""}}" id="email" name="email" value="{{ Auth::user()->email }}">
+                                <input type="email" class="form-control input_style {{ $errors->has('email') ? ' has-error' : ''}}" id="email" name="email" value="{{ Auth::user()->email }}">
                                 @if ($errors->has("email"))
                                     <div class="alert alert-danger text-center">
                                         <span class="help-block">
@@ -104,7 +104,7 @@
                             </div>
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Adresse</label>
-                                <input type="text" class="form-control input_style {{ $errors->has("address") ? " has-error" : ""}}" id="address" name="address" value="{{ Auth::user()->address }}">
+                                <input type="text" class="form-control input_style {{ $errors->has('address') ? ' has-error' : ''}}" id="address" name="address" value="{{ Auth::user()->address }}">
                                 @if ($errors->has("address"))
                                     <div class="alert alert-danger text-center">
                                         <span class="help-block">
@@ -115,7 +115,7 @@
                             </div>
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Plaque d'immatriculation</label>
-                                <input type="text" class="form-control input_style {{ $errors->has("license_plate") ? " has-error" : ""}}" id="license_plate" name="license_plate" value="{{ Auth::user()->license_plate }}">
+                                <input type="text" class="form-control input_style {{ $errors->has('license_plate') ? 'has-error' : ''}}" id="license_plate" name="license_plate" value="{{ Auth::user()->license_plate }}">
                                 @if ($errors->has("license_plate"))
                                     <div class="alert alert-danger text-center">
                                         <span class="help-block">
@@ -126,7 +126,7 @@
                             </div>
                             <div class="form-group card-text">
                                 <label for="exampleInputPassword1" class="font-weight-bold">Numéro de votre carte d'Identité</label>
-                                <input type="text" class="form-control input_style {{ $errors->has("ID_number") ? " has-error" : ""}}" id="ID_number" name="ID_number" value="{{ Auth::user()->ID_number }}">
+                                <input type="text" class="form-control input_style {{ $errors->has('ID_number') ? ' has-error' : ''}}" id="ID_number" name="ID_number" value="{{ Auth::user()->ID_number }}">
                                 @if ($errors->has("ID_number"))
                                     <div class="alert alert-danger text-center">
                                         <span class="help-block">
@@ -139,7 +139,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputPassword1" class="font-weight-bold">Photo de profil</label>
-                                        <input type="file" class="form-control-file mb-2 {{ $errors->has("profile_photo") ? " has-error" : ""}}" id="profile_photo" name="profile_photo">
+                                        <input type="file" class="form-control-file mb-2 {{ $errors->has('profile_photo') ?  ' has-error' : ''}}" id="profile_photo" name="profile_photo">
                                         @if ($errors->has("profile_photo"))
                                             <div class="alert alert-danger text-center">
                                                 <span class="help-block">
@@ -153,7 +153,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputPassword1" class="font-weight-bold">Photo de borne</label>
-                                        <input type="file" class="form-control-file mb-2 {{ $errors->has("electric_terminal_photo") ? " has-error" : ""}}" id="electric_terminal_photo" name="electric_terminal_photo">
+                                        <input type="file" class="form-control-file mb-2 {{ $errors->has('electric_terminal_photo') ? ' has-error' : ''}}" id="electric_terminal_photo" name="electric_terminal_photo">
                                         @if ($errors->has("electric_terminal_photo"))
                                             <div class="alert alert-danger text-center">
                                                 <span class="help-block">
@@ -192,7 +192,7 @@
                                     <button type="submit" class="btn btn-info">Modifier</button>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <a href="{{ route("password.request") }}" type="button" class="btn btn-info">Changer de MDP ??</a>
+                                    <a href="{{ route('password.request') }}" type="button" class="btn btn-info">Changer de MDP ??</a>
                                 </div>
                             </div>
                         </form>

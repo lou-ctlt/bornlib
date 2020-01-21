@@ -1,19 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(!empty($successMessage))
+        <span>{{$successMessage}}</span>
+    @endif
 
 <div class="container-fluid">
     <div class="row">
     <div class="col-md-12 text-center">
-    <h2 class="">ADMINISTRATION</h2>
+    <h2 class=""> ADMINISTRATION / TABLEAU DE BORD </h2>
     </div>
     </div>
-    <div class="row">
+    
+    <div class="row mt-3">
     <div class="col-md-10 offset-md-1">
 
 <div class="card" style="width: 72rem;">
   <div class="card-header">
-  <button class=""><a  href="{{ route('register') }}">Ajouter un utilisateur</a></button>
+  <!-- LIEN VERS L'AJOUT D'UTILISATEUR -->
+  <a type="button" class="btn btn-primary" href="{{ route('AddUser') }}">Ajouter un utilisateur</a>
   </div>
   <div class="table-striped">
     <table class="card-table table">
@@ -30,13 +35,14 @@
             <th  class="border border-grey"scope="col">CNI</th>
             <th  class="border border-grey"scope="col">CAR</th>
             <th  class="border border-grey"scope="col">BORNE</th>
-            <th class="border border-grey" scope="col">FICHE UTILISATEUR</th>
+            <th class="border border-grey" scope="col">VOIR</th>
                     
         </tr>
       </thead>
       <tbody>
         @foreach($users as $user)
-        <tr class='text-center'>
+        @if($user->role != 'admin')
+          <tr class='text-center'>
       
             <td class="border border-grey">{{$user->id}}</td>
             <td class="border border-grey">{{$user->firstname}}</td>
@@ -52,6 +58,9 @@
             </td>                
                         
         </tr>
+
+          
+        @endif
         @endforeach        
        
       </tbody>

@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) { // Création de la table User avec tous les champs nécessaire (pour la voiture et la borne de l'utilisateur)
             $value = "0";
             $table->bigIncrements('id');
+            $table->enum('role', ['user','admin'])->default('user');
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email')->unique();

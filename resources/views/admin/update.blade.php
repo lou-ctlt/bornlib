@@ -3,6 +3,12 @@
 @section('content')
 
 <div class="container">
+<div class="row">
+      <div class="col-md-3 offset-md-10">
+      <a type="button" class="btn btn-danger" href="">RETOUR</a>    
+      </div>
+    </div>
+    
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
@@ -11,7 +17,7 @@
                 <div class="card-body">
 
                     
-                    <form method="POST" action="{{route('UpdateUser')}} ">
+                    <form method="POST" action="{{route('UpdateUser')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row ">
                             
@@ -52,6 +58,7 @@
                                 @endif
                             </div>
                         </div>
+                        
                      
                         <div class="form-group row">
                             
@@ -83,19 +90,19 @@
                    
                         <div class="form-group row">
                             <div class="form-check col-md-6 offset-md-3">
-                                <input class="form-check-input" type="checkbox" id="car" value="{{ $user->car }}" name="car">
+                                <input class="form-check-input" type="checkbox" id="car" value="{{ $errors->has('car') ? old(car) : $user->car }}" name="car" >
                                 <label class="form-check-label" for="car">J'ai une voiture, je cherche une borne.</label>
                             </div>
                         </div>
-                        <div class="form-group row" id="license-plate">
+                        <div class="form-group row" id="license_plate">
                             
                             <div class="col-md-6 offset-md-3">
-                                <label for="license-plate" class="col-md-8 col-form-label">{{ __('Numéro d\'immatriculation') }}</label>
-                                <input type="text" class="form-control {{ $errors->has('license_plate') ? 'has-error' : ' '}}" name="license-plate">
+                                <label for="license_plate" class="col-md-8 col-form-label">{{ __('Numéro d\'immatriculation') }}</label>
+                                <input type="text" class="form-control {{ $errors->has('license_plate') ? 'has-error' : ' '}}" name="license_plate" value="{{ $errors->has('license_plate') ? old(license_plate) : $user->license_plate }} ">
                           
-                                @if ( $errors->has('license-plate') )
+                                @if ( $errors->has('license_plate') )
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('license-plate') }}</strong> 
+                                        <strong>{{ $errors->first('license_plate') }}</strong> 
                                     </span>
                                 @endif
                             </div>
@@ -113,7 +120,7 @@
                             <div class="col-md-6 offset-md-3">
                                 <img src="" alt="">
                                 <label for="electric_terminal_photo" class="col-md-8 col-form-label">{{ __('Changer la photo de la borne') }}</label>
-                                <input type="file" class="form-control-file {{ $errors->has('electric_terminal_photo') ? 'has-error' : ' '}}" name="">
+                                <input type="file" class="form-control-file {{ $errors->has('electric_terminal_photo') ? 'has-error' : ' '}}" name="electric_terminal_photo" value="{{ $errors->has('electric_terminal_photo') ? old(electric_terminal_photo) : $user->electric_terminal }}">
                              
                                 @if ( $errors->has('license-plate') )
                                     <span class="help-block">
@@ -128,7 +135,7 @@
                             <div class="col-md-6 offset-md-3">
                                 <img src="" alt="">  
                                 <label for="profile_photo" class="col-md-8 col-form-label">{{ __('Changer la photo du profil') }}</label>
-                                <input id="profile_photo" type="file" class="form-control-file @error('profile_photo') is-invalid @enderror" name="profile_photo" >
+                                <input id="profile_photo" type="file" class="form-control-file @error('profile_photo') is-invalid @enderror" name="profile_photo" value="{{ $errors->has('profile_photo') ? old(profile_photo) : $user->profile }}" >
                             
                                 
                                 
@@ -148,4 +155,9 @@
         </div>
         <!-- END Form -->
     </div>
-</div>-
+</div>
+@endsection('content')
+@section('JS')
+<script src="{{asset('js/admin.js')}}"> </script> 
+<script src="{{asset('js/form.js')}}"> </script> 
+@endsection

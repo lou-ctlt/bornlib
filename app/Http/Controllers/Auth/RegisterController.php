@@ -79,6 +79,7 @@ class RegisterController extends Controller
     {
 
         $request = request();
+        //dd($request);
 
         //enregirstrement en local de la photo de profil
         $profilePhoto = $request->file('profile_photo');
@@ -98,6 +99,7 @@ class RegisterController extends Controller
             $terminalPhoto->move($destinationPathTerminal, $terminalPhotoSaveAsName);
         }else{
             $terminalPhotoSaveAsName = "NULL";
+
         }
 
         //contrôle sur les checkbox
@@ -112,6 +114,7 @@ class RegisterController extends Controller
         }else{
             $terminalValue = '0';
         }
+        
         // Conversion de l'adresse en coordonée GPS (longitude latitude) START
         $addressToConvert = $data['address'];
         $convertedAddress = str_replace(" ", "+", $addressToConvert);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -37,4 +38,24 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    
+
+    // some other functions go here
+
+    protected function authenticated(Request $request, $user)
+    {
+        // to admin dashboard
+        if($user->admin()) {
+            return redirect(route('Admin'));
+        }
+
+        // to user dashboard
+        else if($user->user()) {
+            return redirect(route('home'));
+        }
+
+        abort(404);
+    }
+    
 }
