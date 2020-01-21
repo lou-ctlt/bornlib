@@ -40,12 +40,24 @@
                     <p class="card-text"><span class="font-weight-bold">Numéro de votre carte d'Identité : </span>{{ Auth::user()->ID_number }}</p>
                     <p class="card-text"><span class="font-weight-bold">Voiture : </span><?php if( Auth::user()->car == 1) { echo "oui";} else{echo "non";} ?></p>
                     <p class="card-text"><span class="font-weight-bold">Borne éléctrique : </span><?php if( Auth::user()->electric_terminal == 1) { echo "oui";} else{echo "non";} ?></p>
-                    <div class="text-right">
-                        <button class="btn btn-info" id="form_pop_button">Modifications</button>
+                    <div class="row d-flex justify-content-between mx-1">
+                        <div>
+                            <button class="btn btn-info" id="suppr_compte">Suppression</button>
+                        </div>
+                        <div>
+                            <button class="btn btn-info" id="form_pop_button">Modifications</button>
+                        </div>
                     </div>
+                    <form action="{{ route("delete") }}" id="suppr_confirm" class="text-center mt-2" method="POST">
+                        @csrf
+
+                    </form>
+                    {{-- <div class="mt-2 text-center">
+                        <small>Pensez à laisser les pages de dialogues popup s'ouvrir !</small>
+                    </div> --}}
                 </div>
                 <div class="card-footer text-muted">
-                    Votre compte date du : {{ Auth::user()->created_at }}
+                    Votre compte date du : {{ Auth::user()->created_at->format("d M Y") }}
                 </div>
             </div>
         </div>

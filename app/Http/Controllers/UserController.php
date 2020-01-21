@@ -149,5 +149,10 @@ class UserController extends Controller
             "updated_at" => "2020-01-20 00:00:00"
         ]);
     }
+    public function delete()
+    {
+        User::where("id", Auth::user()->id)->delete();
+        return url("welcome");
+    }
 }
 
