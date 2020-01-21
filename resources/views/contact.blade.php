@@ -1,24 +1,22 @@
 @extends('layouts.app')
 
+@section('CSS')
+<link rel="stylesheet" href=" {{ asset('css/contact.css') }}" />
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Nous contacter') }}</div>
-
                 <!-- START Contact Form -->
-                <form>
-                    <div class="card border-primary rounded-0">
+                <form class="py-5">
+                    <div class="card border-success rounded-0">
                         <div class="card-header p-0">
-                            <div class="bg-info text-white text-center py-2">
+                            <div class="bg-success text-white text-center py-2">
                                 <h3><i class="fa fa-envelope"></i>Nous contacter</h3>
                                 <p class="m-0">Une question ? Une suggestion ? On vous écoute !</p>
                             </div>
                         </div>
                         <div class="card-body p-3">
-
-                            <!--Body-->
                             <div class="form-group">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
@@ -62,12 +60,15 @@
                             </div>
 
                             <div class="text-center">
-                                <input id="sendmail" type="button" value="Envoyer" class="btn btn-info btn-block rounded-0 py-2">
+                                <input id="sendmail" type="button" value="Envoyer" class="btn btn-block text-white rounded-0 py-2">
                             </div>
                         </div>
                     </div>
                 </form>
                 <!-- END Contact Form -->
+        </div>
+    </div>
+</div>
 
 
 @endsection

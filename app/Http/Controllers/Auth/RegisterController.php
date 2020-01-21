@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Mail\Contact;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
 
 class RegisterController extends Controller
@@ -88,7 +86,9 @@ class RegisterController extends Controller
         $destinationPathProfile = storage_path('/app/public/profile_photo/');
         $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
         //transformation du format pour qu'elle s'enregistre aussi en version carrée
-        $profilePhotoSquare = Image::make($destinationPathProfile.$profilePhotoSaveAsName)->crop(150, 150);
+        $profilePhotoSquare = Image::make($destinationPathProfile.$profilePhotoSaveAsName)->resize(500, null, function ($constraint) {
+            $constraint->aspectRatio();
+        })->crop(300, 300);
         $profilePhotoSquare->save(storage_path('app/public/profile_photo/square/').$profilePhotoSaveAsName);
 
         //enregirstrement en local de la photo de la borne

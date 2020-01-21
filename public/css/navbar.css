@@ -1,0 +1,13 @@
+#profile_photo_nav{
+    width: 5rem;
+    border-radius: 50px;
+}
+
+.dropdown-item{
+    color: #38c172;
+    font-size: 15px;
+}
+
+.font-bornlib{
+    font-family: 'Syncopate', sans-serif;
+}
