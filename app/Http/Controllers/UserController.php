@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function update(Request $request)
     {
         $values = $request->all();// On récupère toutes la valeurs du formulaire d'update

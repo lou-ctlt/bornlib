@@ -60,9 +60,9 @@ $(function () {
     while(x < Object.keys(updated_at).length){
         var date_updated = new Date(updated_at[x]);/* On prend l'update_at de la bdd pour faire le calcul et mettre a jour les reservations */
         resultat = d - date_updated;
-        resultat = resultat - 5400000;// On soustrait 1h30 (30min + une heure car notre site est 1heure en retard dans la BDD)
+        resultat = resultat - 1800000;// On soustrait 1h30 (30min + une heure car notre site est 1heure en retard dans la BDD)
 
-        console.log(x);
+
         if(resultat > 0){
             let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             // debugger;
@@ -101,10 +101,10 @@ $(function () {
 
                 var date_updated = new Date(updated_at[n]);/* On prend l'update_at de la bdd pour créer des marqueurs adapté aux reservations */
                     resultat = d - date_updated;
-                    resultat = resultat - 3600000;
+                    resultat = resultat - 1800000;
 
 
-                var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon}).addTo(map).bindPopup(); // création marqueur et popup associée
+                var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon, time:resultat}).addTo(map).bindPopup(); // création marqueur et popup associée
 
 
 
@@ -114,13 +114,17 @@ $(function () {
                     long = event["latlng"]["lng"];
 
 
+                    let idform = lat.toString(); // On se débrouille pour donné un ID dynamique pour le reserve_form
+                    idform = idform.replace(".", "");
+
                     // création du lien vers google maps dans la popup avec les coordonnées
-                    if(resultat > 0){
+                    if(this.options.time > 0){
                         this._popup.setContent( // création du lien vers google maps dans la popup avec les coordonnées
-                                                                                "<form class='toto' id='reserve_form" + n + "' method='post' action='reservation'>" +  // et d'un formulaire pour l'update de la réservation si la voiture n'est pas réservé
+                                                                                "<form class='toto' id='reserve_form" + idform + "' method='post' action='reservation'>" +  // et d'un formulaire pour l'update de la réservation si la voiture n'est pas réservé
                                                                                     "<button type='submit' class='mt-2 btn btn-info' id='reserve_born' name='reserve_born' value='reserve_born'>Réserver</button>" +
                                                                                 "</form>" +
                                                                                 "<br><a href='https://www.google.fr/maps/dir/"+ latitude +","+ longitude +"/" + lat + ","+ long + "/data=!4m2!4m1!3e0' target='_blank'>test</a>");
+
                     }
                     else{
                         this._popup.setContent("<span style='color:tomato;'>Cette borne est actellement réservée.<span>");
@@ -134,9 +138,8 @@ $(function () {
                         ],
                         routeWhileDragging: true
                     }).addTo(map);
-                    let reserve_form = document.querySelector("#reserve_form" + n + ""); // On récupère le form dynamiquement
+                    let reserve_form = document.querySelector("#reserve_form" + idform + ""); // On récupère le form dynamiquement
 
-                    // console.log(this.options.id);
 
                     reserve_form.addEventListener("submit", function (e) {
                         let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // On met le token pour le form
@@ -146,7 +149,7 @@ $(function () {
 
                         if(confirmation === "ok"){
                             $(document).ready(function(){
-                                console.log("toto");
+
                                 $.ajaxSetup({
                                     headers:
                                     { 'X-CSRF-TOKEN': token } // On met le token pour le form
@@ -178,7 +181,7 @@ $(function () {
 
             /* On propose ici de valider l'utilisation de la borne : START */
             let born_in_use = document.querySelector("#born_in_use");
-            console.log(born_in_use);
+
             addEventListener
             $(born_in_use).replaceWith("<p>Voici la latitude de cette borne " +  lat + "</p>");
             /* On propose ici de valider l'utilisation de la borne : END */
@@ -230,8 +233,8 @@ $(function () {
 
                     var date_updated = new Date(updated_at[n]);/* On prend l'update_at de la bdd pour créer des marqueurs adapté aux reservations */
                     resultat = d - date_updated;
-                    resultat = resultat - 5400000;
-                    // console.log(resultat);
+                    resultat = resultat - 1800000;
+
 
 
                     var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon}).addTo(map).bindPopup();
