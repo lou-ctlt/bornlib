@@ -34,6 +34,9 @@
     </style>
 @yield('CSS')
 
+    <!-- FAVICON -->
+    <LINK REL="SHORTCUT ICON" href="/storage/img/favicon.ico">
+
 </head>
 
 
