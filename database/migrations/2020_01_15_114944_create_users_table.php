@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) { // Création de la table User avec tous les champs nécessaire (pour la voiture et la borne de l'utilisateur)
+        Schema::create('users', function (Blueprint $table) { // Création de la table Users avec tous les champs nécessaires (pour la voiture et la borne de l'utilisateur)
             $table->bigIncrements('id');
             $table->string('firstname');
             $table->string('lastname');
