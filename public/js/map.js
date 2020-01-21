@@ -32,7 +32,7 @@ $(function () {
         });
 
         // création marqueurs sur la map
-        var marker = L.marker([$latitude, $longitude]).addTo(map);
+        var marker = L.marker([latitude, longitude]).addTo(map);
         var i=0;
 
         // boucle pour récupérer les coordonnées GPS
@@ -64,7 +64,7 @@ $(function () {
         resultat = resultat - 1800000;// On soustrait 1h30 (30min + une heure car notre site est 1heure en retard dans la BDD)
 
 
-        if(resultat > 0){
+        if(resultat < 0){
             let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             // debugger;
             $.ajaxSetup({
@@ -139,9 +139,10 @@ $(function () {
                         ],
                         routeWhileDragging: true
                     }).addTo(map);
+
                     let reserve_form = document.querySelector("#reserve_form" + idform + ""); // On récupère le form dynamiquement
 
-
+                    console.log(reserve_form);
                     reserve_form.addEventListener("submit", function (e) {
                         let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // On met le token pour le form
                         e.preventDefault ? e.preventDefault() : (e.returnValue = false); // On block l'envoi du formulaire
