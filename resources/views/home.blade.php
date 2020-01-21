@@ -10,7 +10,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="col-md-12 px-0 d-flex justify-content-around">
-                <label for="" class="col-md-2 px-0">Recherche de borne vers :</label>
+                <label for="" class="col-md-2 px-0">Recherche de borne vers : </label>
                 <input type="text" id="recherche" value="" name="test" class="col-md-7 px-0 ">
                 <input type="button" value="chercher"  class="col-md-1 " id="recherche_button">
                 <input type="button" id="localisation" value="recentrer" class="col-md-1 ">
