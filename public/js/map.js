@@ -32,7 +32,7 @@ $(function () {
         });
 
         // création marqueurs sur la map
-        var marker = L.marker([$latitude, $longitude]).addTo(map);
+        var marker = L.marker([latitude, longitude]).addTo(map);
         var i=0;
 
         // boucle pour récupérer les coordonnées GPS
