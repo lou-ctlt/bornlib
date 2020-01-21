@@ -39,4 +39,13 @@
           });
     })
     /* Fonction pour afficher la photo uploadé par l'utilisateur : END */
+
+    $('.car').click(function(){
+        $("<span class='require_note' id='car_note' style='color: tomato;'>Mention obligatoire</span>").insertAfter($('#license_plate'));
+        $('#license_plate').prop('required', true);
+    })
+    $('.nocar').click(function(){
+        $("#car_note").remove();
+        $('#license_plate').prop('required', false);
+    })
 })()
