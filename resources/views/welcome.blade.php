@@ -19,7 +19,7 @@
                     </h3>
                     <h5 class="text-center mt-3">Trouvez une borne de recharge disponible sur Bordeaux & sa CUB</h5>
                     <div class="col-md-8 offset-md-2">
-                        <img class="w-100 mt-3 "src="{{asset('storage/img/images.jfif')}}" alt="carte">
+                        <img class="w-80 mt-3 "src="{{asset('storage/img/carte.jpg')}}" alt="carte">
                     </div>
                 </div>
             </div>

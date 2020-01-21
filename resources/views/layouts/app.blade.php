@@ -109,9 +109,7 @@
         <!--FOOTER -->
         <footer class="row bg-white text-center py-3">
             <div class="col-md-12">
-                <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
                 Mentions Légales - <a href="{{ route('contact') }}" id="contact" style="color: black; text-decoration: underline;">Contact</a> - Copyright TEAM XXX
-                <img class="w-10"src="{{asset('storage/img/logo-voiture-electrique.jpg')}}" alt="voiture">
             </div>
         </footer>
 @yield('JS')
