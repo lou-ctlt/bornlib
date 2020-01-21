@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('formatedaddress', function($attribute, $value, $parameters) {
 
         // Conversion de l'adresse en coordonée GPS (longitude latitude) START
+
         $addressToConvert = $value;
         $convertedAddress = str_replace(" ", "+", $addressToConvert);
         $ch = curl_init(); //curl handler init
@@ -36,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
         curl_setopt($ch,CURLOPT_HEADER, false);
 
         $resultAddress=curl_exec($ch);
+
         $resultAddress=json_decode($resultAddress);// On transforme le JSON en tableau d'objets php
 
         curl_close($ch);

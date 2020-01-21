@@ -64,13 +64,22 @@
             <div id="mapid" class="col-md-12 mt-3"></div>
             <?php
             $tableau_coordonnes =[];
-            foreach ($users as $user) {
-                $latitude = $user->latitude;
-                $longitude = $user->longitude;
-                $tableau_coordonnes += [$latitude => $longitude];
-            }
+                    $tableau_updated_at =[];
+                    $n=1;
+                    foreach ($users as $user) {
+                        $v1 = $user->longitude;
+                        $v2 = $user->latitude;
+                        $tableau_coordonnes += [$v1 => $v2];
+                        $tableau_updated_at += [$n => $user->updated_at]; // Je stocke les updated_at dans un tableau pour rafraichir les réservations
+                        $n++;
+                    }
             ?>
         </div>
+        <!-- On propose ici de valider l'utilisation de la borne : START -->
+        <div id="born_in_use">
+            <p></p>
+        </div>
+        <!-- On propose ici de valider l'utilisation de la borne : END -->
     </div>
 </div>
 
@@ -79,6 +88,7 @@
 
 @section('JS')
 
+<script>var updated_at = <?= json_encode($tableau_updated_at); ?></script>
 <script>var coordonnes = <?= json_encode($tableau_coordonnes); ?></script>
 <script src="{{ asset('js/leaflet.js') }}"></script>
 <script src="{{ asset('js/leaflet-routing-machine.js') }}"></script>

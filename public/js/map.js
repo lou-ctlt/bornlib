@@ -35,79 +35,165 @@ $(function () {
         var marker = L.marker([$latitude, $longitude]).addTo(map);
         var i=0;
 
+        // boucle pour récupérer les coordonnées GPS
+        var i=0;
         var poi = [] ;
         for(var key in coordonnes){
 
             var value = coordonnes[key];
             var t="marker"+i;
-            poi[t] = [key, coordonnes[key]];
+            poi[t] = [key, coordonnes[key]]; // latitude/longitude
             i++;
         };
 
+    /* Rafraichissement de la BDD pour les réservations START */
+    var d = new Date,
+    dformat = [d.getMonth()+1,
+               d.getDate(),
+               d.getFullYear()].join('/')+' '+
+              [d.getHours(),
+               d.getMinutes(),
+               d.getSeconds()].join(':');
+
+
+    x = 1;
+
+    while(x < Object.keys(updated_at).length){
+        var date_updated = new Date(updated_at[x]);/* On prend l'update_at de la bdd pour faire le calcul et mettre a jour les reservations */
+        resultat = d - date_updated;
+        resultat = resultat - 1800000;// On soustrait 1h30 (30min + une heure car notre site est 1heure en retard dans la BDD)
+
+
+        if(resultat > 0){
+            let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            // debugger;
+            $.ajaxSetup({
+                headers:
+                { 'X-CSRF-TOKEN': token }
+            });
+
+            var request;
+
+            request = $.ajax({ // On fait l'update de reserve_car en ajax
+                url: "/finreservation",
+                method: "POST",
+                data:
+                {
+                    x:x
+                },
+                datatype: "json"
+            });
+            request.done(function(msg) {
+                $("#result").html(msg);
+            });
+            request.fail(function(jqXHR, textStatus) {
+                $("#result").html("Request failed: " + textStatus);
+            });
+        }
+        x++;
+    }
+    /* Rafraichissement de la BDD pour les réservations END */
+// création de la route au clic sur un marqueur
+
         // création de la fonction permettant de créer les marqueurs et routes associées depuis la géolocalisation
-        var boucle_geolocalisation = function(){
+        var boucle_marqueur_route = function(latitude_depart, longitude_depart){
+            let n = 1;
             for (var e in poi){
 
-                var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon}).addTo(map).bindPopup(); // création marqueur et popup associée
+                var date_updated = new Date(updated_at[n]);/* On prend l'update_at de la bdd pour créer des marqueurs adapté aux reservations */
+                    resultat = d - date_updated;
+                    resultat = resultat - 1800000;
+
+
+                var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon, time:resultat}).addTo(map).bindPopup(); // création marqueur et popup associée
+
+
 
                 element.on("click", function (event) {
                     var clickedMarker = event.layer;
                     lat = event["latlng"]["lat"];
                     long = event["latlng"]["lng"];
+
+
+                    let idform = lat.toString(); // On se débrouille pour donné un ID dynamique pour le reserve_form
+                    idform = idform.replace(".", "");
+
                     // création du lien vers google maps dans la popup avec les coordonnées
-                    this._popup.setContent("<a href='https://www.google.fr/maps/dir/"+ latitude +","+ longitude +"/" + lat + ","+ long + "/data=!4m2!4m1!3e0' target='_blank'>test</a>")
+                    if(this.options.time > 0){
+                        this._popup.setContent( // création du lien vers google maps dans la popup avec les coordonnées
+                                                                                "<form class='toto' id='reserve_form" + idform + "' method='post' action='reservation'>" +  // et d'un formulaire pour l'update de la réservation si la voiture n'est pas réservé
+                                                                                    "<button type='submit' class='mt-2 btn btn-info' id='reserve_born' name='reserve_born' value='reserve_born'>Réserver</button>" +
+                                                                                "</form>" +
+                                                                                "<br><a href='https://www.google.fr/maps/dir/"+ latitude_depart +","+ longitude_depart +"/" + lat + ","+ long + "/data=!4m2!4m1!3e0' target='_blank'>Lien vers Google Maps</a>");
+
+                    }
+                    else{
+                        this._popup.setContent("<span style='color:tomato;'>Cette borne est actellement réservée.<span>");
+                    }
 
 
                     L.Routing.control({ // création de la route au clic
                         waypoints: [
-                            L.latLng([latitude, longitude]),
+                            L.latLng([latitude_depart, longitude_depart]),
                             L.latLng(lat, long)
                         ],
                         routeWhileDragging: true
                     }).addTo(map);
+                    let reserve_form = document.querySelector("#reserve_form" + idform + ""); // On récupère le form dynamiquement
 
-                });
+
+                    reserve_form.addEventListener("submit", function (e) {
+                        let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // On met le token pour le form
+                        e.preventDefault ? e.preventDefault() : (e.returnValue = false); // On block l'envoi du formulaire
+
+                        confirmation = window.prompt("Etes-vous sûr de vouloir réserver cette borne ? \n Attention, cette action bloque cette borne pour vous et empêche toutes autres réservations pendant 30 minutes.\n Ecrivez 'ok' si vous êtes sur !");
+
+                        if(confirmation === "ok"){
+                            $(document).ready(function(){
+
+                                $.ajaxSetup({
+                                    headers:
+                                    { 'X-CSRF-TOKEN': token } // On met le token pour le form
+                                });
+
+                                var request;
+
+                                request = $.ajax({ // On fait l'envoi du form par requette ajax
+                                    url: "/reservation",
+                                    method: "POST",
+                                    data:
+                                    {
+                                        lat : lat,
+                                        long : long
+                                    },
+                                    datatype: "json"
+                                });
+
+                                request.done(function(msg) {
+                                    $("#result").html(msg);
+                                });
+
+                                request.fail(function(jqXHR, textStatus) {
+                                    $("#result").html("Request failed: " + textStatus);
+                                });
+                            });
+                        }
+                    });
+
+            /* On propose ici de valider l'utilisation de la borne : START */
+            let born_in_use = document.querySelector("#born_in_use");
+
+            addEventListener
+            $(born_in_use).replaceWith("<p>Voici la latitude de cette borne " +  lat + "</p>");
+            /* On propose ici de valider l'utilisation de la borne : END */
+            });
+
+            n++;
             };
 
         };
-        // création de la route au clic sur un marqueur
-
-        // présence des popup => peut créer 2 rou plus routes, essayer de sortir l'itinéraire de la map? enclencher la route via un bouton dans la popup? ne pas poser de marqueur lors du clic
-        for (var e in poi){
-
-            var e = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup."); // création marqueur et popu associée
-            e.on("click", function (event) {
-                var clickedMarker = event.layer;
-
-                lat = event["latlng"]["lat"];
-                long = event["latlng"]["lng"];
-                L.Routing.control({ // création de la route au clic
-                    waypoints: [
-                        L.latLng([$latitude, $longitude]),
-                        L.latLng(lat, long)
-                    ],
-                    routeWhileDragging: true,
-                    geocoder: L.Control.Geocoder.nominatim()
-                }).addTo(map);
-
-                // fonction pour actualiser la map toute les X secondes/minutes:
-                function refreshMap() {
-                    $.ajax({
-                        url: "/home",
-                        method: "GET",
-                        success: function(){
-                            e.remove();
-                            L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.");
-                        }
-                    });
-                }; setInterval(refreshMap, 2000);
-
-            });
-
-
-        }
-
-        boucle_geolocalisation();
+        // création de la route au clic sur un marqueur depuis la position géolocalisée
+        boucle_marqueur_route(latitude, longitude);
 
 
 
@@ -132,37 +218,18 @@ $(function () {
                     marker = L.marker([latitude1, longitude1]).addTo(map);
                     var recentrer = document.querySelector("#localisation");
 
-                    // fonction pour recentrer sur la géolocalisation
+                    // fonction pour recentrer sur la map depuis la position géolocalisée
                     recentrer.addEventListener("click", function(){
                         map.remove();
                         map = L.map("mapid").setView([latitude, longitude], 12).addLayer(osm);
                         marker = L.marker([latitude, longitude]).addTo(map);
-                        boucle_geolocalisation();
+
+                        boucle_marqueur_route(latitude, longitude);
                     });
 
 
-                    // fonction pour recréer les marqueurs après remove de la map
-                for (var e in poi){
-
-                    var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon}).addTo(map).bindPopup();
-
-                    element.on("click", function (event) {
-
-                        var clickedMarker = event.layer;
-                        lat = event["latlng"]["lat"];
-                        long = event["latlng"]["lng"];
-                        // création du lien vers google maps dans la popup avec les coordonnées
-                        this._popup.setContent("<a href='https://www.google.fr/maps/dir/"+ latitude1 +","+ longitude1 +"/" + lat + ","+ long + "/data=!4m2!4m1!3e0' target='_blank'>test</a>");
-                        // création de la route au clic
-                        L.Routing.control({
-                            waypoints: [
-                                L.latLng([latitude1, longitude1]),
-                                L.latLng(lat, long)
-                                ],
-                                routeWhileDragging: true
-                            }).addTo(map);
-                        });
-                    }
+                    // appel de la fonction pour recréer les marqueurs/routes après
+               boucle_marqueur_route(latitude1, longitude1);
                 },
                 error: function (errors) {
                     console.log(errors);

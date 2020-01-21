@@ -11,13 +11,13 @@
 |
 */
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/',function(){
     return view ("welcome");
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');;
 
 Route::get('/admin','Admin\UserController@index')->name('Admin');
 Route::get('/admin/user/delete','Admin\UserController@deleteUser')->name('DeleteUser');
@@ -25,8 +25,12 @@ Route::get('/admin/user/show','Admin\UserController@showUser')->name('ShowUser')
 Route::get('/admin/user/edit','Admin\UserController@editUser')->name('EditUser');
 Route::post('admin/user/update','Admin\UserController@updateUser')->name('UpdateUser');
 
-Route::post("/user/update", "UserController@update")->name('userUpdate');
+Route::post("/user/update", "UserController@update")->name('userUpdate')->middleware('verified');;
 
-Route::get("/myaccount", "MyaccountController@index")->name("myaccount");
+Route::get("/myaccount", "MyaccountController@index")->name("myaccount")->middleware('verified');;
+
+Route::post("/reservation", "UserController@reservation")->name("reservation");
+
+Route::post("/finreservation", "UserController@finreservation")->name("finreservation");
 
 Route::get('/contact', 'ContactController@index')->name('contact');
