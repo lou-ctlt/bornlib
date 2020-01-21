@@ -34,34 +34,35 @@ $(function () {
         // création marqueurs sur la map
         var marker = L.marker([latitude, longitude]).addTo(map);
         var marker2 = L.marker([44.797574, -0.615349]).addTo(map);
-        var i=0;
 
+        // boucle pour récupérer les coordonnées GPS
+        var i=0;
         var poi = [] ;
         for(var key in coordonnes){
 
             var value = coordonnes[key];
             var t="marker"+i;
-            poi[t] = [key, coordonnes[key]];
+            poi[t] = [key, coordonnes[key]]; // latitude/longitude
             i++;
         };
 
         // création de la fonction permettant de créer les marqueurs et routes associées depuis la géolocalisation
-        var boucle_geolocalisation = function(){
+        var boucler_marqueur_route = function(latitude_depart, longitude_depart){
             for (var e in poi){
 
-                var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon}).addTo(map).bindPopup(); // création marqueur et popup associée
+                var element = L.marker([poi[e][0], poi[e][1]], {icon: greenIcon}).addTo(map).bindPopup(); // création marqueur et popup associée
 
                 element.on("click", function (event) {
                     var clickedMarker = event.layer;
                     lat = event["latlng"]["lat"];
                     long = event["latlng"]["lng"];
                     // création du lien vers google maps dans la popup avec les coordonnées
-                    this._popup.setContent("<a href='https://www.google.fr/maps/dir/"+ latitude +","+ longitude +"/" + lat + ","+ long + "/data=!4m2!4m1!3e0' target='_blank'>test</a>")
+                    this._popup.setContent("<a href='https://www.google.fr/maps/dir/"+ latitude_depart +","+ longitude_depart +"/" + lat + ","+ long + "/data=!4m2!4m1!3e0' target='_blank'>Lien vers Google Maps</a>")
 
 
                     L.Routing.control({ // création de la route au clic
                         waypoints: [
-                            L.latLng([latitude, longitude]),
+                            L.latLng([latitude_depart, longitude_depart]),
                             L.latLng(lat, long)
                         ],
                         routeWhileDragging: true
@@ -71,8 +72,8 @@ $(function () {
             };
 
         };
-        // création de la route au clic sur un marqueur
-        boucle_geolocalisation();
+        // création de la route au clic sur un marqueur depuis la position géolocalisée
+        boucler_marqueur_route(latitude, longitude);
 
 
 
@@ -97,37 +98,18 @@ $(function () {
                     marker = L.marker([latitude1, longitude1]).addTo(map);
                     var recentrer = document.querySelector("#localisation");
 
-                    // fonction pour recentrer sur la géolocalisation
+                    // fonction pour recentrer sur la map depuis la position géolocalisée
                     recentrer.addEventListener("click", function(){
                         map.remove();
                         map = L.map("mapid").setView([latitude, longitude], 12).addLayer(osm);
                         marker = L.marker([latitude, longitude]).addTo(map);
-                        boucle_geolocalisation();
+
+                        boucler_marqueur_route(latitude, longitude);
                     });
 
 
-                    // fonction pour recréer les marqueurs après remove de la map
-                for (var e in poi){
-
-                    var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon}).addTo(map).bindPopup();
-
-                    element.on("click", function (event) {
-
-                        var clickedMarker = event.layer;
-                        lat = event["latlng"]["lat"];
-                        long = event["latlng"]["lng"];
-                        // création du lien vers google maps dans la popup avec les coordonnées
-                        this._popup.setContent("<a href='https://www.google.fr/maps/dir/"+ latitude1 +","+ longitude1 +"/" + lat + ","+ long + "/data=!4m2!4m1!3e0' target='_blank'>test</a>");
-                        // création de la route au clic
-                        L.Routing.control({
-                            waypoints: [
-                                L.latLng([latitude1, longitude1]),
-                                L.latLng(lat, long)
-                                ],
-                                routeWhileDragging: true
-                            }).addTo(map);
-                        });
-                    }
+                    // appel de la fonction pour recréer les marqueurs/routes après
+               boucler_marqueur_route(latitude1, longitude1);
                 },
                 error: function (errors) {
                     console.log(errors);
