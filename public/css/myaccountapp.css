@@ -7,16 +7,6 @@
     box-shadow: 2px 2px 3px 1px;
     opacity: 0.7;
 }
-.img_myaccount {
-    width: 100%;
-    height: auto;
-    vertical-align: middle;
-}
-.img_myaccount_wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 .input_style:hover {
     box-shadow: 0px 0px 3px 2px hsla(112, 70%, 60%);
 }
@@ -26,4 +16,7 @@
 .radio_style::before {
     border-radius: 50%;
     border-color: hsla(112, 70%, 60%);
+}
+.warning_born {
+    color: hsla(112, 70%, 60%);
 }
