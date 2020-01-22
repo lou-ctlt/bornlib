@@ -29,7 +29,7 @@
     @endif
     <div class="row">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card mt-2">
                 <div class="card-header text-center card_head_style">
                     <h4>Bienvenu {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}, voici vos informations !</h4>
                 </div>
@@ -55,10 +55,10 @@
                     <p class="card-text"><span class="font-weight-bold">Voiture : </span><?php if( Auth::user()->car == 1) { echo "oui";} else{echo "non";} ?></p>
                     <p class="card-text"><span class="font-weight-bold">Borne éléctrique : </span><?php if( Auth::user()->electric_terminal == 1) { echo "oui";} else{echo "non";} ?></p>
                     <div class="row d-flex justify-content-between mx-1">
-                        <div class="mt-2">
+                        <div class="mt-2 bouton_resp">
                             <button class="btn btn-info" id="suppr_compte">Suppression</button>
                         </div>
-                        <div class="mt-2">
+                        <div class="mt-2 bouton_resp">
                             <button class="btn btn-info" id="form_pop_button">Modifications</button>
                         </div>
                     </div>
@@ -203,10 +203,10 @@
                                 </div>
                             </div>
                             <div class="row card-text">
-                                <div class="col-md-6 mt-2">
+                                <div class="col-md-6 mt-2 bouton_resp">
                                     <button type="submit" class="btn btn-info">Modifier</button>
                                 </div>
-                                <div class="col-md-6 text-right mt-2">
+                                <div class="col-md-6 text-right mt-2 bouton_resp">
                                     <a href="{{ route("password.request") }}" type="button" class="btn btn-info">Changer de MDP ??</a>
                                 </div>
                             </div>

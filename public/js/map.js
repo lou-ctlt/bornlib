@@ -215,6 +215,11 @@ $(function () {
             var input_value = input.value;
             var input_modif = input_value.replace(/ /g, "+");
             // requete AJAX pour consulter l'API afin de récupérer les coordonnées GPS
+
+            $.ajaxSetup({
+                headers:
+                { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            });
             $.ajax({
                 url: "https://api-adresse.data.gouv.fr/search/?q="+input_modif,
                 method: "GET",
