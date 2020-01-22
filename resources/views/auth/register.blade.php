@@ -133,7 +133,7 @@
                                 <label for="electric_terminal_photo" class="col-md-4 col-form-label">{{ __('Choisir une photo de ma borne') }}</label>
                                 <input type="file" id="electric_terminal_photo"  class="form-control-file" name="electric_terminal_photo">
                             </div>
-                            <div class="col-md-4 offset-md-8">
+                            <div class="col-md-8 offset-md-4">
                                 <img src="" id="img_electric_terminal_photo" class="w-100">
                             </div>
                         </div>
