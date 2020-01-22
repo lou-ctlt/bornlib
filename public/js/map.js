@@ -152,7 +152,7 @@ $(function () {
                         ],
                         routeWhileDragging: true
                     }).addTo(map);
-
+                    let lien = "https://www.google.fr/maps/dir/"+ latitude_depart +","+ longitude_depart +"/" + lat + ","+ long + "/data=!4m2!4m1!3e0'";
                     let reserve_form = document.querySelector("#reserve_form" + idform + ""); // On récupère le form dynamiquement
 
                     if(reserve_form){
@@ -178,7 +178,8 @@ $(function () {
                                         data:
                                         {
                                             lat : lat,
-                                            long : long
+                                            long : long,
+                                            lien : lien
                                         },
                                         datatype: "json"
                                     });

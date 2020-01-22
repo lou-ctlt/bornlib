@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\deletedAccount;
+use App\Mail\reservation;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -138,9 +139,18 @@ class UserController extends Controller
     public function reservation(Request $request) // Méthode de réservation de la borne
     {
         $values = $request->all();
-        User::where("longitude", $values["long"])->update([
-            "reserve_born" => 1
-        ]);
+
+        $bornUserValues = DB::table("users")->select("electric_terminal_photo")->where("longitude", $values["long"])->get();
+        $bornUserValues = $bornUserValues->all();
+        $bornUserValues = $bornUserValues[0];
+        $bornUserValues = get_object_vars($bornUserValues);
+
+        $allValues = array_merge($bornUserValues, $values);
+        // dd($allValues);
+        Mail::to(Auth::user()->email)->send(new reservation($allValues));
+        // User::where("longitude", $values["long"])->update([
+        //     "reserve_born" => 1
+        // ]);
     }
 
     public function finreservation(Request $request) // Méthode de mise a jour de reserve_car une fois passé 30min
