@@ -7,6 +7,12 @@
 @endsection
 @section('content')
 <div class="container">
+    <div class="row">
+        <span class="help-block text-center mb-2">
+            <h2>Utilisation de la carte.</h2>
+            <p class="text-justify">La carte Bornlib vous affiche toutes les bornes avec des marqueurs en forme de branche. Les marqueurs verts représentent les bornes libres et les rouges les bornes utilisées. En cliquant sur un marqueur vert nous vous proposons de réserver une borne durant 2h, cela représente le temps que vous avez pour vous rendre sur place et recharger votre voiture. Une fois le click sur le bouton réservé effectué la carte se rechargera et la borne que vous avez réservée sera donc rouge, <span class="font-weight-bold">vous recevrez un email</span> qui comprendra une photo de la borne ainsi qu'un lien vers google maps qui comprendra l'itinéraire vers celle-ci.</p>
+        </span>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="col-md-12 px-0 d-flex justify-content-around">

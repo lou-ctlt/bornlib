@@ -140,17 +140,17 @@ class UserController extends Controller
     {
         $values = $request->all();
 
-        $bornUserValues = DB::table("users")->select("electric_terminal_photo")->where("longitude", $values["long"])->get();
+        $bornUserValues = DB::table("users")->select("electric_terminal_photo")->where("longitude", $values["long"])->get(); // On récupère le lien pour afficher la photo dans l'email de reservation
         $bornUserValues = $bornUserValues->all();
         $bornUserValues = $bornUserValues[0];
         $bornUserValues = get_object_vars($bornUserValues);
 
         $allValues = array_merge($bornUserValues, $values);
-        // dd($allValues);
-        Mail::to(Auth::user()->email)->send(new reservation($allValues));
-        // User::where("longitude", $values["long"])->update([
-        //     "reserve_born" => 1
-        // ]);
+
+        Mail::to(Auth::user()->email)->send(new reservation($allValues)); // On envoi un email de confirmation de réservation
+        User::where("longitude", $values["long"])->update([
+            "reserve_born" => 1
+        ]);
     }
 
     public function finreservation(Request $request) // Méthode de mise a jour de reserve_car une fois passé 30min
@@ -163,7 +163,7 @@ class UserController extends Controller
     }
     public function delete(Request $request)
     {
-        Mail::to(Auth::user()->email)->send(new deletedAccount($request->except("_token")));
+        Mail::to(Auth::user()->email)->send(new deletedAccount($request->except("_token"))); // On envoi un email de confirmation de suppression du compte
         User::where("id", Auth::user()->id)->delete();
         return view ("welcome");
     }

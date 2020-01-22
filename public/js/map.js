@@ -73,7 +73,7 @@ $(function () {
         var date_updated = new Date(updated_at[x]); /* On prend l'update_at de la bdd pour faire le calcul et mettre a jour les reservations */
         resultat = d - date_updated;
         resultat = resultat - 7200000; // On soustrait 2h
-        console.log(resultat);
+
         if(resultat > 0){
             let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             // debugger;
@@ -184,8 +184,8 @@ $(function () {
                                         datatype: "json"
                                     });
 
-                                    request.done(function(msg) {
-                                        $("#result").html(msg);
+                                    request.done(function() {
+                                        document.location.reload(true);
                                     });
 
                                     request.fail(function(jqXHR, textStatus) {
