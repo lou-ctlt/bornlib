@@ -1,0 +1,34 @@
+.cookie-consent {
+    font-size: 0.9em;
+    padding: 1em;
+    background: #b2f7ce;
+    text-align: center;
+}
+
+.cookie-consent__message {
+    display: inline-block;
+    color: #38c172;
+}
+
+.cookie-consent__message p {
+    margin: 0;
+}
+
+.cookie-consent__agree {
+    font-weight: bold;
+    margin: 0 1em;
+    padding: .5em 1em;
+    color: #fff2e0;
+    background-color: #38c172;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px #38c172;
+}
+
+.cookie-consent__agree:hover {
+    background-color: #13793d;
+}
+
+.cookie-consent__agree:active {
+    top: 1px;
+}

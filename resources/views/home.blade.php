@@ -33,7 +33,6 @@
         </div>
     </div>
 </div>
-<span>Marker icon icon by Icons8</span>
 
 @endsection
 
