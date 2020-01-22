@@ -21,10 +21,7 @@ $('#terminal').click(function(){
 })
 
 
-
 //Fonction pour afficher la photo qu'on va uploader
-
-
 //Photo de profil:
 $('#profile_photo').click( function () {
     function readURL(input) {
