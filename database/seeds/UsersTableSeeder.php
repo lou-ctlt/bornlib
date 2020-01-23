@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             "ID_number" => "012345678910",
             "car" => "1",
             "electric_terminal" => "1",
-            "profile_photo" => "1579270980-profile.jpg",
+            "profile_photo" => "admin-profile-photo.jpg",
             'electric_terminal_photo' => "recharge-vehicule-electrique.jpg",
             "license_plate" => "AA-000-AA",
             "ID_number" => "012345678910",
