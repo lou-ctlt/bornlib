@@ -30,5 +30,6 @@ class UsersTableSeeder extends Seeder
             "longitude" => "-0.565375",
             "latitude" => "44.887733"
         ]);
+
     }
 }
