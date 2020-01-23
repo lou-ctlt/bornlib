@@ -13,5 +13,7 @@
     <p>Vous venez de reserver une borne, vous pouvez cliquer sur le lien suivant pour voir le trajet vers la borne dans google maps :</p>
     <img src="http://bornlib.test/storage/electric_terminal_photo/{{ $allValues["electric_terminal_photo"] }}" alt="Photo de la borne réservé"><br>
     <a href="{{ $allValues["lien"] }}" target="_blank">Votre lien</a>
+
+    <small>Cet email vous a été envoyé par Bornlib pour vous informez du suivie de votre compte.</small>
 </body>
 </html>

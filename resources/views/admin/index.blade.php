@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    
+
 
 <div class="container">
 
     @if(!empty($successMessage))
         <span>{{$successMessage}}</span>
     @endif
-    
+
   <div class="row my-3">
     <div class="col-md-12 text-center">
       <h2 class="font-weight-bold bg-success text-white py-3"> ESPACE ADMINISTRATION </h2>
@@ -28,43 +28,43 @@
     <div class="table-responsive-sm table-striped">
   <table class="table">
   <thead>
-    
+
     </thead>
   <thead>
-      
+
       <tr class='text-center'>
 
-          
+
           <th  class="border border-grey"scope="col">Nom</th>
           <th  class="border border-grey"scope="col">Prénom</th>
           <th  class="border border-grey"scope="col">Email</th>
           <th  class="border border-grey"scope="col">Adresse</th>
           <th class="border border-grey" scope="col">FICHE</th>
-                  
+
       </tr>
     </thead>
     <tbody>
       @foreach($users as $user)
       @if($user->role != 'user')
         <tr class='text-center'>
-    
-          
+
+
           <td class="border border-grey">{{$user->firstname}}</td>
           <td class="border border-grey">{{$user->lastname}}</td>
           <td class="border border-grey"><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
           <td class="border border-grey">{{$user->address}}</td>
           <td class="border border-grey">
               <a href="{{ route ('ShowUser',['id'=> $user->id]) }}" class="badge badge-primary badge-pill  mx-1">X</a>
-          </td>                
-                      
+          </td>
+
       </tr>
 
-        
+
       @endif
-      @endforeach        
-     
+      @endforeach
+
     </tbody>
-    
+
   </table>
 </div>
 </div>
@@ -79,7 +79,7 @@
     <div class="table-responsive-sm table-striped">
   <table class="table">
   <thead>
-      
+
   <tr class='text-center'>
 
 <th  class="border border-grey" scope="col">#</th>
@@ -92,7 +92,7 @@
 <th  class="border border-grey"scope="col">CAR</th>
 <th  class="border border-grey"scope="col">BORNE</th>
 <th class="border border-grey" scope="col">FICHE</th>
-        
+
 </tr>
 </thead>
 <tbody>
@@ -111,23 +111,23 @@
 <td class="border border-grey">{{$user->electric_terminal}}</td>
 <td class="border border-grey">
     <a href="{{ route ('ShowUser',['id'=> $user->id]) }}" class="badge badge-primary badge-pill  mx-1">X</a>
-</td>                
-            
+</td>
+
 </tr>
 
 
-        
+
       @endif
-      @endforeach        
-     
+      @endforeach
+
     </tbody>
-    
+
   </table>
 </div>
 </div>
 <!-- END TABLE USER -->
-      
-<?php 
+
+<?php
 
 $car = 0;
 $borne = 0;
@@ -143,14 +143,14 @@ foreach($users as $user){
 
   if($user->car == 1 && $user->electric_terminal == 1){
     $corne++;
-  
+
   }else{
-    $corne += 0; 
+    $corne += 0;
     }
-    
+
   }
-  
-}  
+
+}
 
 $nb_car= ($car/$i)*100 . " %";
 
@@ -170,7 +170,7 @@ echo '<div class="row my-3">
       <th class="border border-grey p-2 text-justify-content">%  ayant une voiture</th>
       <th class="border border-grey p-2 text-justify-content">% ayant une borne</th>
       <th class="border border-grey p-2 text-justify-content">%  ayant voiture et borne</th>
-      
+
       </tr>
       </thead>
       <tbody>
@@ -180,7 +180,7 @@ echo '<div class="row my-3">
       <td class="border border-grey p-2 text-center">'.$nb_borne.'</td>
       <td class="border border-grey p-2 text-center">'.$nb_corne.'</td>
       </tbody>
-    
+
       </table>
     </div>'
 
@@ -188,31 +188,31 @@ echo '<div class="row my-3">
 ?>
 
 
-@endsection    
+@endsection
 
 @section('JS')
 <script src="{{ asset('js/jquery.js') }}"></script>
-<script src="{{asset('js/admin.js')}}"> </script> 
-<script src="{{asset('js/form.js')}}"> </script> 
+<script src="{{asset('js/admin.js')}}"> </script>
+<script src="{{asset('js/form.js')}}"> </script>
 @endsection
-			
-            
-
-      
-    
-  
-    
-  
 
 
-        
 
-        
-			
-            
 
-      
-    
-  
-     
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -11,5 +11,7 @@
     <h2>Email d'information.</h2>
     <p>M {{ Auth::user()->lastname }} {{ Auth::user()->firstname }}</p>
     <p>Votre compte BORNLIB a bien été supprimé.</p>
+
+    <small>Cet email vous a été envoyé par Bornlib pour vous informez du suivie de votre compte.</small>
 </body>
 </html>

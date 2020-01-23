@@ -69,9 +69,11 @@
                         <small>Pensez à laisser les pages de dialogues popup s'ouvrir !</small>
                     </div> --}}
                 </div>
-                <div class="card-footer text-muted">
-                    Votre compte date du : {{ Auth::user()->created_at->format("d M Y") }}
-                </div>
+                @if (Auth::user()->created_at)
+                    <div class="card-footer text-muted">
+                        Votre compte date du : {{ Auth::user()->created_at->format("d M Y") }}
+                    </div>
+                @endif
             </div>
         </div><!-- Affichage des données personnel si la personne est connecté : END -->
         <!-- Formulaire de modification de données : START -->

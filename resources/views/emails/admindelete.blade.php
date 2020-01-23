@@ -11,6 +11,7 @@
     <p>Bonjour, </p>
 
     <p>Votre compte BORNLIB' a été supprimé.</p>
-    
+
+    <small>Cet email vous a été envoyé par Bornlib pour vous informez du suivie de votre compte.</small>
 </body>
 </html>

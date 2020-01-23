@@ -10,9 +10,9 @@
     <h1>BORNLIB'</h1>
     <p> Bonjour !</p>
     <p>Suite à votre demande auprès de nos services un compte utilisateur vous a été créé sur le site BORNLIB' </p>
-    
+    <p>Par défaut, votre mot de passe est votre date de naissance à ce format : JJ/MM/AAAA.</p>
     <a href="http://bornlib.test">En cliquant sur ce lien, vous acceptez les conditions générales du site.</a>
-    
-    
+
+    <small>Cet email vous a été envoyé par Bornlib pour vous informez du suivie de votre compte.</small>
 </body>
 </html>

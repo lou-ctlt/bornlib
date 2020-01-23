@@ -17,9 +17,10 @@
 
     <a href="http://bornlib.test">Accédez à votre compte.</a>
 
+    <small>Cet email vous a été envoyé par Bornlib pour vous informez du suivie de votre compte.</small>
 </body>
 </html>
 
 
-    
-    
+
+
