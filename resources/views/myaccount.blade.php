@@ -29,8 +29,8 @@
     @endif
     <div class="row">
         <div class="col-md-6">
-            <div class="card mt-2">
-                <div class="card-header text-center card_head_style">
+            <div class="card mt-2 border-success">
+                <div class="card-header text-center bg-success">
                     <h4>Bienvenu {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}, voici vos informations !</h4>
                 </div>
                 <div class="card-body">
@@ -56,10 +56,10 @@
                     <p class="card-text"><span class="font-weight-bold">Borne éléctrique : </span><?php if( Auth::user()->electric_terminal == 1) { echo "oui";} else{echo "non";} ?></p>
                     <div class="row d-flex justify-content-between mx-1">
                         <div class="mt-2 bouton_resp">
-                            <button class="btn btn-info" id="suppr_compte">Suppression</button>
+                            <button class="btn btn-success" id="suppr_compte">Suppression</button>
                         </div>
                         <div class="mt-2 bouton_resp">
-                            <button class="btn btn-info" id="form_pop_button">Modifications</button>
+                            <button class="btn btn-success" id="form_pop_button">Modifications</button>
                         </div>
                     </div>
                     <form action="{{ route("delete") }}" id="suppr_confirm" class="text-center mt-2" method="POST">
@@ -79,8 +79,8 @@
         <!-- Formulaire de modification de données : START -->
         <div class="col-md-6 d-none mt-2" id="form_pop">
             <div class="row justify-content-end">
-                <div class="card">
-                    <div class="card-header text-center card_head_style">
+                <div class="card border-success">
+                    <div class="card-header text-center bg-success">
                         <h4>Modifications de vos informations !</h4>
                     </div>
                     <div class="card-body">
@@ -234,10 +234,10 @@
                             </div>
                             <div class="row card-text">
                                 <div class="col-md-6 mt-2 bouton_resp">
-                                    <button type="submit" class="btn btn-info">Modifier</button>
+                                    <button type="submit" class="btn btn-success">Modifier</button>
                                 </div>
                                 <div class="col-md-6 text-right mt-2 bouton_resp">
-                                    <a href="{{ route("password.request") }}" type="button" class="btn btn-info">Changer de MDP ??</a>
+                                    <a href="{{ route("password.request") }}" type="button" class="btn btn-success">Changer de MDP ??</a>
                                 </div>
                             </div>
                         </form>

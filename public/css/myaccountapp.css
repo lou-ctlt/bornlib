@@ -10,9 +10,6 @@
 .input_style:hover {
     box-shadow: 0px 0px 3px 2px hsla(112, 70%, 60%);
 }
-.card_head_style {
-    background-color: hsla(112, 70%, 70%);
-}
 .radio_style::before {
     border-radius: 50%;
     border-color: hsla(112, 70%, 60%);

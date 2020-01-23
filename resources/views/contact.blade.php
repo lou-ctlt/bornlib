@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="text-center">
-                                <input id="sendmail" type="button" value="Envoyer" class="btn btn-block text-white rounded-0 py-2">
+                                <input id="sendmail" type="button" value="Envoyer" class="btn btn-block btn-success text-white rounded-0 py-2">
                             </div>
                         </div>
                     </div>
