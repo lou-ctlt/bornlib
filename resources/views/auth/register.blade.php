@@ -162,7 +162,7 @@
                         <div class="form-group row">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="cgu" value="1" name="cgu" required>
-                                <label class="form-check-label" for="cgu">Je comprends et j'accepte les <a href="storage/conditions-generales-utilisation.pdf" target="blank">conditions générales d'utilisation</a>.<span class="text-danger">*</span></label>
+                                <label class="form-check-label" for="cgu">Je comprends et j'accepte les <a href="storage/cgu.pdf" target="blank">conditions générales d'utilisation</a>.<span class="text-danger">*</span></label>
                             </div>
                         </div>
 
