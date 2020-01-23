@@ -14,11 +14,7 @@
       <h2 class="font-weight-bold bg-success text-white py-3"> ESPACE ADMINISTRATION </h2>
     </div>
   </div>
-  <div class="row">
-  <div class="col-md-2 offset-md-10 my-3">
-    <a type="button" class="btn btn-primary px-1" href="{{ route('AddUser') }}">Ajouter un utilisateur</a>
-  </div>
-</div>
+ 
 <br>
 <br>
 <h5><u>LISTE DES ADMINISTRATEURS</u></h5>
@@ -54,7 +50,7 @@
           <td class="border border-grey"><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
           <td class="border border-grey">{{$user->address}}</td>
           <td class="border border-grey">
-              <a href="{{ route ('ShowUser',['id'=> $user->id]) }}" class="badge badge-primary badge-pill  mx-1">X</a>
+              <a href="{{ route ('ShowUser',['id'=> $user->id]) }}" class="badge badge-primary badge-pill  mx-1"><i class="fas fa-pen"></i></a>
           </td>                
                       
       </tr>
@@ -70,6 +66,11 @@
 </div>
 <!-- END TABLE ADMIN -->
 <br>
+<div class="row">
+  <div class="col-md-2 offset-md-10 my-3">
+    <a type="button" class="btn btn-success px-1" href="{{ route('AddUser') }}">Ajouter un utilisateur</a>
+  </div>
+</div>
 <br>
 
 <h5><u>LISTE DES UTILISATEURS</u></h5>
@@ -87,7 +88,7 @@
 <th  class="border border-grey"scope="col">Prénom</th>
 <th  class="border border-grey"scope="col">Email</th>
 <th  class="border border-grey"scope="col">Adresse</th>
-<th  class="border border-grey"scope="col">Immat</th>
+<th  class="border border-grey"scope="col">Immatriculation</th>
 <th  class="border border-grey"scope="col">CNI</th>
 <th  class="border border-grey"scope="col">CAR</th>
 <th  class="border border-grey"scope="col">BORNE</th>

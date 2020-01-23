@@ -73,7 +73,7 @@
                     Votre compte date du : {{ Auth::user()->created_at->format("d M Y") }}
                 </div>
             </div>
-        </div><!-- Affichage des données personnel si la personne est connecté : END -->
+        </div><!-- Affichage des données personnelles si la personne est connectée : END -->
         <!-- Formulaire de modification de données : START -->
         <div class="col-md-6 d-none mt-2" id="form_pop">
             <div class="row justify-content-end">
