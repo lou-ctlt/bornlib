@@ -23,7 +23,7 @@
         ?>
         <div class="alert alert-warning text-center"> <!-- On informe l'utilisateur qu'actuellement sa borne est utilisé -->
             <span class="help-block">
-            <strong class="warning_born">Votre borne est réservé durant encore : <?= $resultat ?> minutes.</strong>
+            <strong class="warning_born">Votre borne est réservée pendant : <?= $resultat ?> minutes.</strong>
             </span>
         </div>
     @endif

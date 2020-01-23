@@ -33,7 +33,8 @@ class UserController extends Controller
         //dd($user);
         //Envoi du mail
         $title = " SUPPRESSION DE VOTRE COMPTE BORNLIB\'";
-        Mail::to($user->email)->send(new Admindelete ($title));
+        $content = "";
+        Mail::to($user->email)->send(new Admindelete ($title, $content));
         $user->delete();
         $users = User::all();
 

@@ -24,12 +24,12 @@ class UsersTableSeeder extends Seeder
             "car" => "1",
             "electric_terminal" => "1",
             "profile_photo" => "admin-profile-photo.jpg",
-            'electric_terminal_photo' => "recharge-vehicule-electrique.jpg",
+            'electric_terminal_photo' => "admin-terminal.jpg",
             "license_plate" => "AA-000-AA",
             "ID_number" => "012345678910",
             "longitude" => "-0.565375",
             "latitude" => "44.887733"
         ]);
-
+       
     }
 }

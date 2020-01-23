@@ -65,9 +65,11 @@ $(function () {
         while(x <= Object.keys(updated_at).length){
             var date_updated = new Date(updated_at[x]); /* On prend l'update_at de la bdd pour faire le calcul et mettre a jour les reservations */
             resultat = d - date_updated;
-            resultat = resultat - 7200000; // On soustrait 2h
-
+            resultat = resultat - 3600000; // On soustrait 2h
+            // console.log(date_updated);
+            // console.log(d);
             if(resultat > 0){
+
                 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 // debugger;
                 $.ajaxSetup({

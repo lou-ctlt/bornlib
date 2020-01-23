@@ -3,14 +3,13 @@
 @section('content')
 <div class="container">
 
-    @if(!empty($successMessage))
-        <span>{{$successMessage}}</span>
-    @endif
+  @if(!empty($successMessage))
+    <span>{{$successMessage}}</span>
+  @endif
 
-    <div class="row my-3">
-        <div class="col-md-12 text-center">
-            <h2 class="font-weight-bold bg-success text-white py-3"> ESPACE ADMINISTRATION </h2>
-        </div>
+  <div class="row my-3">
+    <div class="col-md-12 text-center">
+      <h2 class="font-weight-bold bg-success text-white py-3"> ESPACE ADMINISTRATION </h2>
     </div>
   </div>
  
@@ -18,44 +17,43 @@
 <br>
 <h5><u>LISTE DES ADMINISTRATEURS</u></h5>
 <!-- START TABLE ADMIN -->
-    <div class="row my-3">
-    <!-- <div class="col-12"> -->
-        <div class="table-responsive-sm table-striped">
-            <table class="table">
-                <thead>
-                    <tr class='text-center'>
-                        <th  class="border border-grey"scope="col">Nom</th>
-                        <th  class="border border-grey"scope="col">Prénom</th>
-                        <th  class="border border-grey"scope="col">Email</th>
-                        <th  class="border border-grey"scope="col">Adresse</th>
-                        <th class="border border-grey" scope="col">FICHE</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @foreach($users as $user)
-                    @if($user->role != 'user')
-                        <tr class='text-center'>
-                            <td class="border border-grey">{{$user->firstname}}</td>
-                            <td class="border border-grey">{{$user->lastname}}</td>
-                            <td class="border border-grey"><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
-                            <td class="border border-grey">{{$user->address}}</td>
-                            <td class="border border-grey">
-                                <a href="{{ route ('ShowUser',['id'=> $user->id]) }}" class="badge badge-primary badge-pill mx-1" style="font-size: 1rem;">&#x1F58A;</a>
-                            </td>
-                        </tr>
-                    @endif
-                @endforeach
-                </tbody>
-            </table>
-        </div>
+  <div class="row my-3">
+    <div class="table-responsive-sm table-striped">
+      <table class="table">
+          <thead>
+            <tr class='text-center'>
+              <th  class="border border-grey"scope="col">Nom</th>
+              <th  class="border border-grey"scope="col">Prénom</th>
+              <th  class="border border-grey"scope="col">Email</th>
+              <th  class="border border-grey"scope="col">Adresse</th>
+              <th class="border border-grey" scope="col">FICHE</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($users as $user)
+            @if($user->role != 'user')
+            <tr class='text-center'>
+              <td class="border border-grey">{{$user->firstname}}</td>
+              <td class="border border-grey">{{$user->lastname}}</td>
+              <td class="border border-grey"><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
+              <td class="border border-grey">{{$user->address}}</td>
+              <td class="border border-grey">
+                <a href="{{ route ('ShowUser',['id'=> $user->id]) }}" class="badge badge-primary badge-pill mx-1" style="font-size: 1rem;">&#x1F58A;</a>
+              </td>
+            </tr>
+            @endif
+            @endforeach
+          </tbody>
+      </table>
     </div>
+  </div>
 <!-- END TABLE ADMIN -->
 <br>
-<div class="row">
-  <div class="col-md-2 offset-md-10 my-3">
-    <a type="button" class="btn btn-success px-1" href="{{ route('AddUser') }}">Ajouter un utilisateur</a>
+  <div class="row">
+    <div class="col-md-2 offset-md-10 my-3">
+      <a type="button" class="btn btn-success px-1" href="{{ route('AddUser') }}">Ajouter un utilisateur</a>
+    </div>
   </div>
-</div>
 <br>
 
     <h5><u>LISTE DES UTILISATEURS</u></h5>
