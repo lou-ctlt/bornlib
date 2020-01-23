@@ -2,24 +2,21 @@
 
 $(function () {
 
-    // à l'aide de l'API ipapi on récupère les coordonnées GPS de l'utilisateur
+    // à l'aide de l'API IPapi on récupère les coordonnées GPS de l'utilisateur
 
     $.getJSON('https://ipapi.co/json/', function (data) {
-        // initialisation de la map
-
-        var osmUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            osmAttrib = '&copy; <a href="https://www.openstreetmap.org">OpenStreetMap</a>',
-            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
 
         // géolocalisation pour centrer la map
-
         var latitude = data.latitude;
         var longitude = data.longitude;
 
-
-        // initialisation de la map centrée sur la géolocalisation
+        // initialisation de la map
+        var osmUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            osmAttrib = '&copy; <a href="https://www.openstreetmap.org">OpenStreetMap</a>',
+            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
         let map = L.map("mapid").setView([latitude, longitude], 12).addLayer(osm);
 
+        // déclaration des icones utilisés pour les marqueurs
         var greenIcon = L.icon({
             iconUrl: 'css/images/leaf-green.png',
             shadowUrl: 'css/images/leaf-shadow.png',
@@ -41,9 +38,8 @@ $(function () {
             popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
 
-        // création marqueurs sur la map
+        // création d'un marqueur sur la map à l'emplacement de géolocalisation
         var marker = L.marker([latitude, longitude]).addTo(map);
-        var i=0;
 
         // boucle pour récupérer les coordonnées GPS
         var i=0;
@@ -55,6 +51,7 @@ $(function () {
             poi[t] = [key, coordonnes[key]]; // latitude/longitude
             i++;
         };
+
         /* Rafraichissement de la BDD pour les réservations START */
         var d = new Date,
             dformat = [d.getMonth()+1,
@@ -118,7 +115,6 @@ $(function () {
 
 
                 element.on("click", function (event) {
-                    var clickedMarker = event.layer;
                     lat = event["latlng"]["lat"];
                     long = event["latlng"]["lng"];
 
@@ -190,10 +186,8 @@ $(function () {
                         });
                     }
                 });
-
             n++;
             };
-
         };
         // création de la route au clic sur un marqueur depuis la position géolocalisée
         boucle_marqueur_route(latitude, longitude);
@@ -207,27 +201,27 @@ $(function () {
             var input_modif = input_value.replace(/ /g, "+");
             // requete AJAX pour consulter l'API afin de récupérer les coordonnées GPS
             $.ajax({
-                url: "https://api-adresse.data.gouv.fr/search/?q="+input_modif,
+                url: "/home2",
                 method: "GET",
+                data:
+                {
+                    adresse : input_modif,
+                 },
                 success: function (data) {
-
-                    longitude1 = data.features["0"].geometry.coordinates["0"]; // on récupère latitude et longitude
-                    latitude1 = data.features["0"].geometry.coordinates["1"];
+                    toto = JSON.parse(data);
+                    longitude1 = toto['0']; // on récupère latitude et longitude
+                    latitude1 = toto["1"];
                     map.remove();marker.remove();
                     map = L.map("mapid").setView([latitude1, longitude1], 12).addLayer(osm);
                     marker = L.marker([latitude1, longitude1]).addTo(map);
                     var recentrer = document.querySelector("#localisation");
-
-                    // fonction pour recentrer sur la map depuis la position géolocalisée
+                                        // fonction pour recentrer sur la map depuis la position géolocalisée
                     recentrer.addEventListener("click", function(){
                         map.remove();
                         map = L.map("mapid").setView([latitude, longitude], 12).addLayer(osm);
                         marker = L.marker([latitude, longitude]).addTo(map);
-
                         boucle_marqueur_route(latitude, longitude);
                     });
-
-
                     // appel de la fonction pour recréer les marqueurs/routes après
                boucle_marqueur_route(latitude1, longitude1);
                 },
@@ -236,7 +230,6 @@ $(function () {
                 }
             });
         });
-
     });
 
 });

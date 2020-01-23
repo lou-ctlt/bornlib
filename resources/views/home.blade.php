@@ -34,12 +34,14 @@
     </div>
 </div>
 
+
+
 @endsection
 
 @section('JS')
 
-<script>var updated_at = <?= json_encode($tableau_updated_at); ?></script>
-<script>var coordonnes = <?= json_encode($tableau_coordonnes); ?></script>
+<script>var updated_at = {!! json_encode($tableau_updated_at) !!}</script>
+<script>var coordonnes = {!! json_encode($tableau_coordonnes) !!}</script>
 <script src="{{ asset('js/leaflet.js') }}"></script>
 <script src="{{ asset('js/leaflet-routing-machine.js') }}"></script>
 <script src="{{ asset('js/jquery.js') }}"></script>
