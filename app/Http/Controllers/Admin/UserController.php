@@ -9,6 +9,11 @@ use Hash;
 use Validator;
 use Redirect;
 use Image;
+use Mail;
+use App\Mail\Admin;
+use App\Mail\Admindelete;
+use App\Mail\Adminupdate;
+
 
 use App\Models\User;
 
@@ -25,8 +30,14 @@ class UserController extends Controller
     public function deleteUser(Request $request){
         //dd($request->id);
         $user = User::find($request->id);
+        //dd($user);
+        $title = " SUPPRESSION DE VOTRE COMPTE BORNLIB\'";
+        $content = "SURPRISE";
+        Mail::to($user->email)->send(new Admindelete ($title,$content));
         $user->delete();
         $users = User::all();
+
+       
         return view('admin.index')->with('users',$users);
                                 
         
@@ -170,7 +181,7 @@ class UserController extends Controller
         
         
         //Remplissage des colonnes de la base de données 
-        $user->role                     =$values['role'];
+        $user->role                     = $values['role'];
         $user->firstname    	        = $values['firstname'];
         $user->lastname    	            = $values['lastname'];
         $user->email  	 	            = $values['email'];
@@ -190,7 +201,10 @@ class UserController extends Controller
         
         $user->save(); 
 
-       
+        $title = " INSCRIPTION BORNLIB'";
+        
+
+        Mail::to($user->email)->send(new Admin ($title));
         
                 return redirect()->route('Admin')
                                     ->with('successMessage','L\'utilisateur est enregistré dans la Base de données');
@@ -370,11 +384,15 @@ class UserController extends Controller
             ]);
         } 
        
-
+        
         //dd($terminalPhotoSaveAsName);
-                           
+        //dd($values);
+        $title = " MODIFICATION DE VOTRE COMPTE BORNLIB'";
+        $content = "SURPRISE";
+        Mail::to($values['email'])->send(new Adminupdate ($title,$content));                 
         $user = User::all();
-            //dd($user);
+        //dd($user);
+        
             return redirect()->route('Admin')
                                 ->with('successMessage','L\'utilisateur à bien été modifié')
                                 ->with('users', $user);    

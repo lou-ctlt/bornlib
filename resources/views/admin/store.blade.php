@@ -4,15 +4,15 @@
 
 @section('content')
 
-<div class="container">
-<div class="row">
-      <div class="col-md-3 offset-md-10">
-      <a type="button" class="btn btn-danger" href="">RETOUR</a>    
-      </div>
+<div class="container-fluid bg-light">
+    <div class="row my-3">
+        <div class="col-md-1 offset-md-11">
+            <a type="button" class="btn btn-secondary" href="<?php echo $_SERVER['HTTP_REFERER']; ?>">RETOUR</a>    
+        </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
+    <div class="row justify-content-center my-3">
+        <div class="col-md-6">
+            <div class="card my-4">
                 <div class="card-header text-center">{{ __('AJOUTER UN UTILISATEUR') }}</div>
         
                 <div class="card-body">

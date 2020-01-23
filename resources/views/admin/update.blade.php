@@ -2,17 +2,17 @@
 
 @section('content')
 
-<div class="container">
-<div class="row">
-      <div class="col-md-3 offset-md-10">
-      <a type="button" class="btn btn-danger" href="">RETOUR</a>    
-      </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1 offset-md-10 my-3">
+            <a type="button" class="btn btn-secondary" href="<?php echo $_SERVER['HTTP_REFERER']; ?>">RETOUR </a>    
+        </div>
     </div>
     
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header text-center">{{ __('INFORMATIONS UTILISATEUR') }}</div>
+    <div class="row justify-content-center my-3">
+        <div class="col-md-6">
+            <div class="card my-4">
+                <div class="card-header text-center">{{ __('MODIFICATION COMPTE UTILISATEUR') }}</div>
         <!-- START Form -->
                 <div class="card-body">
 
@@ -118,7 +118,7 @@
                         <div class="form-group row" id="electric_terminal_photo">
                             
                             <div class="col-md-6 offset-md-3">
-                                <img src="" alt="">
+                                
                                 <label for="electric_terminal_photo" class="col-md-8 col-form-label">{{ __('Changer la photo de la borne') }}</label>
                                 <input type="file" class="form-control-file {{ $errors->has('electric_terminal_photo') ? 'has-error' : ' '}}" name="electric_terminal_photo" value="{{ $errors->has('electric_terminal_photo') ? old(electric_terminal_photo) : $user->electric_terminal }}">
                              
@@ -133,7 +133,7 @@
                         <div class="form-group row">
                             
                             <div class="col-md-6 offset-md-3">
-                                <img src="" alt="">  
+                                 
                                 <label for="profile_photo" class="col-md-8 col-form-label">{{ __('Changer la photo du profil') }}</label>
                                 <input id="profile_photo" type="file" class="form-control-file @error('profile_photo') is-invalid @enderror" name="profile_photo" value="{{ $errors->has('profile_photo') ? old(profile_photo) : $user->profile }}" >
                             
@@ -143,7 +143,7 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-2 offset-md-5 ">
-                                <button type="submit" class="btn btn-info">
+                                <button type="submit" class="btn btn-success">
                                     {{ __('Enregistrer') }}
                                 </button>
                             </div>
@@ -158,6 +158,7 @@
 </div>
 @endsection('content')
 @section('JS')
+<script src="{{ asset('js/jquery.js') }}"></script>
 <script src="{{asset('js/admin.js')}}"> </script> 
 <script src="{{asset('js/form.js')}}"> </script> 
 @endsection
