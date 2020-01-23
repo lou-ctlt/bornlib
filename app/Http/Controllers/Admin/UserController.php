@@ -31,9 +31,9 @@ class UserController extends Controller
         //dd($request->id);
         $user = User::find($request->id);
         //dd($user);
+        //Envoi du mail
         $title = " SUPPRESSION DE VOTRE COMPTE BORNLIB\'";
-        $content = "SURPRISE";
-        Mail::to($user->email)->send(new Admindelete ($title,$content));
+        Mail::to($user->email)->send(new Admindelete ($title));
         $user->delete();
         $users = User::all();
 
@@ -205,6 +205,7 @@ class UserController extends Controller
         $user->email_verified_at = $user->created_at;
         $user->save();
 
+        //Envoi du mail
         $title = " INSCRIPTION BORNLIB'";
         $content = "";
 
@@ -391,6 +392,7 @@ class UserController extends Controller
 
         //dd($terminalPhotoSaveAsName);
         //dd($values);
+        //Envoi du mail
         $title = " MODIFICATION DE VOTRE COMPTE BORNLIB'";
         $content = "SURPRISE";
         Mail::to($values['email'])->send(new Adminupdate ($title,$content));

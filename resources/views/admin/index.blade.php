@@ -12,14 +12,11 @@
             <h2 class="font-weight-bold bg-success text-white py-3"> ESPACE ADMINISTRATION </h2>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-2 offset-md-10 my-3">
-            <a type="button" class="btn btn-primary px-1" href="{{ route('AddUser') }}">Ajouter un utilisateur</a>
-        </div>
-    </div>
-    <br>
-    <br>
-    <h5><u>LISTE DES ADMINISTRATEURS</u></h5>
+  </div>
+ 
+<br>
+<br>
+<h5><u>LISTE DES ADMINISTRATEURS</u></h5>
 <!-- START TABLE ADMIN -->
     <div class="row my-3">
     <!-- <div class="col-12"> -->
@@ -54,6 +51,11 @@
     </div>
 <!-- END TABLE ADMIN -->
 <br>
+<div class="row">
+  <div class="col-md-2 offset-md-10 my-3">
+    <a type="button" class="btn btn-success px-1" href="{{ route('AddUser') }}">Ajouter un utilisateur</a>
+  </div>
+</div>
 <br>
 
     <h5><u>LISTE DES UTILISATEURS</u></h5>

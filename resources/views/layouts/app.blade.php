@@ -23,6 +23,8 @@
     <link rel="stylesheet" href=" {{ asset('css/app.css') }}" />
     <link rel="stylesheet" href=" {{ asset('css/cookies.css') }}" />
     <link rel="stylesheet" href=" {{ asset('css/navbar.css') }}" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
     <style>
         body{
             background-image: url('/storage/img/background.jpg');
