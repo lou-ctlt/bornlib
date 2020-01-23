@@ -28,5 +28,19 @@ class HomeController extends Controller
         return view("home")->with("users", $users);
     }
 
+    public function move(Request $request)
+    {
+        $values = $request->all();
+
+
+        $section = file_get_contents('https://api-adresse.data.gouv.fr/search/?q='.$values["adresse"]);
+        $s1 = json_decode($section);
+
+        $test = $s1->features["0"]->geometry->coordinates;
+        $encode = json_encode($test);
+
+        return $encode;
+    }
+
 
 }

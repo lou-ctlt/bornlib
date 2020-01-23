@@ -37,10 +37,10 @@ class UserController extends Controller
         $user->delete();
         $users = User::all();
 
-       
+
         return view('admin.index')->with('users',$users);
-                                
-        
+
+
     }
 
     //Méthode pour afficher le formulaire d'ajout utilisateur
@@ -50,11 +50,11 @@ class UserController extends Controller
 
     //Méthode pour ajouter un utilisateur
     public function storeUser(Request $request){
-         
+
         $values = $request->all();
         //dd($request);
 
-        
+
         $rules=[
 
             'role'                      => 'string|required',
@@ -67,9 +67,9 @@ class UserController extends Controller
             'license_plate'             => 'max:10|nullable',
             'electric_terminal_photo'   => 'image|mimes:jpeg,png,jpg,gif|max:1080' ,
             'profile_photo'             => 'image|mimes:jpeg,png,jpg,gif|max:1080',
-        
-        ];        
-                
+
+        ];
+
         $validator = Validator::make($values,$rules, [
 
             'role.required'         =>'Définir un rôle utilisateur est obigatoire',
@@ -96,22 +96,22 @@ class UserController extends Controller
             'profile_photo.image' =>'Ce fichier n\'est pas une image',
             'profile_photo.mimes' =>'L\'extension de l\'image n\'est pas correcte',
             'profile_photo.max' =>'La taille de l\'image est trop importante',
-            
-        ]); 
-        //dd($validator->fails());  
+
+        ]);
+        //dd($validator->fails());
         if($validator->fails()){
             //dd($validator);
-            
+
 
             return Redirect::back()
                                 ->withErrors($validator)
                                 ->withInput();
                             }
-                            
+
         //Contrôle sur les checkbox
         if(!empty($values['car'])){
             $carValue = $values['car'];
-            
+
         }else{
             $carValue = '0';
         }
@@ -124,17 +124,17 @@ class UserController extends Controller
 
         if($carValue === '1'){
             $licenseValue = $values['license_plate'];
-            
+
         }else{
             $licenseValue = 'NULL';
         }
         //dd($terminalValue);
-        
+
         //Enregistrement en local de la photo de profil
         $profilePhoto = $request->file('profile_photo');
         $profilePhotoSaveAsName = time() . "-profile." .
                                   $profilePhoto->getClientOriginalExtension();
-                                  
+
 
         $destinationPathProfile = storage_path('/app/public/profile_photo/');
         $profilePhoto->move($destinationPathProfile, $profilePhotoSaveAsName);
@@ -150,7 +150,7 @@ class UserController extends Controller
             $terminalPhoto->move($destinationPathTerminal, $terminalPhotoSaveAsName);
         }else{
             $terminalPhotoSaveAsName = "NULL";
-            
+
         }
 
 
@@ -168,19 +168,19 @@ class UserController extends Controller
         $resultAddress=curl_exec($ch);
         $resultAddress=json_decode($resultAddress);// On transforme le JSON en tableau d'objets php
 
-       
+
         $longitude = $resultAddress->features["0"]->geometry->coordinates["0"]; // on récupère latitude et longitude
         $latitude = $resultAddress->features["0"]->geometry->coordinates["1"];
-       
-        
+
+
         //dd($request);
         //dd($values);
-                            
+
         //Création d'une nouvelle entrée
         $user = new User();
-        
-        
-        //Remplissage des colonnes de la base de données 
+
+
+        //Remplissage des colonnes de la base de données
         $user->role                     = $values['role'];
         $user->firstname    	        = $values['firstname'];
         $user->lastname    	            = $values['lastname'];
@@ -198,14 +198,18 @@ class UserController extends Controller
         //dd($user->save());
 
        //Sauvegarde dans la table Users
-        
-        $user->save(); 
+
+        $user->save();
+
+
+        $user->email_verified_at = $user->created_at;
+        $user->save();
 
         $title = " INSCRIPTION BORNLIB'";
-        
+        $content = "";
 
-        Mail::to($user->email)->send(new Admin ($title));
-        
+        Mail::to($values['email'])->send(new Admin ($title, $content));
+
                 return redirect()->route('Admin')
                                     ->with('successMessage','L\'utilisateur est enregistré dans la Base de données');
     }
@@ -220,7 +224,7 @@ class UserController extends Controller
         }else{
             $user->car = 'NON';
         }
-        
+
         //CONDITION POUR AFFICHER OUI OU NON A LA PLACE DES VALEURS
         if(!$user->electric_terminal == 0){
             $user->electric_terminal = 'OUI';
@@ -232,7 +236,7 @@ class UserController extends Controller
         if( empty($user->license_plate) ){
             $user->license_plate = 'NULL';
         }
-       
+
         //dd($user);
         return view('admin.show')->with('user', $user);
     }
@@ -241,18 +245,18 @@ class UserController extends Controller
     public function editUser(Request $request){
 
         $user = User::find($request->id);
-       
+
         return view('admin.update')->with('user', $user);
-        
-        
+
+
       }
 
     //Méthode pour valider l'enregistrement des modifications
     public function updateUser(Request $request){
-        
+
         $values = $request->all();
         //dd($values);
-       
+
         $rules=[
             'firstname'     => 'string|required',
             'lastname'      => 'string|required' ,
@@ -285,7 +289,7 @@ class UserController extends Controller
             'profile_photo.image' =>'Ce fichier n\'est pas une image',
             'profile_photo.mimes' =>'L\'extension de l\'image n\'est pas correcte',
             'profile_photo.max' =>'La taille de l\'image est trop importante',
-            
+
         ]);
 
         if($validator->fails()){
@@ -335,10 +339,10 @@ class UserController extends Controller
 
         $longitude = $resultAddress->features["0"]->geometry->coordinates["0"]; // on récupère latitude et longitude
         $latitude = $resultAddress->features["0"]->geometry->coordinates["1"];
-        
+
         $user1 = User::where("email", $values['email'])->update([
 
-            
+
             "firstname"    	           => $values['firstname'],
             "lastname"    	           => $values['lastname'],
             "email"  	 	           => $values['email'],
@@ -350,15 +354,15 @@ class UserController extends Controller
             "license_plate"	           => $licenseValue,
             "longitude"	               => $longitude,
             "latitude"	               => $latitude
-                     
-        ]);  
-        
-        
+
+        ]);
+
+
 
 
         //dd($_FILES);
         //Enregistrement en local de la photo de profil
-        if($_FILES["profile_photo"]["error"] == 0){ 
+        if($_FILES["profile_photo"]["error"] == 0){
             $profilePhoto = $request->file('profile_photo');
             $profilePhotoSaveAsName = time() . "-profile." .
                                   $profilePhoto->getClientOriginalExtension();
@@ -368,12 +372,12 @@ class UserController extends Controller
                 "profile_photo" => $profilePhotoSaveAsName
             ]);
         }
-        
+
         //dd($profilePhotoSaveAsName);
 
         //dd($_FILES);
         //Enregistrement en local de la photo de la borne si une image est proposée
-        if($_FILES["electric_terminal_photo"]["error"] == 0 && !($_FILES["electric_terminal_photo"] == '0')){ 
+        if($_FILES["electric_terminal_photo"]["error"] == 0 && !($_FILES["electric_terminal_photo"] == '0')){
             $terminalPhoto = $request->file('electric_terminal_photo');
             $terminalPhotoSaveAsName = time() ."-terminal." .
                                   $terminalPhoto->getClientOriginalExtension();
@@ -382,19 +386,19 @@ class UserController extends Controller
             User::where("email", $values['email'])->update([
                 "electric_terminal_photo" => $terminalPhotoSaveAsName
             ]);
-        } 
-       
-        
+        }
+
+
         //dd($terminalPhotoSaveAsName);
         //dd($values);
         $title = " MODIFICATION DE VOTRE COMPTE BORNLIB'";
         $content = "SURPRISE";
-        Mail::to($values['email'])->send(new Adminupdate ($title,$content));                 
+        Mail::to($values['email'])->send(new Adminupdate ($title,$content));
         $user = User::all();
         //dd($user);
-        
+
             return redirect()->route('Admin')
                                 ->with('successMessage','L\'utilisateur à bien été modifié')
-                                ->with('users', $user);    
+                                ->with('users', $user);
         }
     }

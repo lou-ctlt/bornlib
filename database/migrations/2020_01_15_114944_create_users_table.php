@@ -33,7 +33,6 @@ class CreateUsersTable extends Migration
             $table->string("longitude")->nullable();
             $table->string("latitude")->nullable();
             $table->boolean("reserve_born")->nullable();
-            $table->boolean("born_in_use")->nullable();
         });
     }
 

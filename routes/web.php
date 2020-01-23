@@ -17,7 +17,7 @@ Route::get('/',function(){
     return view ("welcome");
 });
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');;
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 Route::get('/admin/dashboard','Admin\UserController@index')->name('Admin');
 Route::get('/admin/user/delete','Admin\UserController@deleteUser')->name('DeleteUser');
@@ -54,3 +54,4 @@ Route::get('/contact', 'ContactController@index')->name('contact');
 Route::post('/delete', 'UserController@delete')->name('delete');
 
 Route::get('/about', 'AboutController@index')->name('about');
+Route::get('/home2', 'HomeController@move')->name('home2');
