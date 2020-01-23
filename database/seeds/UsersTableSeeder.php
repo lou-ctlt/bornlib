@@ -14,6 +14,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([ // Ajout d'un seed qui sera l'Admin
+            "role"=>"admin",
             "firstname" => "Admin",
             "lastname" => "Admin",
             "email" => "adminemail@gmail.com",
