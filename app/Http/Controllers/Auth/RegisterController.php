@@ -77,6 +77,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $request = request();
+        //dd($request);
 
         //enregistrement en local de la photo de profil
         $profilePhoto = $request->file('profile_photo');
@@ -101,6 +102,7 @@ class RegisterController extends Controller
             $terminalPhoto->move($destinationPathTerminal, $terminalPhotoSaveAsName);
         }else{
             $terminalPhotoSaveAsName = "NULL";
+
         }
 
         //contrôle sur les checkbox
@@ -169,7 +171,6 @@ class RegisterController extends Controller
                 "cgu" => $data['cgu']
             ]);
         }
-
 
     }
 }
