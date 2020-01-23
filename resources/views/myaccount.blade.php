@@ -183,9 +183,10 @@
                                 </div>
                             </div>
                             <div class="row card-text mb-2">
+                                @if (Auth::user()->car == 1)
                                 <div class="col-md-6">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio1" name="car" class="custom-control-input car" required value="1">
+                                        <input type="radio" id="customRadio1" name="car" class="custom-control-input car" checked required value="1">
                                         <label class="custom-control-label font-weight-bold radio_style" for="customRadio1">J'ai une voiture</label>
                                     </div>
                                     <div class="custom-control custom-radio">
@@ -193,9 +194,23 @@
                                         <label class="custom-control-label font-weight-bold radio_style" for="customRadio2">J'ai pas de voiture</label>
                                     </div>
                                 </div>
+                                @endif
+                                @if (Auth::user()->car == 0)
                                 <div class="col-md-6">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio3" name="electric_terminal" class="custom-control-input" required value="1">
+                                        <input type="radio" id="customRadio1" name="car" class="custom-control-input car" required value="1">
+                                        <label class="custom-control-label font-weight-bold radio_style" for="customRadio1">J'ai une voiture</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="customRadio2" name="car" class="custom-control-input nocar" checked required value="0">
+                                        <label class="custom-control-label font-weight-bold radio_style" for="customRadio2">J'ai pas de voiture</label>
+                                    </div>
+                                </div>
+                                @endif
+                                @if (Auth::user()->electric_terminal == 1)
+                                <div class="col-md-6">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="customRadio3" name="electric_terminal" class="custom-control-input" checked required value="1">
                                         <label class="custom-control-label font-weight-bold radio_style" for="customRadio3">J'ai une borne éléctrique</label>
                                     </div>
                                     <div class="custom-control custom-radio">
@@ -203,6 +218,19 @@
                                         <label class="custom-control-label font-weight-bold radio_style" for="customRadio4">J'ai pas de borne éléctrique</label>
                                     </div>
                                 </div>
+                                @endif
+                                @if (Auth::user()->electric_terminal == 0)
+                                <div class="col-md-6">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="customRadio3" name="electric_terminal" class="custom-control-input" required value="1">
+                                        <label class="custom-control-label font-weight-bold radio_style" for="customRadio3">J'ai une borne éléctrique</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="customRadio4" name="electric_terminal" class="custom-control-input" checked required value="0">
+                                        <label class="custom-control-label font-weight-bold radio_style" for="customRadio4">J'ai pas de borne éléctrique</label>
+                                    </div>
+                                </div>
+                                @endif
                             </div>
                             <div class="row card-text">
                                 <div class="col-md-6 mt-2 bouton_resp">
