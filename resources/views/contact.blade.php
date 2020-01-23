@@ -1,8 +1,5 @@
 @extends('layouts.app')
 
-@section('CSS')
-<link rel="stylesheet" href=" {{ asset('css/contact.css') }}" />
-@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

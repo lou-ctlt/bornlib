@@ -13,6 +13,20 @@
             </span>
         </div>
     @endif
+    @if (Auth::user()->reserve_born == 1)
+        <?php
+            $date = date("Y-m-d H:i:s");
+            $update_time = Auth::user()->updated_at->toDateTimeString();
+            $resultat = abs(strtotime($date) - strtotime($update_time));
+            $resultat = floor((strtotime($date) - strtotime($update_time)) / 60); // Petite opération pour que l'utilisateur voit le temps de réservation de la borne en minutes.
+            $resultat = 120 - $resultat;
+        ?>
+        <div class="alert alert-warning text-center"> <!-- On informe l'utilisateur qu'actuellement sa borne est utilisé -->
+            <span class="help-block">
+            <strong class="warning_born">Votre borne est réservé durant encore : <?= $resultat ?> minutes.</strong>
+            </span>
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-6">
             <div class="card">
@@ -40,27 +54,28 @@
                     <p class="card-text"><span class="font-weight-bold">Numéro de votre carte d'Identité : </span>{{ Auth::user()->ID_number }}</p>
                     <p class="card-text"><span class="font-weight-bold">Voiture : </span><?php if( Auth::user()->car == 1) { echo "oui";} else{echo "non";} ?></p>
                     <p class="card-text"><span class="font-weight-bold">Borne éléctrique : </span><?php if( Auth::user()->electric_terminal == 1) { echo "oui";} else{echo "non";} ?></p>
-                    <div class="text-right">
-                        <button class="btn btn-info" id="form_pop_button">Modifications</button>
+                    <div class="row d-flex justify-content-between mx-1">
+                        <div class="mt-2">
+                            <button class="btn btn-info" id="suppr_compte">Suppression</button>
+                        </div>
+                        <div class="mt-2">
+                            <button class="btn btn-info" id="form_pop_button">Modifications</button>
+                        </div>
                     </div>
+                    <form action="{{ route("delete") }}" id="suppr_confirm" class="text-center mt-2" method="POST">
+                        @csrf
+                    </form>
+                    {{-- <div class="mt-2 text-center">
+                        <small>Pensez à laisser les pages de dialogues popup s'ouvrir !</small>
+                    </div> --}}
                 </div>
                 <div class="card-footer text-muted">
-                    Votre compte date du : {{ Auth::user()->created_at }}
+                    Votre compte date du : {{ Auth::user()->created_at->format("d M Y") }}
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 img_myaccount_wrapper">
-            <img src="storage\img\voiture-electrique-wallbox.png" alt="Photo example d'une borne éléctrique" class="img_myaccount">
-        </div>
-    </div>
-    <!-- Affichage des données personnel si la personne est connecté : END -->
-
-    <!-- Formulaire de modification de données : START -->
-    <div class="row mt-3 d-none" id="form_pop">
-        <div class="col-md-6 img_myaccount_wrapper">
-            <img src="storage\img\borne-de-recharge-evlink.jpg" alt="Photo example d'une borne éléctrique" class="img_myaccount">
-        </div>
-        <div class="col-md-6">
+        </div><!-- Affichage des données personnel si la personne est connecté : END -->
+        <!-- Formulaire de modification de données : START -->
+        <div class="col-md-6 d-none mt-2" id="form_pop">
             <div class="row justify-content-end">
                 <div class="card">
                     <div class="card-header text-center card_head_style">
@@ -188,7 +203,7 @@
                                 </div>
                             </div>
                             <div class="row card-text">
-                                <div class="col-md-6">
+                                <div class="col-md-6 mt-2">
                                     <button type="submit" class="btn btn-info">Modifier</button>
                                 </div>
                                 <div class="col-md-6 text-right">
@@ -200,8 +215,11 @@
                 </div>
             </div>
         </div>
+        <!-- Formulaire de modification de données : END -->
     </div>
-    <!-- Formulaire de modification de données : END -->
+
+
+
 
 
 </div>
