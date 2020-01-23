@@ -36,3 +36,5 @@ Route::post("/finreservation", "UserController@finreservation")->name("finreserv
 Route::get('/contact', 'ContactController@index')->name('contact');
 
 Route::post('/delete', 'UserController@delete')->name('delete');
+
+Route::get('/about', 'AboutController@index')->name('about');

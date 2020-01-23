@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100" src="/storage/img/electric-car.jpg" alt="Third slide">
+                            <img class="d-block w-100" src="/storage/img/carte-carousel.jpg" alt="Third slide">
                             <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0, 0, 0, 0.3);">
                                 <h5>Déja plus de 50 bornes en partage par des particuliers autour de vous !</h5>
                                 <p>Trouvez une borne de recharge disponible sur Bordeaux & sa CUB</p>

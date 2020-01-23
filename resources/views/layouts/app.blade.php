@@ -83,6 +83,11 @@
                                     <a class="dropdown-item" href="{{ route('myaccount') }}">
                                     {{ __('Mon compte') }}
                                     </a>
+                                @if(Auth::user()->role == "admin")
+                                    <a class="dropdown-item" href="{{ route('Admin') }}">
+                                        {{ __('Administration') }}
+                                    </a>
+                                @endif
                                     <!--DECONNEXION-->
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
@@ -92,7 +97,6 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Se déconnecter') }}
                                     </a>
-
                                 </div>
                             </li>
                         @endguest
@@ -109,7 +113,7 @@
         <!--FOOTER -->
         <footer class="row bg-white text-center py-3">
             <div class="col-md-12">
-                Mentions Légales - <a href="{{ route('contact') }}" id="contact" style="color: black; text-decoration: underline;">Contact</a> - Copyright TEAM XXX
+               <a href="{{ route('about') }}" style="color: black; text-decoration: underline;">À propos</a> Mentions Légales - <a href="{{ route('contact') }}" id="contact" style="color: black; text-decoration: underline;">Contact</a> - Copyright TEAM XXX
             </div>
         </footer>
 @yield('JS')
