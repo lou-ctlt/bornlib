@@ -105,7 +105,7 @@ $(function () {
                 var date_updated = new Date(updated_at[n]);/* On prend l'update_at de la bdd pour créer des marqueurs adapté aux reservations */
                     resultat = d - date_updated;
                     resultat = resultat - 7200000;
-
+                console.log(resultat);
                 if(resultat > 0){
                     var element = L.marker([poi[e][1], poi[e][0]], {icon: greenIcon, time:resultat}).addTo(map).bindPopup(); // création marqueur et popup associée
                 }
@@ -233,6 +233,39 @@ $(function () {
                 }
             });
         });
+
+        var ajax = function () {
+            $.ajax({
+                url: "/home3",
+                method: "GET",
+                success: function (data) {
+                    console.log(data);
+
+                    coo = JSON.parse(data);
+                    console.log(this);
+                    map.remove();
+                    console.log(coo);
+                    map = L.map("mapid").setView([latitude, longitude], 12).addLayer(osm);
+                    marker = L.marker([latitude, longitude]).addTo(map);
+
+                    for(var key in coo){
+
+                        var value = coordonnes[key];
+                        var t="marker"+i;
+                        poi[t] = [key, coordonnes[key]]; // latitude/longitude
+                        i++;
+                    };
+                    boucle_marqueur_route();
+                },
+                error: function (errors) {
+                    console.log(errors);
+                }
+            })
+        };
+        // setInterval(ajax, 10000);
+        //setTimeout(ajax, 10000);
+
     });
 
 });
+

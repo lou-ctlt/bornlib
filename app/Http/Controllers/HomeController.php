@@ -42,5 +42,20 @@ class HomeController extends Controller
         return $encode;
     }
 
+    public function list()
+    {
+        $tableau_coordonnes =[];
+        $users1 =User::select("*")->get();
+        foreach ($users1 as $user1) {
+            $v1 = $user1->longitude;
+            $v2 = $user1->latitude;
+            if($user1->latitude != "NULL"){
+                $tableau_coordonnes += [$v1 => $v2]; // stockage des coordonnées au format longitude/latitude
+            }
+        }
+        //dd($tableau_coordonnes);
+        $users = json_encode($tableau_coordonnes);
 
+        return $users;
+    }
 }

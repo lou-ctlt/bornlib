@@ -55,3 +55,4 @@ Route::post('/delete', 'UserController@delete')->name('delete');
 
 Route::get('/about', 'AboutController@index')->name('about');
 Route::get('/home2', 'HomeController@move')->name('home2');
+Route::get('/home3', 'HomeController@list')->name('home3');
