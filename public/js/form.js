@@ -61,5 +61,5 @@ $('#electric_terminal_photo').click( function () {
 
 // Faire poper une alert comme si le mail c'était envoyé
 $('#sendmail').click(function(){
-    alert('Votre message est envoyé ! Nous traiterons votre demande dans les plus bref délais.');
+    alert('Votre message est envoyé ! Nous traiterons votre demande dans les plus bref délais');
 });

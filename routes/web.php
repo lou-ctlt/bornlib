@@ -12,13 +12,13 @@
 */
 
 Auth::routes(['verify' => true]);
-
+ 
 Route::get('/',function(){
     return view ("welcome");
 });
-
+ 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
-
+ 
 Route::get('/admin/dashboard','Admin\UserController@index')->name('Admin');
 Route::get('/admin/user/delete','Admin\UserController@deleteUser')->name('DeleteUser');
 Route::get('/admin/user/show','Admin\UserController@showUser')->name('ShowUser');
@@ -37,13 +37,13 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
     Route::get('/', 'HomeController@index')->name('admin_dashboard');
 });
 
+ 
 
 
 
+Route::post("/user/update", "UserController@update")->name('userUpdate')->middleware('verified');
 
-Route::post("/user/update", "UserController@update")->name('userUpdate')->middleware('verified');;
-
-Route::get("/myaccount", "MyaccountController@index")->name("myaccount")->middleware('verified');;
+Route::get("/myaccount", "MyaccountController@index")->name("myaccount")->middleware('verified');
 
 Route::post("/reservation", "UserController@reservation")->name("reservation");
 

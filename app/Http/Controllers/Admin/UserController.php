@@ -16,7 +16,7 @@ use App\Mail\Adminupdate;
 
 
 use App\Models\User;
-
+ 
 class UserController extends Controller
 {
 
@@ -25,7 +25,7 @@ class UserController extends Controller
     $users = User::all();
     return view('admin.index')->with('users',$users);
     }
-
+ 
     //Méthode pour supprimer un utilisateur
     public function deleteUser(Request $request){
         //dd($request->id);
@@ -42,7 +42,7 @@ class UserController extends Controller
         return view('admin.index')->with('users',$users);
 
 
-    }
+    } 
 
     //Méthode pour afficher le formulaire d'ajout utilisateur
     public function addUser(){
@@ -215,7 +215,7 @@ class UserController extends Controller
                 return redirect()->route('Admin')
                                     ->with('successMessage','L\'utilisateur est enregistré dans la Base de données');
     }
-
+ 
     //Méthode pour afficher la fiche utilisateur
     public function showUser(Request $request){
 

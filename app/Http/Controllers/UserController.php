@@ -65,7 +65,7 @@ class UserController extends Controller
             $addressToConvert = $values['address'];
             $convertedAddress = str_replace(" ", "+", $addressToConvert);
             $ch = curl_init(); //curl handler init
-
+ 
             curl_setopt($ch,CURLOPT_URL,"https://api-adresse.data.gouv.fr/search/?q=.$convertedAddress.");
             curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);// set optional params
             curl_setopt($ch,CURLOPT_HEADER, false);
@@ -107,7 +107,7 @@ class UserController extends Controller
                 "latitude" => "NULL"
             ]);
         }
-        if($_FILES["profile_photo"]["error"] == 0){ // Put de la photo de profile seulement si un ficher est proposé
+        if($_FILES["profile_photo"]["error"] == 0){ // Put de la photo de profile seulement si un fichier est proposé
 
             $profilePhoto = $request->file('profile_photo');
             $profilePhotoSaveAsName = time() . "-profile." .

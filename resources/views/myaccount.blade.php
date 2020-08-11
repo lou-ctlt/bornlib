@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="container">
-    <!-- Affichage des données personnel si la personne est connecté : START -->
+    <!-- Affichage des données personnelles si la personne est connectée : START -->
     @if (!empty(session("successMessage")))
         <div class="alert alert-info text-center">
             <span class="help-block">

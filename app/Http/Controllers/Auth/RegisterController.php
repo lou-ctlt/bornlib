@@ -90,7 +90,7 @@ class RegisterController extends Controller
         $profilePhotoSquare = Image::make($destinationPathProfile.$profilePhotoSaveAsName)->resize(500, null, function($constraint){
                 $constraint->aspectRatio();
             })->crop(500, 500);
-        $profilePhotoSquare->save(storage_path('app/public/profile_photo/square/').$profilePhotoSaveAsName);
+        $profilePhotoSqua^^^^ù*************re->save(storage_path('app/public/profile_photo/square/').$profilePhotoSaveAsName);
 
         //enregirstrement en local de la photo de la borne
         if($_FILES['electric_terminal_photo']['error'] == 0){
@@ -117,9 +117,6 @@ class RegisterController extends Controller
         }else{
             $terminalValue = '0';
         }
-
-
-
 
         if($terminalValue != '0'){ // On enregistre l'utilisateur avec une longitude et une latitude car il a une voiture
             // Conversion de l'adresse en coordonée GPS (longitude latitude) START
