@@ -15,8 +15,7 @@
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.0",
         "spatie/laravel-backup": "^6.7",
-        "spatie/laravel-cookie-consent": "^2.11",
-        "spatie/laravel-backup": "^6.0"
+        "spatie/laravel-cookie-consent": "^2.11"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
